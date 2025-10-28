@@ -45,8 +45,8 @@ class ProductPage extends StatelessWidget {
                               onTap: () {
                                 navigateToHome(context);
                               },
-                              child: Image.asset(
-                                'assets/images/upsu_300x300.png',
+                              child: Image.network(
+                                'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
                                 height: 18,
                                 fit: BoxFit.cover,
                               ),
