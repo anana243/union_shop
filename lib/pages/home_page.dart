@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
+import '../widgets/hero_carousel.dart'; // ← new import
 import '../models/product.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
       title: 'Union',
       child: Column(
         children: [
-          const _HeroCarousel(imageUrl: _heroImageUrl),
+          HeroCarousel(imageUrl: _heroImageUrl), // ← cleaner
           _buildProductsSection(context, essential, signature, city),
         ],
       ),
