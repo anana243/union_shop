@@ -74,13 +74,13 @@ class HomeScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/sale'); // route is lowercase
+              Navigator.pushNamed(context, '/sale'); // Add this
             },
             child: const Text('SALE!', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display with exclamation
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/about'); // route is lowercase
+              Navigator.pushNamed(context, '/about'); // Add this
             },
             child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
           ),
