@@ -10,6 +10,11 @@ void main() {
   setupTests();
 
   testWidgets('ProductTile navigates to ProductPage', (tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
     const product = Product(
       title: 'Tile Product',
       price: '£12.00',
@@ -26,12 +31,12 @@ void main() {
     );
 
     await tester.pumpWidget(app);
-    await tester.pump();
+    await tester.pumpAndSettle(const Duration(seconds: 2));
 
     expect(find.text('Tile Product'), findsOneWidget);
     expect(find.text('£12.00'), findsOneWidget);
 
-    await tester.tap(find.text('Tile Product')); // tap title
+    await tester.tap(find.text('Tile Product'));
     await tester.pumpAndSettle();
 
     expect(find.byType(ProductPage), findsOneWidget);
