@@ -238,17 +238,6 @@ class _SearchIconState extends State<_SearchIcon> {
   }
 }
 
-class _UserIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.person, color: Colors.white),
-      onPressed: () => Navigator.pushNamed(context, '/sign-in'), // placeholder route
-      tooltip: 'Sign In',
-    );
-  }
-}
-
 class _DrawerLink extends StatelessWidget {
   final String label;
   final String route;
