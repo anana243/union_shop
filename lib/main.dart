@@ -589,26 +589,29 @@ class AppLayout extends StatelessWidget {
   }
 }
 
-class HoverText extends StatelessWidget {
+class HoverText extends StatefulWidget {
   final String text;
-
+  
   const HoverText({super.key, required this.text});
+
+  @override
+  State<HoverText> createState() => _HoverTextState();
+}
+
+class _HoverTextState extends State<HoverText> {
+  bool isHovering = false;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          // Define your onTap behavior here
-        },
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 12,
-            decoration: TextDecoration.underline,
-          ),
+      onEnter: (_) => setState(() => isHovering = true),
+      onExit: (_) => setState(() => isHovering = false),
+      child: Text(
+        widget.text,
+        style: TextStyle(
+          color: isHovering ? Colors.grey[700] : Colors.grey,
+          fontSize: 12,
+          decoration: TextDecoration.underline,
         ),
       ),
     );
