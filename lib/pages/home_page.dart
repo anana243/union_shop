@@ -587,3 +587,19 @@ class _PersonalizeSplit extends StatelessWidget {
     });
   }
 }
+
+class _SlideData {
+  final String imageUrl;
+  final String title;
+  final String body;
+  final String ctaLabel;
+  final String onTapRoute;
+
+  const _SlideData({
+    required this.imageUrl,
+    required this.title,
+    required this.body,
+    required this.ctaLabel,
+    required this.onTapRoute,
+  });
+}
