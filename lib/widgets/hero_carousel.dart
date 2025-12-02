@@ -24,7 +24,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
     _slides.addAll([
       _SlideData(
         imageUrl: widget.imageUrl,
-        title: 'Essential Range — over 20% off!',
+        title: 'Essential Range - over 20% off!',
         body: 'Over 20% off our Essential Range. Come and grab yours while stock lasts.',
         ctaLabel: 'BROWSE COLLECTION',
         onTapRoute: '/shop',
@@ -32,7 +32,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
       _SlideData(
         imageUrl: widget.imageUrl,
         title: 'The Print Shack',
-        body: 'Let's create something uniquely you with our personalization service — from £3 for one line of text.',
+        body: 'Let\'s create something uniquely you with our personalization service - from £3 for one line of text.',
         ctaLabel: 'FIND OUT MORE',
         onTapRoute: '/print-shack',
       ),
@@ -40,12 +40,12 @@ class _HeroCarouselState extends State<HeroCarousel> {
         imageUrl: widget.imageUrl,
         title: 'Hungry?',
         body: 'We got this 🍕',
-        ctaLabel: 'ORDER DOMINO'S PIZZA NOW',
+        ctaLabel: 'ORDER DOMINO\'S PIZZA NOW',
         onTapRoute: '/hungry',
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
-        title: 'What's your next move…',
+        title: 'What\'s your next move...',
         body: 'Are you with us?',
         ctaLabel: 'FIND YOUR STUDENT ACCOMMODATION',
         onTapRoute: '/accommodation',
