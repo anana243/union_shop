@@ -23,6 +23,9 @@ class UnionShopApp extends StatelessWidget {
         '/print-shack': (context) => PrintShackPage(),
         '/sale': (context) => SalePage(),
         '/about': (context) => AboutPage(),
+        '/search': (context) => SearchPage(),
+        '/terms-and-conditions': (context) => TermsAndConditionsPage(),
+        '/refund-policy': (context) => RefundPolicyPage(),
       },
     );
   }
