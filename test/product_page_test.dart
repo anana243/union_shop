@@ -7,62 +7,46 @@ import 'package:union_shop/product_page.dart';
 void main() {
   setupTests();
 
-  testWidgets('ProductPage displays route args', (tester) async {
+  testWidgets('ProductPage displays provided args', (tester) async {
+    // Set larger viewport so content isn't clipped
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
     final app = MaterialApp(
-      routes: {'/product': (context) => const ProductPage()},
       home: Builder(
         builder: (context) {
-          Future.microtask(() {
-            Navigator.pushNamed(context, '/product', arguments: {
-              'title': 'Test Product',
-              'price': '£99.99',
-              'imageUrl': 'https://example.com/image.png',
-            });
-          });
-          return const SizedBox.shrink();
+          return Scaffold(
+            body: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ProductPage(),
+                      settings: RouteSettings(arguments: {
+                        'title': 'Test Product',
+                        'price': '£99.99',
+                        'imageUrl': 'https://example.com/image.png',
+                      }),
+                    ),
+                  );
+                },
+                child: const Text('Go'),
+              ),
+            ),
+          );
         },
       ),
     );
 
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpWidget(app);
+    await tester.tap(find.text('Go'));
+    await tester.pumpAndSettle();
 
     expect(find.text('Test Product'), findsOneWidget);
     expect(find.text('£99.99'), findsOneWidget);
     expect(find.text('Details coming soon...'), findsOneWidget);
   });
-}
-
-class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, String>? ?? {};
-    final title = args['title'] ?? '';
-    final price = args['price'] ?? '';
-    final imageUrl = args['imageUrl'];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (imageUrl != null && imageUrl.isNotEmpty)
-              Image.network(imageUrl, height: 200),
-            const SizedBox(height: 16),
-            Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text(price, style: const TextStyle(fontSize: 16)),
-            const SizedBox(height: 16),
-            const Text('Details coming soon...'),
-          ],
-        ),
-      ),
-    );
-  }
 }
