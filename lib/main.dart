@@ -308,7 +308,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-// 1) Add a hoverable product tile used for all product grids
+// Reusable hoverable product tile (adds hover grey, underline on hover, cursor pointer)
 class HoverProductTile extends StatefulWidget {
   final String title;
   final String price;
@@ -332,57 +332,61 @@ class _HoverProductTileState extends State<HoverProductTile> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image with slight grey overlay on hover
-            AspectRatio(
-              aspectRatio: 1,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.network(
-                    widget.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[300],
-                        child: const Center(
-                          child: Icon(Icons.image_not_supported, color: Colors.grey),
+    return Padding(
+      padding: const EdgeInsets.all(8), // breathing room around each tile
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 300), // smaller, with space around
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: 1, // square preview
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        widget.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[300],
+                            child: const Center(
+                              child: Icon(Icons.image_not_supported, color: Colors.grey),
+                            ),
+                          );
+                        },
+                      ),
+                      if (_hover)
+                        Container(
+                          color: Colors.black.withOpacity(0.15), // subtle grey on hover
                         ),
-                      );
-                    },
+                    ],
                   ),
-                  if (_hover)
-                    Container(
-                      color: Colors.black.withOpacity(0.15),
-                    ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.title,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    decoration: _hover ? TextDecoration.underline : TextDecoration.none,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  widget.price,
+                  style: const TextStyle(fontSize: 13, color: Colors.grey),
+                ),
+              ],
             ),
-            const SizedBox(height: 6),
-            // Title underline on hover
-            Text(
-              widget.title,
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                decoration: _hover ? TextDecoration.underline : TextDecoration.none,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              widget.price,
-              style: const TextStyle(fontSize: 13, color: Colors.grey),
-            ),
-          ],
+          ),
         ),
       ),
     );
