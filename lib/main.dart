@@ -23,9 +23,6 @@ class UnionShopApp extends StatelessWidget {
         '/print-shack': (context) => PrintShackPage(),
         '/sale': (context) => SalePage(),
         '/about': (context) => AboutPage(),
-        '/search': (context) => SearchPage(),
-        '/terms-and-conditions': (context) => TermsAndConditionsPage(),
-        '/refund-policy': (context) => RefundPolicyPage(),
         '/products': (context) => const AppLayout(
           title: 'Union',
           child: Center(
@@ -35,6 +32,12 @@ class UnionShopApp extends StatelessWidget {
             ),
           ),
         ),
+        // Product placeholders
+        '/product/city1': (context) => const ProductPlaceholderPage(title: 'City Magnet 1'),
+        '/product/city2': (context) => const ProductPlaceholderPage(title: 'City Magnet 2'),
+        '/product/city3': (context) => const ProductPlaceholderPage(title: 'City Magnet 3'),
+        '/product/city4': (context) => const ProductPlaceholderPage(title: 'City Magnet 4'),
+        // You can add more for Essential/Signature items similarly
       },
     );
   }
@@ -928,6 +931,30 @@ class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// New placeholder page for products
+class ProductPlaceholderPage extends StatelessWidget {
+  final String title;
+
+  const ProductPlaceholderPage({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppLayout(
+      title: title,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Text(
+            '$title Page (coming soon)',
+            style: const TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
