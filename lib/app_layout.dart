@@ -26,6 +26,7 @@ class AppLayout extends StatelessWidget {
           builder: (context, constraints) {
             final isNarrow = constraints.maxWidth < 640;
             if (isNarrow) {
+              // Mobile: brand + menu button
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -49,6 +50,7 @@ class AppLayout extends StatelessWidget {
                 ),
               );
             }
+            // Desktop: full nav with dropdowns
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
@@ -71,7 +73,7 @@ class AppLayout extends StatelessWidget {
                         const SizedBox(width: 12),
                         _ShopMenu(currentRoute: currentRoute),
                         const SizedBox(width: 12),
-                        _NavLink(label: 'Print', route: '/print-shack', currentRoute: currentRoute),
+                        _PrintShackMenu(currentRoute: currentRoute), // Print Shack dropdown
                         const SizedBox(width: 12),
                         _NavLink(label: 'Sale', route: '/sale', currentRoute: currentRoute),
                         const SizedBox(width: 12),
@@ -107,9 +109,12 @@ class AppLayout extends StatelessWidget {
                   _DrawerLink('Graduation', '/shop'),
                 ],
               ),
-              ListTile(
-                title: const Text('Print'),
-                onTap: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+              ExpansionTile(
+                title: const Text('Print Shack'),
+                children: [
+                  _DrawerLink('About', '/about'),
+                  _DrawerLink('Personalization', '/print-shack'),
+                ],
               ),
               ListTile(
                 title: const Text('Sale'),
@@ -256,7 +261,7 @@ class _ShopMenuState extends State<_ShopMenu> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
-      child: PopupMenuButton<_ShopItem>(
+      child: PopupMenuButton<_MenuItem>(
         offset: const Offset(0, 12),
         color: Colors.white,
         elevation: 4,
@@ -297,18 +302,81 @@ class _ShopMenuState extends State<_ShopMenu> {
     );
   }
 
-  PopupMenuItem<_ShopItem> _menuItem(String label, String route) {
-    return PopupMenuItem<_ShopItem>(
-      value: _ShopItem(label: label, route: route),
+  PopupMenuItem<_MenuItem> _menuItem(String label, String route) {
+    return PopupMenuItem<_MenuItem>(
+      value: _MenuItem(label: label, route: route),
       child: Text(label, style: const TextStyle(fontSize: 13)),
     );
   }
 }
 
-class _ShopItem {
+class _PrintShackMenu extends StatefulWidget {
+  final String currentRoute;
+  const _PrintShackMenu({required this.currentRoute});
+
+  @override
+  State<_PrintShackMenu> createState() => _PrintShackMenuState();
+}
+
+class _PrintShackMenuState extends State<_PrintShackMenu> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final isActive = widget.currentRoute == '/print-shack' || widget.currentRoute == '/about';
+    final underline = _hover || isActive;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: PopupMenuButton<_MenuItem>(
+        offset: const Offset(0, 12),
+        color: Colors.white,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        onSelected: (item) => Navigator.pushReplacementNamed(context, item.route),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Print Shack',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  letterSpacing: 0.3,
+                  decoration: underline ? TextDecoration.underline : TextDecoration.none,
+                  decorationColor: Colors.white,
+                  decorationThickness: 2,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 18),
+            ],
+          ),
+        ),
+        itemBuilder: (context) => [
+          _menuItem('About', '/about'),
+          _menuItem('Personalization', '/print-shack'),
+        ],
+      ),
+    );
+  }
+
+  PopupMenuItem<_MenuItem> _menuItem(String label, String route) {
+    return PopupMenuItem<_MenuItem>(
+      value: _MenuItem(label: label, route: route),
+      child: Text(label, style: const TextStyle(fontSize: 13)),
+    );
+  }
+}
+
+class _MenuItem {
   final String label;
   final String route;
-  const _ShopItem({required this.label, required this.route});
+  const _MenuItem({required this.label, required this.route});
 }
 
 class _FooterHours extends StatelessWidget {
