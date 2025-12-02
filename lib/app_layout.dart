@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'widgets/footer_subscribe_box.dart';
 import 'widgets/hover_text.dart';
+import 'widgets/footer_subscribe_box.dart';
 
 class AppLayout extends StatelessWidget {
   final Widget child;
   final String title;
-
-  const AppLayout({
-    super.key,
-    required this.child,
-    this.title = 'Union',
-  });
+  const AppLayout({super.key, required this.child, this.title = 'Union'});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +19,7 @@ class AppLayout extends StatelessWidget {
             children: [
               Positioned(
                 left: 16, top: 0, bottom: 0,
-                child: Center(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                ),
+                child: Center(child: Text(title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500))),
               ),
               Center(
                 child: Row(
@@ -62,10 +51,7 @@ class AppLayout extends StatelessWidget {
   TextButton _navBtn(BuildContext context, String label, String route) {
     return TextButton(
       onPressed: () => Navigator.pushNamed(context, route),
-      style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        minimumSize: const Size(50, 40),
-      ),
+      style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8), minimumSize: const Size(50, 40)),
       child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 11)),
     );
   }
@@ -79,7 +65,7 @@ class AppLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Expanded(child: _FooterHours()),
-          const Expanded(child: _FooterHelp()),
+          Expanded(child: _FooterHelp()),
           Expanded(child: FooterSubscribeBox()),
         ],
       ),
@@ -89,7 +75,6 @@ class AppLayout extends StatelessWidget {
 
 class _FooterHours extends StatelessWidget {
   const _FooterHours();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -122,8 +107,6 @@ class _FooterHours extends StatelessWidget {
 }
 
 class _FooterHelp extends StatelessWidget {
-  const _FooterHelp();
-
   @override
   Widget build(BuildContext context) {
     void go(String route) => Navigator.pushNamed(context, route);
@@ -132,29 +115,11 @@ class _FooterHelp extends StatelessWidget {
       children: [
         const Text('HELP AND INFORMATION', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => go('/search'),
-            child: HoverText(text: 'Search'),
-          ),
-        ),
+        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/search'), child: const HoverText(text: 'Search'))),
         const SizedBox(height: 8),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => go('/terms-and-conditions'),
-            child: HoverText(text: 'Terms and Conditions'),
-          ),
-        ),
+        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/terms-and-conditions'), child: const HoverText(text: 'Terms and Conditions'))),
         const SizedBox(height: 8),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => go('/refund-policy'),
-            child: HoverText(text: 'Refund Policy'),
-          ),
-        ),
+        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/refund-policy'), child: const HoverText(text: 'Refund Policy'))),
       ],
     );
   }
