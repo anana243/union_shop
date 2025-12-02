@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show ScrollNotification, ScrollUpdateNotification, ScrollEndNotification;
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
 import '../models/product.dart';
@@ -41,6 +40,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // Adjust spacing around sections and keep Portsmouth City Collection in a proper centered line.
+  // Also ensure VIEW ALL spacing is modest vs. larger spacers elsewhere.
   Widget _buildProductsSection(
     BuildContext context,
     List<Product> essential,
@@ -65,9 +66,10 @@ class HomePage extends StatelessWidget {
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
 
+                // Keep City collection centered; prevent “cross” by using Wrap
                 _buildProductGroup('Portsmouth City Collection', city),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 20), // modest space before View All
                 Center(
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/products'),
@@ -81,11 +83,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 28), // a bit of space between View All and Our Range
+
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
                 const SizedBox(height: 20),
+
                 _OurRangeGrid(
                   items: const [
                     _RangeItem(title: 'Clothing', route: '/shop'),
@@ -96,7 +100,7 @@ class HomePage extends StatelessWidget {
                   imageUrl: _productImageUrl,
                 ),
 
-                const SizedBox(height: 64), // extra spacing between sections
+                const SizedBox(height: 56), // clear separation to Personalize
 
                 _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
@@ -107,6 +111,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // Ensure City collection uses Wrap centered (already used in _buildProductGroup)
   Widget _buildProductGroup(String title, List<Product> products) {
     return Column(
       children: [
@@ -119,12 +124,56 @@ class HomePage extends StatelessWidget {
         const SizedBox(height: 20),
         Wrap(
           alignment: WrapAlignment.center,
-          spacing: 32,
-          runSpacing: 32,
+          spacing: 24, // slightly tighter spacing to keep a clean line
+          runSpacing: 24,
           children: products.map((p) => ProductTile(product: p)).toList(),
         ),
       ],
     );
+  }
+}
+
+// Keep the grid logic: 4 across on desktop, 2x2 on phone, centered.
+// This prevents odd “cross” patterns.
+class _OurRangeGrid extends StatelessWidget {
+  final List<_RangeItem> items;
+  final String imageUrl;
+  const _OurRangeGrid({required this.items, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      const spacing = 20.0;
+      final maxWidth = constraints.maxWidth;
+
+      int targetPerRow;
+      if (maxWidth >= 900) {
+        targetPerRow = 4;
+      } else if (maxWidth >= 600) {
+        targetPerRow = 3;
+      } else {
+        targetPerRow = 2;
+      }
+
+      final totalSpacing = spacing * (targetPerRow - 1);
+      final cardWidth = (maxWidth - totalSpacing) / targetPerRow;
+
+      return Center(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          spacing: spacing,
+          runSpacing: spacing,
+          children: items
+              .map<Widget>((i) => _RangeCard(
+                    title: i.title,
+                    route: i.route,
+                    imageUrl: imageUrl,
+                    maxWidth: cardWidth.clamp(140.0, 220.0),
+                  ))
+              .toList(),
+        ),
+      );
+    });
   }
 }
 
@@ -406,115 +455,6 @@ class _RangeItem {
   final String title;
   final String route;
   const _RangeItem({required this.title, required this.route});
-}
-
-class _OurRangeGrid extends StatelessWidget {
-  final List<_RangeItem> items;
-  final String imageUrl;
-  const _OurRangeGrid({required this.items, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      const spacing = 20.0;
-      final maxWidth = constraints.maxWidth;
-
-      int targetPerRow;
-      if (maxWidth >= 900) {
-        targetPerRow = 4;
-      } else if (maxWidth >= 600) {
-        targetPerRow = 3;
-      } else {
-        targetPerRow = 2;
-      }
-
-      final totalSpacing = spacing * (targetPerRow - 1);
-      final cardWidth = (maxWidth - totalSpacing) / targetPerRow;
-
-      return Center(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          spacing: spacing,
-          runSpacing: spacing,
-          children: items
-              .map<Widget>((i) => _RangeCard(
-                    title: i.title,
-                    route: i.route,
-                    imageUrl: imageUrl,
-                    maxWidth: cardWidth.clamp(140.0, 240.0),
-                  ))
-              .toList(),
-        ),
-      );
-    });
-  }
-}
-
-class _RangeCard extends StatefulWidget {
-  final String title;
-  final String route;
-  final String imageUrl;
-  final double maxWidth;
-  const _RangeCard({
-    required this.title,
-    required this.route,
-    required this.imageUrl,
-    required this.maxWidth,
-  });
-
-  @override
-  State<_RangeCard> createState() => _RangeCardState();
-}
-
-class _RangeCardState extends State<_RangeCard> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: () => Navigator.pushReplacementNamed(context, widget.route),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: widget.maxWidth),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (c, e, s) => Container(color: Colors.grey[300]),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 120),
-                  color: Colors.black.withOpacity(_hover ? 0.18 : 0.08),
-                ),
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    color: Colors.black.withOpacity(0.35),
-                    child: Text(
-                      widget.title.toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.8,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class _PersonalizeSplit extends StatelessWidget {
