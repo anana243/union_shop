@@ -22,7 +22,7 @@ class UnionShopApp extends StatelessWidget {
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => const HomeScreen(), // Changed from HomePage()
         '/shop': (context) => ShopPage(),
         '/print-shack': (context) => PrintShackPage(),
         '/sale': (context) => SalePage(),
@@ -51,39 +51,39 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Union Shop'),
-        backgroundColor: Colors.blue,
+        title: const Text('Union Shop'),
+        backgroundColor: const Color(0xFF4d2963),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/');
             },
-            child: Text('Home', style: TextStyle(color: Colors.white)),
+            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)),
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/Shop');
+              Navigator.pushNamed(context, '/shop'); // route is lowercase
             },
-            child: Text('Shop', style: TextStyle(color: Colors.white)),
-          },
+            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
+          ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/The Print Shack');
+              Navigator.pushNamed(context, '/print-shack'); // route is lowercase with hyphen
             },
-            child: Text('Print Shack', style: TextStyle(color: Colors.white)),
-          },
+            child: const Text('The Print Shack', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display as you want
+          ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/SALE!');
+              Navigator.pushNamed(context, '/sale'); // route is lowercase
             },
-            child: Text('Sale', style: TextStyle(color: Colors.white)),
-          },
+            child: const Text('SALE!', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display with exclamation
+          ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/About');
+              Navigator.pushNamed(context, '/about'); // route is lowercase
             },
-            child: Text('About', style: TextStyle(color: Colors.white)),
-          },
+            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
+          ),
         ],
       ),
       body: SingleChildScrollView(
