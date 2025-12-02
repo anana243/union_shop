@@ -210,19 +210,16 @@ class _OurRangeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      // Responsive card sizing:
-      // - Wide (>= 900): 4 per row
-      // - Phone (< 600): 2 per row
       const spacing = 20.0;
       final maxWidth = constraints.maxWidth;
 
       int targetPerRow;
       if (maxWidth >= 900) {
-        targetPerRow = 4;
+        targetPerRow = 4; // desktop
       } else if (maxWidth >= 600) {
-        targetPerRow = 3; // tablet can show 3 nicely
+        targetPerRow = 3; // tablet
       } else {
-        targetPerRow = 2; // phone shows 2 per row
+        targetPerRow = 2; // phone
       }
 
       final totalSpacing = spacing * (targetPerRow - 1);
@@ -234,7 +231,7 @@ class _OurRangeGrid extends StatelessWidget {
           spacing: spacing,
           runSpacing: spacing,
           children: items
-              .map((i) => _RangeCard(
+              .map<Widget>((i) => _RangeCard(
                     title: i.title,
                     route: i.route,
                     imageUrl: imageUrl,
@@ -244,6 +241,73 @@ class _OurRangeGrid extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class _RangeCard extends StatefulWidget {
+  final String title;
+  final String route;
+  final String imageUrl;
+  final double maxWidth;
+  const _RangeCard({
+    required this.title,
+    required this.route,
+    required this.imageUrl,
+    required this.maxWidth,
+  });
+
+  @override
+  State<_RangeCard> createState() => _RangeCardState();
+}
+
+class _RangeCardState extends State<_RangeCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: () => Navigator.pushReplacementNamed(context, widget.route),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  widget.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (c, e, s) => Container(color: Colors.grey[300]),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 120),
+                  color: Colors.black.withOpacity(_hover ? 0.18 : 0.08),
+                ),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    color: Colors.black.withOpacity(0.35),
+                    child: Text(
+                      widget.title.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -284,17 +348,18 @@ class _PersonalizeSplit extends StatelessWidget {
       );
 
       final imageBlock = AspectRatio(
-        aspectRatio: isWide ? 1.6 : 1.2, // a bit taller on phone
+        aspectRatio: isWide ? 1.6 : 1.2,
         child: ClipRRect(
           borderRadius: BorderRadius.zero,
-          child: Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) {
-            return Container(color: Colors.grey[300]);
-          }),
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (c, e, s) => Container(color: Colors.grey[300]),
+          ),
         ),
       );
 
       if (isWide) {
-        // Desktop/tablet: side-by-side
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -304,7 +369,6 @@ class _PersonalizeSplit extends StatelessWidget {
           ],
         );
       } else {
-        // Phone: image above, text below
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
