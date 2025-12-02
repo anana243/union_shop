@@ -22,11 +22,12 @@ class AppLayout extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 72,
         titleSpacing: 0,
+        automaticallyImplyLeading: false, // removes default back button
         title: LayoutBuilder(
           builder: (context, constraints) {
             final isNarrow = constraints.maxWidth < 640;
             if (isNarrow) {
-              // Mobile: brand + menu button
+              // Mobile: brand + search + user + menu
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -40,6 +41,10 @@ class AppLayout extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
+                    _SearchIcon(),
+                    const SizedBox(width: 12),
+                    _UserIcon(),
+                    const SizedBox(width: 12),
                     Builder(
                       builder: (ctx) => IconButton(
                         icon: const Icon(Icons.menu, color: Colors.white),
@@ -50,7 +55,7 @@ class AppLayout extends StatelessWidget {
                 ),
               );
             }
-            // Desktop: full nav with dropdowns
+            // Desktop: brand + nav + search + user (no menu button)
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
@@ -73,7 +78,7 @@ class AppLayout extends StatelessWidget {
                         const SizedBox(width: 12),
                         _ShopMenu(currentRoute: currentRoute),
                         const SizedBox(width: 12),
-                        _PrintShackMenu(currentRoute: currentRoute), // Print Shack dropdown
+                        _PrintShackMenu(currentRoute: currentRoute),
                         const SizedBox(width: 12),
                         _NavLink(label: 'Sale', route: '/sale', currentRoute: currentRoute),
                         const SizedBox(width: 12),
@@ -82,6 +87,9 @@ class AppLayout extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
+                  _SearchIcon(),
+                  const SizedBox(width: 12),
+                  _UserIcon(),
                 ],
               ),
             );
@@ -176,6 +184,58 @@ class AppLayout extends StatelessWidget {
   }
 }
 
+class _SearchIcon extends StatefulWidget {
+  @override
+  State<_SearchIcon> createState() => _SearchIconState();
+}
+
+class _SearchIconState extends State<_SearchIcon> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      width: _expanded ? 200 : 40,
+      child: Row(
+        children: [
+          if (_expanded)
+            Expanded(
+              child: TextField(
+                autofocus: true,
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+                decoration: const InputDecoration(
+                  hintText: 'Search...',
+                  hintStyle: TextStyle(color: Colors.white70, fontSize: 14),
+                  border: InputBorder.none,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                ),
+                onSubmitted: (_) => setState(() => _expanded = false),
+              ),
+            ),
+          IconButton(
+            icon: Icon(_expanded ? Icons.close : Icons.search, color: Colors.white),
+            onPressed: () => setState(() => _expanded = !_expanded),
+            tooltip: 'Search',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _UserIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.person, color: Colors.white),
+      onPressed: () => Navigator.pushNamed(context, '/sign-in'), // placeholder route
+      tooltip: 'Sign In',
+    );
+  }
+}
+
 class _DrawerLink extends StatelessWidget {
   final String label;
   final String route;
@@ -262,7 +322,7 @@ class _ShopMenuState extends State<_ShopMenu> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: PopupMenuButton<_MenuItem>(
-        offset: const Offset(0, 12),
+        offset: const Offset(0, 48), // position dropdown below button
         color: Colors.white,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -331,7 +391,7 @@ class _PrintShackMenuState extends State<_PrintShackMenu> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: PopupMenuButton<_MenuItem>(
-        offset: const Offset(0, 12),
+        offset: const Offset(0, 48), // position dropdown below button
         color: Colors.white,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
