@@ -369,20 +369,25 @@ class _HoverProductTileState extends State<HoverProductTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8), // breathing room around each tile
+      padding: const EdgeInsets.all(12), // more breathing room
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (_) => setState(() => _hover = true),
         onExit: (_) => setState(() => _hover = false),
         child: GestureDetector(
-          onTap: widget.onTap,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 300), // smaller, with space around
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1, // square preview
+          onTap: widget.onTap, // works on phone as tap
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min, // avoid expanding beyond grid cell
+            children: [
+              // Constrain image height to prevent overflow
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 300,
+                  maxHeight: 220, // cap image height
+                ),
+                child: AspectRatio(
+                  aspectRatio: 1, // square
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -400,28 +405,28 @@ class _HoverProductTileState extends State<HoverProductTile> {
                       ),
                       if (_hover)
                         Container(
-                          color: Colors.black.withOpacity(0.15), // subtle grey on hover
+                          color: Colors.black.withOpacity(0.15),
                         ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  widget.title,
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    decoration: _hover ? TextDecoration.underline : TextDecoration.none,
-                  ),
+              ),
+              const SizedBox(height: 12), // spacing below image
+              Text(
+                widget.title,
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  decoration: _hover ? TextDecoration.underline : TextDecoration.none,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  widget.price,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                widget.price,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+            ],
           ),
         ),
       ),
