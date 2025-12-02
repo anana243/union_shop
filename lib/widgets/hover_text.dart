@@ -10,7 +10,6 @@ class HoverText extends StatefulWidget {
 
 class _HoverTextState extends State<HoverText> {
   bool isHovering = false;
-
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -18,10 +17,7 @@ class _HoverTextState extends State<HoverText> {
       onExit: (_) => setState(() => isHovering = false),
       child: Text(
         widget.text,
-        style: TextStyle(
-          color: isHovering ? Colors.grey[700] : Colors.grey,
-          fontSize: 12,
-        ),
+        style: TextStyle(color: isHovering ? Colors.grey[700] : Colors.grey, fontSize: 12),
       ),
     );
   }
