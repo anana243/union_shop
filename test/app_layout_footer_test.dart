@@ -21,20 +21,46 @@ void main() {
   );
 
   testWidgets('Footer links navigate', (tester) async {
-    await tester.pumpWidget(app());
-    await tester.pump();
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
 
+    await tester.pumpWidget(app());
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+
+    // Scroll to footer
+    await tester.scrollUntilVisible(
+      find.text('HELP AND INFORMATION'),
+      100.0,
+      scrollable: find.byType(Scrollable).first,
+    );
+
+    // Tap Search (HoverText wraps it, so we tap by text)
     await tester.tap(find.text('Search'));
     await tester.pumpAndSettle();
     expect(find.text('Search Page Content'), findsOneWidget);
     Navigator.of(tester.element(find.text('Search Page Content'))).pop();
     await tester.pumpAndSettle();
 
+    // Scroll footer back into view after navigation
+    await tester.scrollUntilVisible(
+      find.text('HELP AND INFORMATION'),
+      100.0,
+      scrollable: find.byType(Scrollable).first,
+    );
+
     await tester.tap(find.text('Terms and Conditions'));
     await tester.pumpAndSettle();
     expect(find.text('Terms and Conditions Content'), findsOneWidget);
     Navigator.of(tester.element(find.text('Terms and Conditions Content'))).pop();
     await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(
+      find.text('HELP AND INFORMATION'),
+      100.0,
+      scrollable: find.byType(Scrollable).first,
+    );
 
     await tester.tap(find.text('Refund Policy'));
     await tester.pumpAndSettle();
