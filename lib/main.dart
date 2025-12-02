@@ -283,6 +283,51 @@ class AboutPage extends StatelessWidget {
   }
 }
 
+class SearchPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Search Page Content', style: TextStyle(fontSize: 20)),
+        ),
+      ),
+    );
+  }
+}
+
+class TermsAndConditionsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Terms and Conditions Content', style: TextStyle(fontSize: 20)),
+        ),
+      ),
+    );
+  }
+}
+
+class RefundPolicyPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Refund Policy Content', style: TextStyle(fontSize: 20)),
+        ),
+      ),
+    );
+  }
+}
+
 // Add this new widget after UnionShopApp
 class AppLayout extends StatelessWidget {
   final Widget child;
