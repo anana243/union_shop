@@ -140,13 +140,13 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   int _index = 0;
   bool _paused = false;
   Timer? _autoTimer;
+  Timer? _idleResumeTimer; // debounce resume after user scroll
 
   final List<_SlideData> _slides = [];
 
   @override
   void initState() {
     super.initState();
-    // Build slides (using same image for now)
     _slides.addAll([
       _SlideData(
         imageUrl: widget.imageUrl,
@@ -167,14 +167,14 @@ class _HeroCarouselState extends State<_HeroCarousel> {
         title: 'Hungry?',
         body: 'We got this 🍕',
         ctaLabel: 'ORDER DOMINO’S PIZZA NOW',
-        onTapRoute: '/hungry', // temp page
+        onTapRoute: '/hungry',
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
         title: 'What’s your next move…',
         body: 'Are you with us?',
         ctaLabel: 'FIND YOUR STUDENT ACCOMMODATION',
-        onTapRoute: '/accommodation', // temp page
+        onTapRoute: '/accommodation',
       ),
     ]);
 
@@ -197,90 +197,132 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
   void _togglePause() {
     setState(() => _paused = !_paused);
+    if (!_paused) _restartAutoAfterIdle(); // resume autoplay
+  }
+
+  void _pauseForUser() {
+    if (_paused) return;
+    setState(() => _paused = true);
+    _idleResumeTimer?.cancel();
+  }
+
+  void _restartAutoAfterIdle() {
+    _idleResumeTimer?.cancel();
+    _idleResumeTimer = Timer(const Duration(seconds: 6), () {
+      if (mounted) setState(() => _paused = false);
+    });
   }
 
   @override
   void dispose() {
     _autoTimer?.cancel();
+    _idleResumeTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
   void _prev() {
+    _pauseForUser();
     final target = (_index - 1).clamp(0, _slides.length - 1);
     _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    _restartAutoAfterIdle();
   }
 
   void _next() {
+    _pauseForUser();
     final target = (_index + 1) % _slides.length;
     _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    _restartAutoAfterIdle();
+  }
+
+  void _jumpTo(int i) {
+    _pauseForUser();
+    _controller.animateToPage(i, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+    _restartAutoAfterIdle();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 420,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          PageView.builder(
-            controller: _controller,
-            itemCount: _slides.length,
-            itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
-          ),
-          // Arrow bar + dots + pause
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 12,
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1100),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  color: Colors.black.withOpacity(0.35),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: _prev,
-                        icon: const Icon(Icons.chevron_left, color: Colors.white),
-                        tooltip: 'Previous',
-                      ),
-                      const Spacer(),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(_slides.length, (i) {
-                          final active = i == _index;
-                          return Container(
-                            width: active ? 10 : 8,
-                            height: active ? 10 : 8,
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: active ? Colors.white : Colors.white.withOpacity(0.6),
-                            ),
-                          );
-                        }),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: _next,
-                        icon: const Icon(Icons.chevron_right, color: Colors.white),
-                        tooltip: 'Next',
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton(
-                        onPressed: _togglePause,
-                        icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
-                        tooltip: _paused ? 'Resume' : 'Pause',
-                      ),
-                    ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16), // keeps away from edges
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: SizedBox(
+            height: 320, // smaller height
+            child: NotificationListener<UserScrollNotification>(
+              onNotification: (n) {
+                if (n.direction != ScrollDirection.idle) {
+                  _pauseForUser(); // pause while user interacts
+                } else {
+                  _restartAutoAfterIdle(); // resume after idle
+                }
+                return false;
+              },
+              child: Stack(
+                children: [
+                  PageView.builder(
+                    controller: _controller,
+                    itemCount: _slides.length,
+                    itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
                   ),
-                ),
+                  // Arrow bar + dots + pause
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 10,
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        color: Colors.black.withOpacity(0.35),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: _prev,
+                              icon: const Icon(Icons.chevron_left, color: Colors.white),
+                              tooltip: 'Previous',
+                            ),
+                            const Spacer(),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(_slides.length, (i) {
+                                final active = i == _index;
+                                return GestureDetector(
+                                  onTap: () => _jumpTo(i), // dots selectable
+                                  child: Container(
+                                    width: active ? 10 : 8,
+                                    height: active ? 10 : 8,
+                                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: active ? Colors.white : Colors.white.withOpacity(0.6),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: _next,
+                              icon: const Icon(Icons.chevron_right, color: Colors.white),
+                              tooltip: 'Next',
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              onPressed: _togglePause,
+                              icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
+                              tooltip: _paused ? 'Resume' : 'Pause',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
