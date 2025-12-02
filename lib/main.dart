@@ -26,18 +26,11 @@ class UnionShopApp extends StatelessWidget {
         '/products': (context) => const AppLayout(
           title: 'Union',
           child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(40.0),
-              child: Text('All Products Page (coming soon)', style: TextStyle(fontSize: 20)),
-            ),
+            child: Text('All Products Page (coming soon)', style: TextStyle(fontSize: 20)),
           ),
         ),
-        // Product placeholders
-        '/product/city1': (context) => const ProductPlaceholderPage(title: 'City Magnet 1'),
-        '/product/city2': (context) => const ProductPlaceholderPage(title: 'City Magnet 2'),
-        '/product/city3': (context) => const ProductPlaceholderPage(title: 'City Magnet 3'),
-        '/product/city4': (context) => const ProductPlaceholderPage(title: 'City Magnet 4'),
-        // You can add more for Essential/Signature items similarly
+        // Use the actual ProductPage from product_page.dart
+        '/product': (context) => const ProductPage(), // ensure ProductPage has a const/default constructor
       },
     );
   }
