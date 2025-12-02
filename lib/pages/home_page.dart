@@ -106,15 +106,34 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
-                _buildProductGroup(
-                  'Essential Range — over 20% off!',
-                  essential,
-                ),
+                _buildProductGroup('Essential Range — over 20% off!', essential),
                 const SizedBox(height: 40),
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
                 _buildProductGroup('Portsmouth City Collection', city),
                 const SizedBox(height: 40),
+
+                // Our Range section (4 squares)
+                const Center(
+                  child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+                ),
+                const SizedBox(height: 20),
+                _OurRangeGrid(
+                  items: const [
+                    _RangeItem(title: 'Clothing', route: '/shop'),
+                    _RangeItem(title: 'Merchandise', route: '/shop'),
+                    _RangeItem(title: 'Graduation', route: '/shop'),
+                    _RangeItem(title: 'Sale', route: '/sale'),
+                  ],
+                  imageUrl: _productImageUrl,
+                ),
+
+                const SizedBox(height: 48),
+
+                // Split info section
+                _PersonalizeSplit(imageUrl: _productImageUrl),
+                const SizedBox(height: 24),
+
                 Center(
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/products'),
@@ -173,5 +192,152 @@ class _HeroCTA extends StatelessWidget {
         style: TextStyle(fontSize: 14, letterSpacing: 1),
       ),
     );
+  }
+}
+
+class _RangeItem {
+  final String title;
+  final String route;
+  const _RangeItem({required this.title, required this.route});
+}
+
+class _OurRangeGrid extends StatelessWidget {
+  final List<_RangeItem> items;
+  final String imageUrl;
+  const _OurRangeGrid({required this.items, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final spacing = 24.0;
+      final maxCardWidth = 240.0;
+      final wrapChildren = items
+          .map((i) => _RangeCard(title: i.title, route: i.route, imageUrl: imageUrl, maxWidth: maxCardWidth))
+          .toList();
+
+      return Center(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          spacing: spacing,
+          runSpacing: spacing,
+          children: wrapChildren,
+        ),
+      );
+    });
+  }
+}
+
+class _RangeCard extends StatefulWidget {
+  final String title;
+  final String route;
+  final String imageUrl;
+  final double maxWidth;
+  const _RangeCard({required this.title, required this.route, required this.imageUrl, required this.maxWidth});
+
+  @override
+  State<_RangeCard> createState() => _RangeCardState();
+}
+
+class _RangeCardState extends State<_RangeCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: () => Navigator.pushReplacementNamed(context, widget.route),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth),
+          child: AspectRatio(
+            aspectRatio: 1, // square
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(widget.imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) {
+                  return Container(color: Colors.grey[300]);
+                }),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 120),
+                  color: Colors.black.withOpacity(_hover ? 0.18 : 0.08),
+                ),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    color: Colors.black.withOpacity(0.35),
+                    child: Text(
+                      widget.title.toUpperCase(),
+                      style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 0.8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PersonalizeSplit extends StatelessWidget {
+  final String imageUrl;
+  const _PersonalizeSplit({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final isWide = constraints.maxWidth >= 800;
+      final left = Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Add a personal touch', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 12),
+            const Text(
+              'First, add your item of clothing to your cart, then click below to add your text!\n'
+              'One line of text contains 10 characters!',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 44,
+              child: ElevatedButton(
+                onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                ),
+                child: const Text('CLICK HERE TO ADD TEXT', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
+              ),
+            ),
+          ],
+        ),
+      );
+
+      final right = Expanded(
+        child: AspectRatio(
+          aspectRatio: isWide ? 1.6 : 1.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.zero,
+            child: Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) {
+              return Container(color: Colors.grey[300]);
+            }),
+          ),
+        ),
+      );
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [left, const SizedBox(width: 24), right],
+        ),
+      );
+    });
   }
 }
