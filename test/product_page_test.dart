@@ -25,7 +25,7 @@ void main() {
                     context,
                     MaterialPageRoute(
                       builder: (_) => const ProductPage(),
-                      settings: RouteSettings(arguments: {
+                      settings: const RouteSettings(arguments: {
                         'title': 'Test Product',
                         'price': '£99.99',
                         'imageUrl': 'https://example.com/image.png',
