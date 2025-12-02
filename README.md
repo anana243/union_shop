@@ -29,17 +29,20 @@ This application is a mobile-first e-commerce platform built with Flutter, featu
 ### Installation
 
 1. Clone this repository:
+
 ```bash
 git clone https://github.com/YOUR-USERNAME/union_shop.git
 cd union_shop
 ```
 
 2. Install dependencies:
+
 ```bash
 flutter pub get
 ```
 
 3. Run the application:
+
 ```bash
 flutter run -d chrome
 ```
