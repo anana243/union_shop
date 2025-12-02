@@ -107,18 +107,14 @@ class HomePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 32),
 
-                // Essential
                 _buildProductGroup('Essential Range — over 20% off!', essential),
                 const SizedBox(height: 40),
 
-                // Signature
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
 
-                // Portsmouth City Collection
                 _buildProductGroup('Portsmouth City Collection', city),
 
-                // VIEW ALL now here, right after City Collection
                 const SizedBox(height: 24),
                 Center(
                   child: ElevatedButton(
@@ -133,8 +129,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                // Our Range section (after View All)
-                const SizedBox(height: 40),
+                const SizedBox(height: 48),
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
@@ -149,9 +144,8 @@ class HomePage extends StatelessWidget {
                   imageUrl: _productImageUrl,
                 ),
 
-                const SizedBox(height: 48),
+                const SizedBox(height: 56), // extra space before Personalize
 
-                // Personalize split
                 _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
             ),
@@ -216,10 +210,23 @@ class _OurRangeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      // Target 4 per row for typical desktop; shrink on narrow screens
-      final isWide = constraints.maxWidth >= 900;
-      final cardMaxWidth = isWide ? 220.0 : 180.0; // smaller so four fit
-      final spacing = isWide ? 20.0 : 16.0;
+      // Responsive card sizing:
+      // - Wide (>= 900): 4 per row
+      // - Phone (< 600): 2 per row
+      const spacing = 20.0;
+      final maxWidth = constraints.maxWidth;
+
+      int targetPerRow;
+      if (maxWidth >= 900) {
+        targetPerRow = 4;
+      } else if (maxWidth >= 600) {
+        targetPerRow = 3; // tablet can show 3 nicely
+      } else {
+        targetPerRow = 2; // phone shows 2 per row
+      }
+
+      final totalSpacing = spacing * (targetPerRow - 1);
+      final cardWidth = (maxWidth - totalSpacing) / targetPerRow;
 
       return Center(
         child: Wrap(
@@ -231,7 +238,7 @@ class _OurRangeGrid extends StatelessWidget {
                     title: i.title,
                     route: i.route,
                     imageUrl: imageUrl,
-                    maxWidth: cardMaxWidth,
+                    maxWidth: cardWidth.clamp(140.0, 240.0),
                   ))
               .toList(),
         ),
@@ -303,54 +310,65 @@ class _PersonalizeSplit extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isWide = constraints.maxWidth >= 800;
-      final left = Expanded(
-        child: Column(
+
+      final textBlock = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Add a personal touch', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 12),
+          const Text(
+            'First, add your item of clothing to your cart, then click below to add your text!\n'
+            'One line of text contains 10 characters!',
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 44,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4d2963),
+                foregroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+              ),
+              child: const Text('CLICK HERE TO ADD TEXT', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
+            ),
+          ),
+        ],
+      );
+
+      final imageBlock = AspectRatio(
+        aspectRatio: isWide ? 1.6 : 1.2, // a bit taller on phone
+        child: ClipRRect(
+          borderRadius: BorderRadius.zero,
+          child: Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) {
+            return Container(color: Colors.grey[300]);
+          }),
+        ),
+      );
+
+      if (isWide) {
+        // Desktop/tablet: side-by-side
+        return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Add a personal touch', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 12),
-            const Text(
-              'First, add your item of clothing to your cart, then click below to add your text!\n'
-              'One line of text contains 10 characters!',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 44,
-              child: ElevatedButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
-                  foregroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                ),
-                child: const Text('CLICK HERE TO ADD TEXT', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
-              ),
-            ),
+            Expanded(child: textBlock),
+            const SizedBox(width: 24),
+            Expanded(child: imageBlock),
           ],
-        ),
-      );
-
-      final right = Expanded(
-        child: AspectRatio(
-          aspectRatio: isWide ? 1.6 : 1.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.zero,
-            child: Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) {
-              return Container(color: Colors.grey[300]);
-            }),
-          ),
-        ),
-      );
-
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [left, const SizedBox(width: 24), right],
-        ),
-      );
+        );
+      } else {
+        // Phone: image above, text below
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            imageBlock,
+            const SizedBox(height: 20),
+            textBlock,
+          ],
+        );
+      }
     });
   }
 }
