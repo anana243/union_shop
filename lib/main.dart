@@ -463,6 +463,8 @@ class _HoverProductTileState extends State<HoverProductTile> {
 }
 
 class ShopPage extends StatelessWidget {
+  const ShopPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -478,6 +480,8 @@ class ShopPage extends StatelessWidget {
 }
 
 class PrintShackPage extends StatelessWidget {
+  const PrintShackPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -493,6 +497,8 @@ class PrintShackPage extends StatelessWidget {
 }
 
 class SalePage extends StatelessWidget {
+  const SalePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -508,6 +514,8 @@ class SalePage extends StatelessWidget {
 }
 
 class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -523,6 +531,8 @@ class AboutPage extends StatelessWidget {
 }
 
 class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -538,6 +548,8 @@ class SearchPage extends StatelessWidget {
 }
 
 class TermsAndConditionsPage extends StatelessWidget {
+  const TermsAndConditionsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
@@ -553,6 +565,8 @@ class TermsAndConditionsPage extends StatelessWidget {
 }
 
 class RefundPolicyPage extends StatelessWidget {
+  const RefundPolicyPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const AppLayout(
