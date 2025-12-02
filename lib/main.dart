@@ -481,13 +481,57 @@ class AppLayout extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Middle section - Placeholder for now
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        'Middle Section',
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
+                  // Middle section - Help and Information
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'HELP AND INFORMATION',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/search'),
+                          child: const Text(
+                            'Search',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
+                          child: const Text(
+                            'Terms and Conditions',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/refund-policy'),
+                          child: const Text(
+                            'Refund Policy',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   // Right section - Placeholder for now
