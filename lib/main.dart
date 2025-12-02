@@ -44,6 +44,42 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Union Shop'),
+        backgroundColor: Colors.blue,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+            child: Text('Home', style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/Shop');
+            },
+            child: Text('Shop', style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/The Print Shack');
+            },
+            child: Text('Print Shack', style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/SALE!');
+            },
+            child: Text('Sale', style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/About');
+            },
+            child: Text('About', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
