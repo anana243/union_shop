@@ -543,3 +543,70 @@ class _SlideData {
     required this.onTapRoute,
   });
 }
+
+class _RangeCard extends StatefulWidget {
+  final String title;
+  final String route;
+  final String imageUrl;
+  final double maxWidth;
+  const _RangeCard({
+    required this.title,
+    required this.route,
+    required this.imageUrl,
+    required this.maxWidth,
+  });
+
+  @override
+  State<_RangeCard> createState() => _RangeCardState();
+}
+
+class _RangeCardState extends State<_RangeCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: () => Navigator.pushReplacementNamed(context, widget.route),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  widget.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (c, e, s) => Container(color: Colors.grey[300]),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 120),
+                  color: Colors.black.withOpacity(_hover ? 0.18 : 0.08),
+                ),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    color: Colors.black.withOpacity(0.35),
+                    child: Text(
+                      widget.title.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
