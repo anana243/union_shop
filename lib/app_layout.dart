@@ -18,41 +18,46 @@ class AppLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56),
+        preferredSize: const Size.fromHeight(72), // taller
         child: AppBar(
           backgroundColor: const Color(0xFF4d2963),
           automaticallyImplyLeading: false,
-          flexibleSpace: Stack(
-            children: [
-              Positioned(
-                left: 16,
-                top: 0,
-                bottom: 0,
-                child: Center(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+          flexibleSpace: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18, // slightly larger
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navBtn(context, 'Home', '/'),
-                    _navBtn(context, 'Shop', '/shop'),
-                    _navBtn(context, 'Print', '/print-shack'),
-                    _navBtn(context, 'Sale', '/sale'),
-                    _navBtn(context, 'About', '/about'),
-                  ],
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _navBtn(context, 'Home', '/'),
+                        _navBtn(context, 'Shop', '/shop'),
+                        _navBtn(context, 'Print', '/print-shack'),
+                        _navBtn(context, 'Sale', '/sale'),
+                        _navBtn(context, 'About', '/about'),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -71,10 +76,10 @@ class AppLayout extends StatelessWidget {
     return TextButton(
       onPressed: () => Navigator.pushReplacementNamed(context, route),
       style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        minimumSize: const Size(50, 40),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), // more breathing room
+        minimumSize: const Size(64, 44),
       ),
-      child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 11)),
+      child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 13, letterSpacing: 0.3)),
     );
   }
 
