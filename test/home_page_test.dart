@@ -20,25 +20,24 @@ Widget _appWithRoutes(Widget home) {
 void main() {
   testWidgets('HomePage renders sections and View All button', (tester) async {
     await tester.pumpWidget(_appWithRoutes(const HomePage()));
-    await tester.pumpAndSettle();
-
+    await tester.pump(); // small pump is enough; we don’t wait for network
     expect(find.text('Essential Range — over 20% off!'), findsOneWidget);
     expect(find.text('Signature Range'), findsOneWidget);
     expect(find.text('Portsmouth City Collection'), findsOneWidget);
     expect(find.text('VIEW ALL'), findsOneWidget);
   });
 
-  testWidgets('Clicking a product opens ProductPage with arguments', (tester) async {
+  testWidgets('Tapping product title navigates to ProductPage', (tester) async {
     await tester.pumpWidget(_appWithRoutes(const HomePage()));
-    await tester.pumpAndSettle();
+    await tester.pump();
 
-    // Tap the first ProductTile
-    final tileFinder = find.byType(ProductTile).first;
-    expect(tileFinder, findsOneWidget);
-    await tester.tap(tileFinder);
-    await tester.pumpAndSettle();
+    // Tap by title text (more reliable than tapping the entire tile)
+    final titleFinder = find.text('Essential Hoodie');
+    expect(titleFinder, findsOneWidget);
+    await tester.tap(titleFinder);
+    await tester.pump(); // next frame
+    await tester.pump(const Duration(milliseconds: 100));
 
-    // ProductPage should show placeholder details text
     expect(find.byType(ProductPage), findsOneWidget);
     expect(find.text('Details coming soon...'), findsOneWidget);
   });
