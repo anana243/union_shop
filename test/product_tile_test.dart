@@ -4,7 +4,7 @@ import 'test_helper.dart';
 
 import 'package:union_shop/widgets/product_tile.dart';
 import 'package:union_shop/models/product.dart';
-import 'package:union_shop/product_page.dart';
+import 'package:union_shop/pages/product_page.dart';
 
 void main() {
   setupTests();
