@@ -123,125 +123,161 @@ class HomeScreen extends StatelessWidget {
           // Products Section
           Container(
             color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Essential Range
-                  const Text(
-                    'Essential Range — over 20% off!',
-                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 24),
-                  GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                    crossAxisSpacing: 24,
-                    mainAxisSpacing: 24,
+            child: Center(
+              // keep content centered on large screens
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      HoverProductTile(
-                        title: 'Essential Hoodie',
-                        price: '£14.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      // extra space after hero/header
+                      const SizedBox(height: 32),
+
+                      // Essential Range (centered title, responsive layout, smaller tiles)
+                      const Center(
+                        child: Text(
+                          'Essential Range — over 20% off!',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
                       ),
-                      HoverProductTile(
-                        title: 'Essential Tee',
-                        price: '£13.50',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      const SizedBox(height: 20),
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isWide = constraints.maxWidth >= 600;
+                          // Use Wrap to keep items centered with nice spacing
+                          return Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 24,
+                            runSpacing: 24,
+                            children: [
+                              HoverProductTile(
+                                title: 'Essential Hoodie',
+                                price: '£14.00',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                              HoverProductTile(
+                                title: 'Essential Tee',
+                                price: '£13.50',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 40),
+
+                      // Signature Range (same style as Essential)
+                      const Center(
+                        child: Text(
+                          'Signature Range',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 24,
+                        runSpacing: 24,
+                        children: [
+                          HoverProductTile(
+                            title: 'Signature Sweatshirt',
+                            price: '£22.00',
+                            imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                            onTap: () => Navigator.pushNamed(context, '/product'),
+                          ),
+                          HoverProductTile(
+                            title: 'Signature Cap',
+                            price: '£16.00',
+                            imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                            onTap: () => Navigator.pushNamed(context, '/product'),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 40),
+
+                      // Portsmouth City Collection — two columns on wide, one on phone
+                      const Center(
+                        child: Text(
+                          'Portsmouth City Collection',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final cols = constraints.maxWidth >= 600 ? 2 : 1; // 2x2 like before on wide
+                          return GridView.count(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            crossAxisCount: cols,
+                            crossAxisSpacing: 24,
+                            mainAxisSpacing: 24,
+                            children: [
+                              HoverProductTile(
+                                title: 'Placeholder Product 1',
+                                price: '£10.00',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                              HoverProductTile(
+                                title: 'Placeholder Product 2',
+                                price: '£15.00',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                              HoverProductTile(
+                                title: 'Placeholder Product 3',
+                                price: '£20.00',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                              HoverProductTile(
+                                title: 'Placeholder Product 4',
+                                price: '£25.00',
+                                imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                onTap: () => Navigator.pushNamed(context, '/product'),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 32),
+
+                      // View All button centered
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pushNamed(context, '/products'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                          ),
+                          child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
+                        ),
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 40),
-
-                  // Signature Range
-                  const Text(
-                    'Signature Range',
-                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 24),
-                  GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                    crossAxisSpacing: 24,
-                    mainAxisSpacing: 24,
-                    children: [
-                      HoverProductTile(
-                        title: 'Signature Sweatshirt',
-                        price: '£22.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        onTap: () => Navigator.pushNamed(context, '/product'),
-                      ),
-                      HoverProductTile(
-                        title: 'Signature Cap',
-                        price: '£16.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        onTap: () => Navigator.pushNamed(context, '/product'),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  // Portsmouth City Collection (reuse the existing 4 products)
-                  const Text(
-                    'Portsmouth City Collection',
-                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 24),
-                  GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: MediaQuery.of(context).size.width > 900 ? 4 : (MediaQuery.of(context).size.width > 600 ? 2 : 1),
-                    crossAxisSpacing: 24,
-                    mainAxisSpacing: 24,
-                    children: const [
-                      // Use the same 4 images/titles you already had, but with hover tile
-                      // If you prefer, replace these with HoverProductTile instances similarly
-                      ProductCard(
-                        title: 'Placeholder Product 1',
-                        price: '£10.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                      ProductCard(
-                        title: 'Placeholder Product 2',
-                        price: '£15.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                      ProductCard(
-                        title: 'Placeholder Product 3',
-                        price: '£20.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                      ProductCard(
-                        title: 'Placeholder Product 4',
-                        price: '£25.00',
-                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // View All button centered
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pushNamed(context, '/products'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4d2963),
-                        foregroundColor: Colors.white,
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                      ),
-                      child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
