@@ -9,8 +9,8 @@ import 'package:union_shop/product_page.dart';
 void main() {
   setupTests();
 
-  testWidgets('ProductTile navigates to ProductPage with args', (tester) async {
-    final product = const Product(
+  testWidgets('ProductTile navigates to ProductPage', (tester) async {
+    const product = Product(
       title: 'Tile Product',
       price: '£12.00',
       imageUrl: 'https://example.com/image.png',
@@ -25,13 +25,14 @@ void main() {
       initialRoute: '/',
     );
 
+    await tester.pumpWidget(app);
     await tester.pump();
 
     expect(find.text('Tile Product'), findsOneWidget);
     expect(find.text('£12.00'), findsOneWidget);
 
-    await tester.tap(find.text('Tile Product'));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.tap(find.text('Tile Product')); // tap title
+    await tester.pumpAndSettle();
 
     expect(find.byType(ProductPage), findsOneWidget);
     expect(find.text('Tile Product'), findsOneWidget);
