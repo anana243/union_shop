@@ -26,6 +26,15 @@ class UnionShopApp extends StatelessWidget {
         '/search': (context) => SearchPage(),
         '/terms-and-conditions': (context) => TermsAndConditionsPage(),
         '/refund-policy': (context) => RefundPolicyPage(),
+        '/products': (context) => const AppLayout(
+          title: 'Union',
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(40.0),
+              child: Text('All Products Page (coming soon)', style: TextStyle(fontSize: 20)),
+            ),
+          ),
+        ),
       },
     );
   }
@@ -117,23 +126,83 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(40.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Essential Range
                   const Text(
-                    'PRODUCTS SECTION',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      letterSpacing: 1,
-                    ),
+                    'Essential Range — over 20% off!',
+                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 24),
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
                     crossAxisSpacing: 24,
-                    mainAxisSpacing: 48,
+                    mainAxisSpacing: 24,
+                    children: [
+                      HoverProductTile(
+                        title: 'Essential Hoodie',
+                        price: '£14.00',
+                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      ),
+                      HoverProductTile(
+                        title: 'Essential Tee',
+                        price: '£13.50',
+                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Signature Range
+                  const Text(
+                    'Signature Range',
+                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 24),
+                  GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 24,
+                    children: [
+                      HoverProductTile(
+                        title: 'Signature Sweatshirt',
+                        price: '£22.00',
+                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      ),
+                      HoverProductTile(
+                        title: 'Signature Cap',
+                        price: '£16.00',
+                        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        onTap: () => Navigator.pushNamed(context, '/product'),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Portsmouth City Collection (reuse the existing 4 products)
+                  const Text(
+                    'Portsmouth City Collection',
+                    style: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0.5, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 24),
+                  GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: MediaQuery.of(context).size.width > 900 ? 4 : (MediaQuery.of(context).size.width > 600 ? 2 : 1),
+                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 24,
                     children: const [
+                      // Use the same 4 images/titles you already had, but with hover tile
+                      // If you prefer, replace these with HoverProductTile instances similarly
                       ProductCard(
                         title: 'Placeholder Product 1',
                         price: '£10.00',
@@ -155,6 +224,22 @@ class HomeScreen extends StatelessWidget {
                         imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                       ),
                     ],
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // View All button centered
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pushNamed(context, '/products'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4d2963),
+                        foregroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                      ),
+                      child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
+                    ),
                   ),
                 ],
               ),
@@ -218,6 +303,87 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+// 1) Add a hoverable product tile used for all product grids
+class HoverProductTile extends StatefulWidget {
+  final String title;
+  final String price;
+  final String imageUrl;
+  final VoidCallback onTap;
+
+  const HoverProductTile({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+    required this.onTap,
+  });
+
+  @override
+  State<HoverProductTile> createState() => _HoverProductTileState();
+}
+
+class _HoverProductTileState extends State<HoverProductTile> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image with slight grey overlay on hover
+            AspectRatio(
+              aspectRatio: 1,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    widget.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, color: Colors.grey),
+                        ),
+                      );
+                    },
+                  ),
+                  if (_hover)
+                    Container(
+                      color: Colors.black.withOpacity(0.15),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 6),
+            // Title underline on hover
+            Text(
+              widget.title,
+              maxLines: 2,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+                decoration: _hover ? TextDecoration.underline : TextDecoration.none,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              widget.price,
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
+            ),
+          ],
+        ),
       ),
     );
   }
