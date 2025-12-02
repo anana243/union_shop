@@ -299,52 +299,74 @@ class AppLayout extends StatelessWidget {
         child: AppBar(
           backgroundColor: const Color(0xFF4d2963),
           automaticallyImplyLeading: false,
-          flexibleSpace: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: const Size(50, 40),
+          flexibleSpace: Stack(
+            children: [
+              // Union title on the left
+              Positioned(
+                left: 16,
+                top: 0,
+                bottom: 0,
+                child: Center(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/shop'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: const Size(50, 40),
-                  ),
-                  child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
+              ),
+              // Centered navigation buttons
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(50, 40),
+                      ),
+                      child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/shop'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(50, 40),
+                      ),
+                      child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        minimumSize: const Size(50, 40),
+                      ),
+                      child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/sale'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(50, 40),
+                      ),
+                      child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/about'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(50, 40),
+                      ),
+                      child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/print-shack'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    minimumSize: const Size(50, 40),
-                  ),
-                  child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/sale'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: const Size(50, 40),
-                  ),
-                  child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/about'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: const Size(50, 40),
-                  ),
-                  child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
