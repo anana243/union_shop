@@ -244,83 +244,98 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final isPhone = w < 600;
+    final sidePadding = isPhone ? 24.0 : 16.0;
+    final maxWidth = isPhone ? 520.0 : 1100.0;
+    final height = isPhone ? 240.0 : 320.0; // smaller on phone
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: sidePadding),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1100),
-          child: SizedBox(
-            height: 320,
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                if (notification is ScrollUpdateNotification) {
-                  _pauseForUser(); // user is interacting
-                } else if (notification is ScrollEndNotification) {
-                  _restartAutoAfterIdle(); // resume after idle
-                }
-                return false;
-              },
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    controller: _controller,
-                    itemCount: _slides.length,
-                    itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 10,
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        color: Colors.black.withOpacity(0.35),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: _prev,
-                              icon: const Icon(Icons.chevron_left, color: Colors.white),
-                              tooltip: 'Previous',
-                            ),
-                            const Spacer(),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: List.generate(_slides.length, (i) {
-                                final active = i == _index;
-                                return GestureDetector(
-                                  onTap: () => _jumpTo(i),
-                                  child: Container(
-                                    width: active ? 10 : 8,
-                                    height: active ? 10 : 8,
-                                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: active ? Colors.white : Colors.white.withOpacity(0.6),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: _next,
-                              icon: const Icon(Icons.chevron_right, color: Colors.white),
-                              tooltip: 'Next',
-                            ),
-                            const SizedBox(width: 8),
-                            IconButton(
-                              onPressed: _togglePause,
-                              icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
-                              tooltip: _paused ? 'Resume' : 'Pause',
-                            ),
-                          ],
+          constraints: BoxConstraints(maxWidth: maxWidth),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: height,
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (notification) {
+                    if (notification is ScrollUpdateNotification) {
+                      _pauseForUser();
+                    } else if (notification is ScrollEndNotification) {
+                      _restartAutoAfterIdle();
+                    }
+                    return false;
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8), // soften edges
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          controller: _controller,
+                          itemCount: _slides.length,
+                          itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
                         ),
-                      ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 8,
+                          child: Center(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              color: Colors.black.withOpacity(0.35),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: _prev,
+                                    icon: const Icon(Icons.chevron_left, color: Colors.white),
+                                    tooltip: 'Previous',
+                                  ),
+                                  const Spacer(),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: List.generate(_slides.length, (i) {
+                                      final active = i == _index;
+                                      return GestureDetector(
+                                        onTap: () => _jumpTo(i),
+                                        child: Container(
+                                          width: active ? 10 : 8,
+                                          height: active ? 10 : 8,
+                                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: active ? Colors.white : Colors.white.withOpacity(0.6),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                  const Spacer(),
+                                  IconButton(
+                                    onPressed: _next,
+                                    icon: const Icon(Icons.chevron_right, color: Colors.white),
+                                    tooltip: 'Next',
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton(
+                                    onPressed: _togglePause,
+                                    icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
+                                    tooltip: _paused ? 'Resume' : 'Pause',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(height: 16), // margin so below links aren’t covered
+            ],
           ),
         ),
       ),
