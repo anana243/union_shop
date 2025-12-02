@@ -32,58 +32,8 @@ class HomePage extends StatelessWidget {
       title: 'Union',
       child: Column(
         children: [
-          _buildHeroSection(),
+          const _HeroCarousel(imageUrl: _heroImageUrl),
           _buildProductsSection(context, essential, signature, city),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeroSection() {
-    return SizedBox(
-      height: 400,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(_heroImageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Container(
-                color: Colors.black.withOpacity(0.7),
-              ),
-            ),
-          ),
-          const Positioned(
-            left: 24,
-            right: 24,
-            top: 80,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Placeholder Hero Title',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'This is placeholder text for the hero section.',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 32),
-                _HeroCTA(),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -129,7 +79,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 48),
+                const SizedBox(height: 40),
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
@@ -144,7 +94,7 @@ class HomePage extends StatelessWidget {
                   imageUrl: _productImageUrl,
                 ),
 
-                const SizedBox(height: 56), // extra space before Personalize
+                const SizedBox(height: 64), // extra spacing between sections
 
                 _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
@@ -176,22 +126,218 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HeroCTA extends StatelessWidget {
-  const _HeroCTA();
+class _HeroCarousel extends StatefulWidget {
+  final String imageUrl;
+  const _HeroCarousel({required this.imageUrl});
+
+  @override
+  State<_HeroCarousel> createState() => _HeroCarouselState();
+}
+
+class _HeroCarouselState extends State<_HeroCarousel> {
+  final PageController _controller = PageController();
+  int _index = 0;
+
+  final List<_SlideData> _slides = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Build slides (using same image for now)
+    _slides.addAll([
+      _SlideData(
+        imageUrl: widget.imageUrl,
+        title: 'Essential Range — over 20% off!',
+        body: 'Over 20% off our Essential Range. Come and grab yours while stock lasts.',
+        ctaLabel: 'BROWSE COLLECTION',
+        onTapRoute: '/shop',
+      ),
+      _SlideData(
+        imageUrl: widget.imageUrl,
+        title: 'The Print Shack',
+        body: 'Let’s create something uniquely you with our personalization service — from £3 for one line of text.',
+        ctaLabel: 'FIND OUT MORE',
+        onTapRoute: '/print-shack',
+      ),
+      _SlideData(
+        imageUrl: widget.imageUrl,
+        title: 'Hungry?',
+        body: 'We got this 🍕',
+        ctaLabel: 'ORDER DOMINO’S PIZZA NOW',
+        onTapRoute: '/sale', // placeholder route; change to external link if needed
+      ),
+      _SlideData(
+        imageUrl: widget.imageUrl,
+        title: 'What’s your next move…',
+        body: 'Are you with us?',
+        ctaLabel: 'FIND YOUR STUDENT ACCOMMODATION',
+        onTapRoute: '/about', // placeholder; change to your accommodation route
+      ),
+    ]);
+
+    _controller.addListener(() {
+      final newIndex = _controller.page?.round() ?? 0;
+      if (newIndex != _index) {
+        setState(() => _index = newIndex);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _prev() {
+    final target = (_index - 1).clamp(0, _slides.length - 1);
+    _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+  }
+
+  void _next() {
+    final target = (_index + 1).clamp(0, _slides.length - 1);
+    _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+    return SizedBox(
+      height: 420,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          PageView.builder(
+            controller: _controller,
+            itemCount: _slides.length,
+            itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
+          ),
+          // Arrow bar
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 12,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  color: Colors.black.withOpacity(0.35),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: _prev,
+                        icon: const Icon(Icons.chevron_left, color: Colors.white),
+                        tooltip: 'Previous',
+                      ),
+                      const Spacer(),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(_slides.length, (i) {
+                          final active = i == _index;
+                          return Container(
+                            width: active ? 10 : 8,
+                            height: active ? 10 : 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: active ? Colors.white : Colors.white.withOpacity(0.6),
+                            ),
+                          );
+                        }),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: _next,
+                        icon: const Icon(Icons.chevron_right, color: Colors.white),
+                        tooltip: 'Next',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-      child: const Text(
-        'BROWSE PRODUCTS',
-        style: TextStyle(fontSize: 14, letterSpacing: 1),
-      ),
+    );
+  }
+}
+
+class _SlideData {
+  final String imageUrl;
+  final String title;
+  final String body;
+  final String ctaLabel;
+  final String onTapRoute;
+
+  const _SlideData({
+    required this.imageUrl,
+    required this.title,
+    required this.body,
+    required this.ctaLabel,
+    required this.onTapRoute,
+  });
+}
+
+class _HeroSlide extends StatelessWidget {
+  final _SlideData data;
+  const _HeroSlide({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(data.imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Container(color: Colors.black.withOpacity(0.65)),
+          ),
+        ),
+        Positioned(
+          left: 24,
+          right: 24,
+          top: 80,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                data.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                data.body,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              const SizedBox(height: 26),
+              ElevatedButton(
+                onPressed: () => Navigator.pushReplacementNamed(context, data.onTapRoute),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                ),
+                child: Text(
+                  data.ctaLabel,
+                  style: const TextStyle(fontSize: 14, letterSpacing: 0.8),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -215,11 +361,11 @@ class _OurRangeGrid extends StatelessWidget {
 
       int targetPerRow;
       if (maxWidth >= 900) {
-        targetPerRow = 4; // desktop
+        targetPerRow = 4;
       } else if (maxWidth >= 600) {
-        targetPerRow = 3; // tablet
+        targetPerRow = 3;
       } else {
-        targetPerRow = 2; // phone
+        targetPerRow = 2;
       }
 
       final totalSpacing = spacing * (targetPerRow - 1);
