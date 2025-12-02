@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 40),
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
-                _buildCityCollection(city),
+                _buildProductGroup('Portsmouth City Collection', city),
                 const SizedBox(height: 40),
                 Center(
                   child: ElevatedButton(
@@ -150,39 +150,6 @@ class HomePage extends StatelessWidget {
           spacing: 32,
           runSpacing: 32,
           children: products.map((p) => ProductTile(product: p)).toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCityCollection(List<Product> products) {
-    return Column(
-      children: [
-        const Center(
-          child: Text(
-            'Portsmouth City Collection',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-        ),
-        const SizedBox(height: 20),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final cols = constraints.maxWidth >= 600 ? 2 : 1;
-            return Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: cols == 2 ? 760 : 380),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: cols,
-                  crossAxisSpacing: 24,
-                  mainAxisSpacing: 24,
-                  childAspectRatio: 0.9,
-                  children: products.map((p) => ProductTile(product: p)).toList(),
-                ),
-              ),
-            );
-          },
         ),
       ],
     );
