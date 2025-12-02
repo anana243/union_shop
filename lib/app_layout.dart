@@ -75,9 +75,9 @@ class AppLayout extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Expanded(child: _FooterHours()),
-          Expanded(child: _FooterHelp()),
+        children: [
+          const Expanded(child: _FooterHours()),
+          const Expanded(child: _FooterHelp()),
           Expanded(child: FooterSubscribeBox()),
         ],
       ),
@@ -130,11 +130,29 @@ class _FooterHelp extends StatelessWidget {
       children: [
         const Text('HELP AND INFORMATION', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/search'), child: const HoverText(text: 'Search'))),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => go('/search'),
+            child: HoverText(text: 'Search'),
+          ),
+        ),
         const SizedBox(height: 8),
-        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/terms-and-conditions'), child: const HoverText(text: 'Terms and Conditions'))),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => go('/terms-and-conditions'),
+            child: HoverText(text: 'Terms and Conditions'),
+          ),
+        ),
         const SizedBox(height: 8),
-        MouseRegion(cursor: SystemMouseCursors.click, child: GestureDetector(onTap: () => go('/refund-policy'), child: const HoverText(text: 'Refund Policy'))),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => go('/refund-policy'),
+            child: HoverText(text: 'Refund Policy'),
+          ),
+        ),
       ],
     );
   }
