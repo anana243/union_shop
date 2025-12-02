@@ -66,10 +66,10 @@ class HomePage extends StatelessWidget {
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
 
-                // Keep City collection centered; prevent “cross” by using Wrap
-                _buildProductGroup('Portsmouth City Collection', city),
+                // City collection: force 2x2 on desktop
+                _buildCityCollection('Portsmouth City Collection', city),
 
-                const SizedBox(height: 20), // modest space before View All
+                const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/products'),
@@ -83,15 +83,15 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 28), // a bit of space between View All and Our Range
+                const SizedBox(height: 32),
 
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
                 const SizedBox(height: 20),
 
-                const _OurRangeGrid(
-                  items: [
+                _OurRangeGrid(
+                  items: const [
                     _RangeItem(title: 'Clothing', route: '/shop'),
                     _RangeItem(title: 'Merchandise', route: '/shop'),
                     _RangeItem(title: 'Graduation', route: '/shop'),
@@ -100,14 +100,48 @@ class HomePage extends StatelessWidget {
                   imageUrl: _productImageUrl,
                 ),
 
-                const SizedBox(height: 56), // clear separation to Personalize
+                const SizedBox(height: 64), // more space before personalize
 
-                const _PersonalizeSplit(imageUrl: _productImageUrl),
+                _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCityCollection(String title, List<Product> products) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isWide = constraints.maxWidth >= 700;
+        final crossAxisCount = isWide ? 2 : 2; // always 2 columns
+        final childAspectRatio = isWide ? 0.75 : 0.7;
+
+        return Column(
+          children: [
+            Center(
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+              ),
+            ),
+            const SizedBox(height: 20),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 24,
+                mainAxisSpacing: 24,
+                childAspectRatio: childAspectRatio,
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, i) => ProductTile(product: products[i]),
+            ),
+          ],
+        );
+      },
     );
   }
 
