@@ -945,14 +945,23 @@ class ProductPlaceholderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLayout(
-      title: title,
+      title: 'Union',
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
-          child: Text(
-            '$title Page (coming soon)',
-            style: const TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Product details coming soon.',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            ],
           ),
         ),
       ),
