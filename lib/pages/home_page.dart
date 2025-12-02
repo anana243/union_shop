@@ -115,32 +115,52 @@ class HomePage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWide = constraints.maxWidth >= 700;
-        final crossAxisCount = isWide ? 2 : 2; // always 2 columns
-        final childAspectRatio = isWide ? 0.75 : 0.7;
 
-        return Column(
-          children: [
-            Center(
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+        if (isWide) {
+          // Desktop: single horizontal line with Wrap
+          return Column(
+            children: [
+              Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: 24,
-                mainAxisSpacing: 24,
-                childAspectRatio: childAspectRatio,
+              const SizedBox(height: 20),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 24,
+                runSpacing: 24,
+                children: products.map((p) => ProductTile(product: p)).toList(),
               ),
-              itemCount: products.length,
-              itemBuilder: (context, i) => ProductTile(product: products[i]),
-            ),
-          ],
-        );
+            ],
+          );
+        } else {
+          // Mobile: 2x2 grid
+          return Column(
+            children: [
+              Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                ),
+              ),
+              const SizedBox(height: 20),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 24,
+                  mainAxisSpacing: 24,
+                  childAspectRatio: 0.7,
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, i) => ProductTile(product: products[i]),
+              ),
+            ],
+          );
+        }
       },
     );
   }
