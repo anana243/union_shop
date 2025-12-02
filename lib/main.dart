@@ -223,45 +223,45 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       LayoutBuilder(
                         builder: (context, constraints) {
-                          final cols = constraints.maxWidth >= 600 ? 2 : 1; // 2x2 like before on wide
+                          final cols = constraints.maxWidth >= 600 ? 2 : 1; // 2x2 on wide, 1x4 on phone
                           return GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             crossAxisCount: cols,
                             crossAxisSpacing: 24,
                             mainAxisSpacing: 24,
+                            childAspectRatio: 0.85, // taller cell to avoid overflow
                             children: [
                               HoverProductTile(
-                                title: 'Placeholder Product 1',
+                                title: 'City Magnet 1',
                                 price: '£10.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product'),
+                                onTap: () => Navigator.pushNamed(context, '/product/city1'),
                               ),
                               HoverProductTile(
-                                title: 'Placeholder Product 2',
+                                title: 'City Magnet 2',
                                 price: '£15.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product'),
+                                onTap: () => Navigator.pushNamed(context, '/product/city2'),
                               ),
                               HoverProductTile(
-                                title: 'Placeholder Product 3',
+                                title: 'City Magnet 3',
                                 price: '£20.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product'),
+                                onTap: () => Navigator.pushNamed(context, '/product/city3'),
                               ),
                               HoverProductTile(
-                                title: 'Placeholder Product 4',
+                                title: 'City Magnet 4',
                                 price: '£25.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product'),
+                                onTap: () => Navigator.pushNamed(context, '/product/city4'),
                               ),
                             ],
                           );
                         },
                       ),
 
-                      const SizedBox(height: 32),
-
+                      const SizedBox(height: 40), // extra space before View All button
                       // View All button centered
                       Center(
                         child: ElevatedButton(
