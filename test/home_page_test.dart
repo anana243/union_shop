@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_helper.dart';
 
 import 'package:union_shop/pages/home_page.dart';
-import 'package:union_shop/product_page.dart';
+import 'package:union_shop/pages/product_page.dart';
 
 Widget _app(Widget home) => MaterialApp(
   routes: {
