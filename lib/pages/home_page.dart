@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show ScrollDirection, UserScrollNotification;
+import 'package:flutter/widgets.dart' show ScrollNotification, ScrollUpdateNotification, ScrollEndNotification;
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
 import '../models/product.dart';
@@ -251,12 +251,12 @@ class _HeroCarouselState extends State<_HeroCarousel> {
           constraints: const BoxConstraints(maxWidth: 1100),
           child: SizedBox(
             height: 320,
-            child: NotificationListener<UserScrollNotification>(
-              onNotification: (n) {
-                if (n.direction != ScrollDirection.idle) {
-                  _pauseForUser();
-                } else {
-                  _restartAutoAfterIdle();
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification is ScrollUpdateNotification) {
+                  _pauseForUser(); // user is interacting
+                } else if (notification is ScrollEndNotification) {
+                  _restartAutoAfterIdle(); // resume after idle
                 }
                 return false;
               },
@@ -267,7 +267,6 @@ class _HeroCarouselState extends State<_HeroCarousel> {
                     itemCount: _slides.length,
                     itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
                   ),
-                  // Arrow bar + dots + pause
                   Positioned(
                     left: 0,
                     right: 0,
@@ -289,7 +288,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
                               children: List.generate(_slides.length, (i) {
                                 final active = i == _index;
                                 return GestureDetector(
-                                  onTap: () => _jumpTo(i), // dots selectable
+                                  onTap: () => _jumpTo(i),
                                   child: Container(
                                     width: active ? 10 : 8,
                                     height: active ? 10 : 8,
