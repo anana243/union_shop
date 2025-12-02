@@ -611,7 +611,6 @@ class _HoverTextState extends State<HoverText> {
         style: TextStyle(
           color: isHovering ? Colors.grey[700] : Colors.grey,
           fontSize: 12,
-          decoration: TextDecoration.underline,
         ),
       ),
     );
