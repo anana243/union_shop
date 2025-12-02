@@ -90,8 +90,8 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                _OurRangeGrid(
-                  items: const [
+                const _OurRangeGrid(
+                  items: [
                     _RangeItem(title: 'Clothing', route: '/shop'),
                     _RangeItem(title: 'Merchandise', route: '/shop'),
                     _RangeItem(title: 'Graduation', route: '/shop'),
@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 56), // clear separation to Personalize
 
-                _PersonalizeSplit(imageUrl: _productImageUrl),
+                const _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
             ),
           ),
