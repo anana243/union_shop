@@ -106,14 +106,35 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
+
+                // Essential
                 _buildProductGroup('Essential Range — over 20% off!', essential),
                 const SizedBox(height: 40),
+
+                // Signature
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
-                _buildProductGroup('Portsmouth City Collection', city),
-                const SizedBox(height: 40),
 
-                // Our Range section (4 squares)
+                // Portsmouth City Collection
+                _buildProductGroup('Portsmouth City Collection', city),
+
+                // VIEW ALL now here, right after City Collection
+                const SizedBox(height: 24),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(context, '/products'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4d2963),
+                      foregroundColor: Colors.white,
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    ),
+                    child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
+                  ),
+                ),
+
+                // Our Range section (after View All)
+                const SizedBox(height: 40),
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
@@ -130,22 +151,8 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 48),
 
-                // Split info section
+                // Personalize split
                 _PersonalizeSplit(imageUrl: _productImageUrl),
-                const SizedBox(height: 24),
-
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/products'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4d2963),
-                      foregroundColor: Colors.white,
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                    ),
-                    child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
-                  ),
-                ),
               ],
             ),
           ),
