@@ -341,3 +341,89 @@ class AboutPage extends StatelessWidget {
     );
   }
 }
+
+// Add this new widget after UnionShopApp
+class AppLayout extends StatelessWidget {
+  final Widget child;
+  final String title;
+
+  const AppLayout({
+    super.key,
+    required this.child,
+    this.title = 'Union Shop',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title, style: const TextStyle(fontSize: 16)),
+        backgroundColor: const Color(0xFF4d2963),
+        automaticallyImplyLeading: false, // Removes back arrow
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
+            ),
+            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/shop'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
+            ),
+            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              minimumSize: const Size(40, 36),
+            ),
+            child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/sale'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
+            ),
+            child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/about'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
+            ),
+            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            child, // This is the changing content
+            // Footer (always visible)
+            Container(
+              width: double.infinity,
+              color: Colors.grey[50],
+              padding: const EdgeInsets.all(24),
+              child: const Text(
+                'Placeholder Footer',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
