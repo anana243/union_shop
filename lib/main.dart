@@ -294,52 +294,59 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title, style: const TextStyle(fontSize: 16)),
-        backgroundColor: const Color(0xFF4d2963),
-        automaticallyImplyLeading: false, // Removes back arrow
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              minimumSize: const Size(40, 36),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: AppBar(
+          backgroundColor: const Color(0xFF4d2963),
+          automaticallyImplyLeading: false,
+          flexibleSpace: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: const Size(50, 40),
+                  ),
+                  child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/shop'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: const Size(50, 40),
+                  ),
+                  child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    minimumSize: const Size(50, 40),
+                  ),
+                  child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/sale'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: const Size(50, 40),
+                  ),
+                  child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/about'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: const Size(50, 40),
+                  ),
+                  child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
+                ),
+              ],
             ),
-            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/shop'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              minimumSize: const Size(40, 36),
-            ),
-            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/print-shack'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              minimumSize: const Size(40, 36),
-            ),
-            child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/sale'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              minimumSize: const Size(40, 36),
-            ),
-            child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/about'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              minimumSize: const Size(40, 36),
-            ),
-            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
-          ),
-        ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
