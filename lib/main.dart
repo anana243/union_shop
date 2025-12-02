@@ -21,7 +21,13 @@ class UnionShopApp extends StatelessWidget {
       initialRoute: '/',
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage()},
+      routes: {
+        '/': (context) => HomePage(),
+        '/shop': (context) => ShopPage(),
+        '/print-shack': (context) => PrintShackPage(),
+        '/sale': (context) => SalePage(),
+        '/about': (context) => AboutPage(),
+      },
     );
   }
 }
@@ -59,25 +65,25 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, '/Shop');
             },
             child: Text('Shop', style: TextStyle(color: Colors.white)),
-          ),
+          },
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/The Print Shack');
             },
             child: Text('Print Shack', style: TextStyle(color: Colors.white)),
-          ),
+          },
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/SALE!');
             },
             child: Text('Sale', style: TextStyle(color: Colors.white)),
-          ),
+          },
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/About');
             },
             child: Text('About', style: TextStyle(color: Colors.white)),
-          ),
+          },
         ],
       ),
       body: SingleChildScrollView(
@@ -398,6 +404,46 @@ class ProductCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ShopPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Shop')),
+      body: Center(child: Text('Shop Page')),
+    );
+  }
+}
+
+class PrintShackPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Print Shack')),
+      body: Center(child: Text('Print Shack Page')),
+    );
+  }
+}
+
+class SalePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Sale')),
+      body: Center(child: Text('Sale Page')),
+    );
+  }
+}
+
+class AboutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('About')),
+      body: Center(child: Text('About Page')),
     );
   }
 }
