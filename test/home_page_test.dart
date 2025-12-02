@@ -17,8 +17,15 @@ void main() {
   setupTests();
 
   testWidgets('HomePage shows sections and View All', (tester) async {
+    // Larger viewport to fit all content
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
     await tester.pumpWidget(_app(const HomePage()));
-    await tester.pump();
+    await tester.pumpAndSettle(const Duration(seconds: 2)); // Wait for timers
+
     expect(find.text('Essential Range — over 20% off!'), findsOneWidget);
     expect(find.text('Signature Range'), findsOneWidget);
     expect(find.text('Portsmouth City Collection'), findsOneWidget);
@@ -26,13 +33,22 @@ void main() {
   });
 
   testWidgets('Tapping product title navigates to ProductPage', (tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
     await tester.pumpWidget(_app(const HomePage()));
-    await tester.pump();
+    await tester.pumpAndSettle(const Duration(seconds: 2));
 
-    final title = find.text('Essential Hoodie');
-    expect(title, findsOneWidget);
+    // Scroll to bring "Essential Hoodie" into viewport
+    await tester.scrollUntilVisible(
+      find.text('Essential Hoodie'),
+      100.0,
+      scrollable: find.byType(Scrollable).first,
+    );
 
-    await tester.tap(title);
+    await tester.tap(find.text('Essential Hoodie'));
     await tester.pumpAndSettle();
 
     expect(find.byType(ProductPage), findsOneWidget);
