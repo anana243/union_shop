@@ -20,41 +20,105 @@ class AppLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         elevation: 0,
-        toolbarHeight: 72, // consistent height; avoids overlap
+        toolbarHeight: 72,
         titleSpacing: 0,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              // Left-aligned brand/title
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Spacer(),
-              // Centered nav in available space
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1200),
+        title: LayoutBuilder(
+          builder: (context, constraints) {
+            final isNarrow = constraints.maxWidth < 640;
+            if (isNarrow) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _NavLink(label: 'Home', route: '/', currentRoute: currentRoute),
-                    const SizedBox(width: 12),
-                    _ShopMenu(currentRoute: currentRoute),
-                    const SizedBox(width: 12),
-                    _NavLink(label: 'Print', route: '/print-shack', currentRoute: currentRoute),
-                    const SizedBox(width: 12),
-                    _NavLink(label: 'Sale', route: '/sale', currentRoute: currentRoute),
-                    const SizedBox(width: 12),
-                    _NavLink(label: 'About', route: '/about', currentRoute: currentRoute),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const Spacer(),
+                    Builder(
+                      builder: (ctx) => IconButton(
+                        icon: const Icon(Icons.menu, color: Colors.white),
+                        onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+                      ),
+                    ),
                   ],
                 ),
+              );
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _NavLink(label: 'Home', route: '/', currentRoute: currentRoute),
+                        const SizedBox(width: 12),
+                        _ShopMenu(currentRoute: currentRoute),
+                        const SizedBox(width: 12),
+                        _NavLink(label: 'Print', route: '/print-shack', currentRoute: currentRoute),
+                        const SizedBox(width: 12),
+                        _NavLink(label: 'Sale', route: '/sale', currentRoute: currentRoute),
+                        const SizedBox(width: 12),
+                        _NavLink(label: 'About', route: '/about', currentRoute: currentRoute),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                ],
               ),
-              const Spacer(),
+            );
+          },
+        ),
+      ),
+      endDrawer: Drawer(
+        child: SafeArea(
+          child: ListView(
+            children: [
+              ListTile(
+                title: const Text('Home'),
+                onTap: () => Navigator.pushReplacementNamed(context, '/'),
+              ),
+              ExpansionTile(
+                title: const Text('Shop'),
+                children: [
+                  _DrawerLink('Clothing', '/shop'),
+                  _DrawerLink('Merchandise', '/shop'),
+                  _DrawerLink('Halloween', '/shop'),
+                  _DrawerLink('Signature Range', '/shop'),
+                  _DrawerLink('Essential Range', '/shop'),
+                  _DrawerLink('Portsmouth City Collection', '/shop'),
+                  _DrawerLink('Pride Collection', '/shop'),
+                  _DrawerLink('Graduation', '/shop'),
+                ],
+              ),
+              ListTile(
+                title: const Text('Print'),
+                onTap: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+              ),
+              ListTile(
+                title: const Text('Sale'),
+                onTap: () => Navigator.pushReplacementNamed(context, '/sale'),
+              ),
+              ListTile(
+                title: const Text('About'),
+                onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+              ),
             ],
           ),
         ),
@@ -62,29 +126,61 @@ class AppLayout extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // A small divider to visually separate when needed
             Container(height: 1, color: Colors.black.withOpacity(0.05)),
             child,
-            _footer(),
+            _footer(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _footer() {
+  Widget _footer(BuildContext context) {
     return Container(
       width: double.infinity,
       color: Colors.grey[50],
       padding: const EdgeInsets.all(24),
-      child: const Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: _FooterHours()),
-          Expanded(child: _FooterHelp()),
-          Expanded(child: SizedBox()), // placeholder third column if you don’t have subscribe box
-        ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isNarrow = constraints.maxWidth < 700;
+          if (isNarrow) {
+            return const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _FooterHours(),
+                SizedBox(height: 24),
+                _FooterHelp(),
+                SizedBox(height: 24),
+                _FooterSubscribeBox(),
+              ],
+            );
+          }
+          return const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: _FooterHours()),
+              SizedBox(width: 24),
+              Expanded(child: _FooterHelp()),
+              SizedBox(width: 24),
+              Expanded(child: _FooterSubscribeBox()),
+            ],
+          );
+        },
       ),
+    );
+  }
+}
+
+class _DrawerLink extends StatelessWidget {
+  final String label;
+  final String route;
+  const _DrawerLink(this.label, this.route);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(label),
+      onTap: () => Navigator.pushReplacementNamed(context, route),
     );
   }
 }
@@ -153,7 +249,7 @@ class _ShopMenuState extends State<_ShopMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final isActive = widget.currentRoute == '/shop'; // underline shop when on /shop
+    final isActive = widget.currentRoute == '/shop';
     final underline = _hover || isActive;
 
     return MouseRegion(
@@ -248,11 +344,53 @@ class _FooterHelp extends StatelessWidget {
       children: [
         const Text('HELP AND INFORMATION', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        GestureDetector(onTap: () => go('/search'), child: const Text('Search')),
+        GestureDetector(onTap: () => go('/search'), child: const Text('Search', style: TextStyle(fontSize: 13))),
         const SizedBox(height: 8),
-        GestureDetector(onTap: () => go('/terms-and-conditions'), child: const Text('Terms and Conditions')),
+        GestureDetector(onTap: () => go('/terms-and-conditions'), child: const Text('Terms and Conditions', style: TextStyle(fontSize: 13))),
         const SizedBox(height: 8),
-        GestureDetector(onTap: () => go('/refund-policy'), child: const Text('Refund Policy')),
+        GestureDetector(onTap: () => go('/refund-policy'), child: const Text('Refund Policy', style: TextStyle(fontSize: 13))),
+      ],
+    );
+  }
+}
+
+class _FooterSubscribeBox extends StatelessWidget {
+  const _FooterSubscribeBox();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('LATEST OFFERS & UPDATES', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter your email',
+                  isDense: true,
+                  border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            SizedBox(
+              height: 36,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                ),
+                child: const Text('Subscribe'),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
