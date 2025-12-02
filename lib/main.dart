@@ -223,12 +223,14 @@ class ProductCard extends StatelessWidget {
 class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Shop'),
-        automaticallyImplyLeading: false, // Add this line
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Shop Page Content', style: TextStyle(fontSize: 20)),
+        ),
       ),
-      body: Center(child: Text('Shop Page')),
     );
   }
 }
@@ -236,12 +238,14 @@ class ShopPage extends StatelessWidget {
 class PrintShackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Print Shack'),
-        automaticallyImplyLeading: false, // Add this line
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Print Shack Content', style: TextStyle(fontSize: 20)),
+        ),
       ),
-      body: Center(child: Text('Print Shack Page')),
     );
   }
 }
@@ -249,12 +253,14 @@ class PrintShackPage extends StatelessWidget {
 class SalePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sale'),
-        automaticallyImplyLeading: false, // Add this line
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('Sale Page Content', style: TextStyle(fontSize: 20)),
+        ),
       ),
-      body: Center(child: Text('Sale Page')),
     );
   }
 }
@@ -262,12 +268,14 @@ class SalePage extends StatelessWidget {
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('About'),
-        automaticallyImplyLeading: false, // Add this line
+    return const AppLayout(
+      title: 'Union',
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(40.0),
+          child: Text('About Page Content', style: TextStyle(fontSize: 20)),
+        ),
       ),
-      body: Center(child: Text('About Page')),
     );
   }
 }
