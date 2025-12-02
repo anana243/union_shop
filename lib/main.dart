@@ -47,38 +47,59 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Union Shop'),
+        title: const Text('Union Shop', style: TextStyle(fontSize: 16)),
         backgroundColor: const Color(0xFF4d2963),
+        toolbarHeight: 56, // Standard mobile height
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/');
             },
-            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8), // Reduce padding
+              minimumSize: Size(50, 40), // Smaller button size
+            ),
+            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)),
           ),
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/shop'); // route is lowercase
             },
-            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: Size(50, 40),
+            ),
+            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display is capitalized
           ),
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/print-shack'); // route is lowercase with hyphen
             },
-            child: const Text('The Print Shack', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display as you want
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: Size(50, 40),
+            ),
+            child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display as you want
           ),
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/sale'); // Add this
             },
-            child: const Text('SALE!', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display with exclamation
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: Size(50, 40),
+            ),
+            child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display with exclamation
           ),
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/about'); // Add this
             },
-            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: Size(50, 40),
+            ),
+            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display is capitalized
           ),
         ],
       ), // Close AppBar
