@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show ScrollDirection, UserScrollNotification;
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
 import '../models/product.dart';
@@ -244,18 +245,18 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16), // keeps away from edges
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1100),
           child: SizedBox(
-            height: 320, // smaller height
+            height: 320,
             child: NotificationListener<UserScrollNotification>(
               onNotification: (n) {
                 if (n.direction != ScrollDirection.idle) {
-                  _pauseForUser(); // pause while user interacts
+                  _pauseForUser();
                 } else {
-                  _restartAutoAfterIdle(); // resume after idle
+                  _restartAutoAfterIdle();
                 }
                 return false;
               },
