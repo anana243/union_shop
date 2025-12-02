@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'widgets/footer_subscribe_box.dart';
+import 'widgets/hover_text.dart';
 
 class AppLayout extends StatelessWidget {
   final Widget child;
