@@ -1,23 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'test_helper.dart';
 
 import 'package:union_shop/widgets/product_tile.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/product_page.dart';
 
-class _NoHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    // Prevent actual network; images will hit errorBuilder quickly
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (_, __, ___) => true;
-  }
-}
-
 void main() {
-  HttpOverrides.global = _NoHttpOverrides();
+  setupTests();
 
   testWidgets('ProductTile navigates to ProductPage with args', (tester) async {
     final product = const Product(
@@ -40,7 +30,6 @@ void main() {
     expect(find.text('Tile Product'), findsOneWidget);
     expect(find.text('£12.00'), findsOneWidget);
 
-    // Tap the title text instead of the container
     await tester.tap(find.text('Tile Product'));
     await tester.pump(const Duration(milliseconds: 100));
 
