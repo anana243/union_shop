@@ -216,18 +216,24 @@ class _OurRangeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final spacing = 24.0;
-      final maxCardWidth = 240.0;
-      final wrapChildren = items
-          .map((i) => _RangeCard(title: i.title, route: i.route, imageUrl: imageUrl, maxWidth: maxCardWidth))
-          .toList();
+      // Target 4 per row for typical desktop; shrink on narrow screens
+      final isWide = constraints.maxWidth >= 900;
+      final cardMaxWidth = isWide ? 220.0 : 180.0; // smaller so four fit
+      final spacing = isWide ? 20.0 : 16.0;
 
       return Center(
         child: Wrap(
           alignment: WrapAlignment.center,
           spacing: spacing,
           runSpacing: spacing,
-          children: wrapChildren,
+          children: items
+              .map((i) => _RangeCard(
+                    title: i.title,
+                    route: i.route,
+                    imageUrl: imageUrl,
+                    maxWidth: cardMaxWidth,
+                  ))
+              .toList(),
         ),
       );
     });
@@ -272,11 +278,11 @@ class _RangeCardState extends State<_RangeCard> {
                 ),
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     color: Colors.black.withOpacity(0.35),
                     child: Text(
                       widget.title.toUpperCase(),
-                      style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 0.8),
+                      style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.8),
                     ),
                   ),
                 ),
