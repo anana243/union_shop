@@ -10,36 +10,34 @@ import 'package:union_shop/pages/refund_policy_page.dart';
 void main() {
   setupTests();
 
-  Widget _app() {
-    return MaterialApp(
-      routes: {
-        '/': (context) => const AppLayout(title: 'Union', child: SizedBox()),
-        '/search': (context) => const SearchPage(),
-        '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
-        '/refund-policy': (context) => const RefundPolicyPage(),
-      },
-      initialRoute: '/',
-    );
-  }
+  Widget app() => MaterialApp(
+    routes: {
+      '/': (context) => const AppLayout(title: 'Union', child: SizedBox.shrink()),
+      '/search': (context) => const SearchPage(),
+      '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
+      '/refund-policy': (context) => const RefundPolicyPage(),
+    },
+    initialRoute: '/',
+  );
 
-  testWidgets('Footer help links navigate correctly', (tester) async {
-    await tester.pumpWidget(_app());
+  testWidgets('Footer links navigate', (tester) async {
+    await tester.pumpWidget(app());
     await tester.pump();
 
     await tester.tap(find.text('Search'));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpAndSettle();
     expect(find.text('Search Page Content'), findsOneWidget);
     Navigator.of(tester.element(find.text('Search Page Content'))).pop();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Terms and Conditions'));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpAndSettle();
     expect(find.text('Terms and Conditions Content'), findsOneWidget);
     Navigator.of(tester.element(find.text('Terms and Conditions Content'))).pop();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Refund Policy'));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpAndSettle();
     expect(find.text('Refund Policy Content'), findsOneWidget);
   });
 }
