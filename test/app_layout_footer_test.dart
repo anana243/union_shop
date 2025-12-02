@@ -20,32 +20,37 @@ void main() {
     initialRoute: '/',
   );
 
-  testWidgets('Footer links navigate', (tester) async {
+  testWidgets('Footer Search link navigates', (tester) async {
     tester.view.physicalSize = const Size(800, 1200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(() => tester.view.resetPhysicalSize());
     addTearDown(() => tester.view.resetDevicePixelRatio());
 
     await tester.pumpWidget(app());
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
 
-    // Scroll to footer
     await tester.scrollUntilVisible(
-      find.text('HELP AND INFORMATION'),
+      find.text('Search'),
       100.0,
       scrollable: find.byType(Scrollable).first,
     );
 
-    // Tap Search (HoverText wraps it, so we tap by text)
     await tester.tap(find.text('Search'));
     await tester.pumpAndSettle();
     expect(find.text('Search Page Content'), findsOneWidget);
-    Navigator.of(tester.element(find.text('Search Page Content'))).pop();
+  });
+
+  testWidgets('Footer Terms link navigates', (tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
+    await tester.pumpWidget(app());
     await tester.pumpAndSettle();
 
-    // Scroll footer back into view after navigation
     await tester.scrollUntilVisible(
-      find.text('HELP AND INFORMATION'),
+      find.text('Terms and Conditions'),
       100.0,
       scrollable: find.byType(Scrollable).first,
     );
@@ -53,11 +58,19 @@ void main() {
     await tester.tap(find.text('Terms and Conditions'));
     await tester.pumpAndSettle();
     expect(find.text('Terms and Conditions Content'), findsOneWidget);
-    Navigator.of(tester.element(find.text('Terms and Conditions Content'))).pop();
+  });
+
+  testWidgets('Footer Refund Policy link navigates', (tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+    addTearDown(() => tester.view.resetDevicePixelRatio());
+
+    await tester.pumpWidget(app());
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
-      find.text('HELP AND INFORMATION'),
+      find.text('Refund Policy'),
       100.0,
       scrollable: find.byType(Scrollable).first,
     );
