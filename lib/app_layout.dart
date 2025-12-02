@@ -22,12 +22,12 @@ class AppLayout extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 72,
         titleSpacing: 0,
-        automaticallyImplyLeading: false, // removes default back button
+        automaticallyImplyLeading: false,
         title: LayoutBuilder(
           builder: (context, constraints) {
-            final isNarrow = constraints.maxWidth < 640;
+            final isNarrow = constraints.maxWidth < 800;
             if (isNarrow) {
-              // Mobile: brand + search + user + menu
+              // Mobile: brand + search + user + menu (single menu button)
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -42,20 +42,24 @@ class AppLayout extends StatelessWidget {
                     ),
                     const Spacer(),
                     _SearchIcon(),
-                    const SizedBox(width: 12),
-                    _UserIcon(),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.person, color: Colors.white),
+                      onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+                      tooltip: 'Sign In',
+                    ),
                     Builder(
                       builder: (ctx) => IconButton(
                         icon: const Icon(Icons.menu, color: Colors.white),
                         onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+                        tooltip: 'Menu',
                       ),
                     ),
                   ],
                 ),
               );
             }
-            // Desktop: brand + nav + search + user (no menu button)
+            // Desktop: brand + nav + search + user (NO menu button)
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
@@ -88,8 +92,12 @@ class AppLayout extends StatelessWidget {
                   ),
                   const Spacer(),
                   _SearchIcon(),
-                  const SizedBox(width: 12),
-                  _UserIcon(),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.person, color: Colors.white),
+                    onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+                    tooltip: 'Sign In',
+                  ),
                 ],
               ),
             );
@@ -194,30 +202,35 @@ class _SearchIconState extends State<_SearchIcon> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      width: _expanded ? 200 : 40,
+    if (!_expanded) {
+      return IconButton(
+        icon: const Icon(Icons.search, color: Colors.white),
+        onPressed: () => setState(() => _expanded = true),
+        tooltip: 'Search',
+      );
+    }
+    return SizedBox(
+      width: 180,
       child: Row(
         children: [
-          if (_expanded)
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
-                decoration: const InputDecoration(
-                  hintText: 'Search...',
-                  hintStyle: TextStyle(color: Colors.white70, fontSize: 14),
-                  border: InputBorder.none,
-                  isDense: true,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                ),
-                onSubmitted: (_) => setState(() => _expanded = false),
+          Expanded(
+            child: TextField(
+              autofocus: true,
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+              decoration: const InputDecoration(
+                hintText: 'Search...',
+                hintStyle: TextStyle(color: Colors.white70, fontSize: 14),
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               ),
+              onSubmitted: (_) => setState(() => _expanded = false),
             ),
+          ),
           IconButton(
-            icon: Icon(_expanded ? Icons.close : Icons.search, color: Colors.white),
-            onPressed: () => setState(() => _expanded = !_expanded),
-            tooltip: 'Search',
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: () => setState(() => _expanded = false),
+            tooltip: 'Close',
           ),
         ],
       ),
@@ -322,7 +335,7 @@ class _ShopMenuState extends State<_ShopMenu> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: PopupMenuButton<_MenuItem>(
-        offset: const Offset(0, 48), // position dropdown below button
+        offset: const Offset(0, 48),
         color: Colors.white,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -391,7 +404,7 @@ class _PrintShackMenuState extends State<_PrintShackMenu> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: PopupMenuButton<_MenuItem>(
-        offset: const Offset(0, 48), // position dropdown below button
+        offset: const Offset(0, 48),
         color: Colors.white,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
