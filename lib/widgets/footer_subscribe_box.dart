@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 
 class FooterSubscribeBox extends StatefulWidget {
   const FooterSubscribeBox({super.key});
-
   @override
   State<FooterSubscribeBox> createState() => _FooterSubscribeBoxState();
 }
 
 class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
   final _email = TextEditingController();
-
   @override
-  void dispose() {
-    _email.dispose();
-    super.dispose();
-  }
+  void dispose() { _email.dispose(); super.dispose(); }
 
   bool _isValidEmail(String v) => RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v);
 
