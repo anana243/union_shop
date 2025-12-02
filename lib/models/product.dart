@@ -2,7 +2,7 @@ class Product {
   final String title;
   final String price;
   final String imageUrl;
-  final String slug; // unique id for routing
+  final String slug;
 
   const Product({
     required this.title,
