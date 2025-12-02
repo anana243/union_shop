@@ -544,39 +544,27 @@ class AppLayout extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, '/search'),
-                          child: const Text(
-                            'Search',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              decoration: TextDecoration.underline,
-                            ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/search'),
+                            child: HoverText(text: 'Search'),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
-                          child: const Text(
-                            'Terms and Conditions',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              decoration: TextDecoration.underline,
-                            ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
+                            child: HoverText(text: 'Terms and Conditions'),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, '/refund-policy'),
-                          child: const Text(
-                            'Refund Policy',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              decoration: TextDecoration.underline,
-                            ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/refund-policy'),
+                            child: HoverText(text: 'Refund Policy'),
                           ),
                         ),
                       ],
@@ -595,6 +583,32 @@ class AppLayout extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class HoverText extends StatelessWidget {
+  final String text;
+
+  const HoverText({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          // Define your onTap behavior here
+        },
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.grey,
+            fontSize: 12,
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     );
