@@ -60,7 +60,7 @@ class AppLayout extends StatelessWidget {
         child: Column(
           children: [
             child,
-            _footer(context),
+            _footer(),
           ],
         ),
       ),
@@ -78,17 +78,17 @@ class AppLayout extends StatelessWidget {
     );
   }
 
-  Widget _footer(BuildContext context) {
+  Widget _footer() {
     return Container(
       width: double.infinity,
       color: Colors.grey[50],
       padding: const EdgeInsets.all(24),
-      child: Row(
+      child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Expanded(child: _FooterHours()),
-          Expanded(child: const _FooterHelp()),
-          const Expanded(child: FooterSubscribeBox()),
+          Expanded(child: _FooterHours()),
+          Expanded(child: _FooterHelp()),
+          Expanded(child: FooterSubscribeBox()),
         ],
       ),
     );
@@ -100,9 +100,9 @@ class _FooterHours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text('OPENING HOURS', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         SizedBox(height: 12),
         Text('Winter Break Closure Dates', style: TextStyle(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -144,7 +144,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/search'),
-            child: HoverText(text: 'Search'),
+            child: const HoverText(text: 'Search'),
           ),
         ),
         const SizedBox(height: 8),
@@ -152,7 +152,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/terms-and-conditions'),
-            child: HoverText(text: 'Terms and Conditions'),
+            child: const HoverText(text: 'Terms and Conditions'),
           ),
         ),
         const SizedBox(height: 8),
@@ -160,7 +160,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/refund-policy'),
-            child: HoverText(text: 'Refund Policy'),
+            child: const HoverText(text: 'Refund Policy'),
           ),
         ),
       ],
