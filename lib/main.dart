@@ -430,7 +430,7 @@ class AppLayout extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Left section - Opening Hours
+                  // LEFT: Opening hours (unchanged)
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -529,7 +529,8 @@ class AppLayout extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Middle section - Help and Information
+
+                  // MIDDLE: Help and Information (unchanged)
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -570,14 +571,10 @@ class AppLayout extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Right section - Placeholder for now
+
+                  // RIGHT: Latest Offers subscribe box (NEW)
                   const Expanded(
-                    child: Center(
-                      child: Text(
-                        'Right Section',
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
-                    ),
+                    child: FooterSubscribeBox(),
                   ),
                 ],
               ),
@@ -612,6 +609,114 @@ class _HoverTextState extends State<HoverText> {
           color: isHovering ? Colors.grey[700] : Colors.grey,
           fontSize: 12,
         ),
+      ),
+    );
+  }
+}
+
+// Add this widget near the bottom of the file (outside any other class)
+class FooterSubscribeBox extends StatefulWidget {
+  const FooterSubscribeBox({super.key});
+
+  @override
+  State<FooterSubscribeBox> createState() => _FooterSubscribeBoxState();
+}
+
+class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
+  final _formKey = GlobalKey<FormState>();
+  final _email = TextEditingController();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    super.dispose();
+  }
+
+  bool _isValidEmail(String v) {
+    final re = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
+    return re.hasMatch(v);
+  }
+
+  void _subscribe() {
+    if (!_isValidEmail(_email.text.trim())) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid email address')),
+      );
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Subscribed! Check your inbox.')),
+    );
+    _email.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 320),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'LATEST OFFERS',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _email,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  decoration: InputDecoration(
+                    hintText: 'Email address',
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Color(0xFF4d2963)),
+                    ),
+                  ),
+                  style: const TextStyle(fontSize: 12),
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: _subscribe,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4d2963),
+                      foregroundColor: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                    child: const Text(
+                      'SUBSCRIBE',
+                      style: TextStyle(fontSize: 12, letterSpacing: 0.8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
