@@ -294,7 +294,10 @@ class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Shop')),
+      appBar: AppBar(
+        title: Text('Shop'),
+        automaticallyImplyLeading: false, // Add this line
+      ),
       body: Center(child: Text('Shop Page')),
     );
   }
@@ -304,7 +307,10 @@ class PrintShackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Print Shack')),
+      appBar: AppBar(
+        title: Text('Print Shack'),
+        automaticallyImplyLeading: false, // Add this line
+      ),
       body: Center(child: Text('Print Shack Page')),
     );
   }
@@ -314,7 +320,10 @@ class SalePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sale')),
+      appBar: AppBar(
+        title: Text('Sale'),
+        automaticallyImplyLeading: false, // Add this line
+      ),
       body: Center(child: Text('Sale Page')),
     );
   }
@@ -324,7 +333,10 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('About')),
+      appBar: AppBar(
+        title: Text('About'),
+        automaticallyImplyLeading: false, // Add this line
+      ),
       body: Center(child: Text('About Page')),
     );
   }
