@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
@@ -137,6 +138,8 @@ class _HeroCarousel extends StatefulWidget {
 class _HeroCarouselState extends State<_HeroCarousel> {
   final PageController _controller = PageController();
   int _index = 0;
+  bool _paused = false;
+  Timer? _autoTimer;
 
   final List<_SlideData> _slides = [];
 
@@ -164,14 +167,14 @@ class _HeroCarouselState extends State<_HeroCarousel> {
         title: 'Hungry?',
         body: 'We got this 🍕',
         ctaLabel: 'ORDER DOMINO’S PIZZA NOW',
-        onTapRoute: '/sale', // placeholder route; change to external link if needed
+        onTapRoute: '/hungry', // temp page
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
         title: 'What’s your next move…',
         body: 'Are you with us?',
         ctaLabel: 'FIND YOUR STUDENT ACCOMMODATION',
-        onTapRoute: '/about', // placeholder; change to your accommodation route
+        onTapRoute: '/accommodation', // temp page
       ),
     ]);
 
@@ -181,10 +184,24 @@ class _HeroCarouselState extends State<_HeroCarousel> {
         setState(() => _index = newIndex);
       }
     });
+
+    _startAutoPlay();
+  }
+
+  void _startAutoPlay() {
+    _autoTimer?.cancel();
+    _autoTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (!_paused && mounted) _next();
+    });
+  }
+
+  void _togglePause() {
+    setState(() => _paused = !_paused);
   }
 
   @override
   void dispose() {
+    _autoTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -195,7 +212,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   }
 
   void _next() {
-    final target = (_index + 1).clamp(0, _slides.length - 1);
+    final target = (_index + 1) % _slides.length;
     _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
   }
 
@@ -211,7 +228,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
             itemCount: _slides.length,
             itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
           ),
-          // Arrow bar
+          // Arrow bar + dots + pause
           Positioned(
             left: 0,
             right: 0,
@@ -250,6 +267,12 @@ class _HeroCarouselState extends State<_HeroCarousel> {
                         onPressed: _next,
                         icon: const Icon(Icons.chevron_right, color: Colors.white),
                         tooltip: 'Next',
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(
+                        onPressed: _togglePause,
+                        icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
+                        tooltip: _paused ? 'Resume' : 'Pause',
                       ),
                     ],
                   ),
