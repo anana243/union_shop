@@ -24,7 +24,7 @@ void main() {
 
     final app = MaterialApp(
       routes: {
-        '/': (context) => Scaffold(body: ProductTile(product: product)),
+        '/': (context) => const Scaffold(body: ProductTile(product: product)),
         '/product': (context) => const ProductPage(),
       },
       initialRoute: '/',
