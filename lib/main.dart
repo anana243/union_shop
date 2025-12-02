@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
             child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 1)), // display is capitalized
           ),
         ],
-      ),
+      ), // Close AppBar
       body: SingleChildScrollView(
         child: Column(
           children: [
