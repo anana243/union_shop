@@ -232,25 +232,57 @@ class HomeScreen extends StatelessWidget {
                                 title: 'City Magnet 1',
                                 price: '£10.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product/city1'),
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/product',
+                                  arguments: {
+                                    'title': 'City Magnet 1',
+                                    'price': '£10.00',
+                                    'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  },
+                                ),
                               ),
                               HoverProductTile(
                                 title: 'City Magnet 2',
                                 price: '£15.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product/city2'),
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/product',
+                                  arguments: {
+                                    'title': 'City Magnet 2',
+                                    'price': '£15.00',
+                                    'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  },
+                                ),
                               ),
                               HoverProductTile(
                                 title: 'City Magnet 3',
                                 price: '£20.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product/city3'),
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/product',
+                                  arguments: {
+                                    'title': 'City Magnet 3',
+                                    'price': '£20.00',
+                                    'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  },
+                                ),
                               ),
                               HoverProductTile(
                                 title: 'City Magnet 4',
                                 price: '£25.00',
                                 imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                onTap: () => Navigator.pushNamed(context, '/product/city4'),
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/product',
+                                  arguments: {
+                                    'title': 'City Magnet 4',
+                                    'price': '£25.00',
+                                    'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  },
+                                ),
                               ),
                             ],
                           );
