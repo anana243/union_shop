@@ -87,7 +87,7 @@ class AppLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Expanded(child: _FooterHours()),
-          Expanded(child: _FooterHelp()),
+          Expanded(child: const _FooterHelp()),
           const Expanded(child: FooterSubscribeBox()),
         ],
       ),
@@ -144,7 +144,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/search'),
-            child: const HoverText(text: 'Search'),
+            child: HoverText(text: 'Search'),
           ),
         ),
         const SizedBox(height: 8),
@@ -152,7 +152,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/terms-and-conditions'),
-            child: const HoverText(text: 'Terms and Conditions'),
+            child: HoverText(text: 'Terms and Conditions'),
           ),
         ),
         const SizedBox(height: 8),
@@ -160,7 +160,7 @@ class _FooterHelp extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => go('/refund-policy'),
-            child: const HoverText(text: 'Refund Policy'),
+            child: HoverText(text: 'Refund Policy'),
           ),
         ),
       ],
