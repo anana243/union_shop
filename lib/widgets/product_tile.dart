@@ -26,7 +26,6 @@ class _ProductTileState extends State<ProductTile> {
           onTap: () => Navigator.pushNamed(context, '/product', arguments: p.toArgs()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
               ConstrainedBox(
                 constraints: const BoxConstraints(
@@ -62,6 +61,7 @@ class _ProductTileState extends State<ProductTile> {
               Text(
                 p.title,
                 maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
