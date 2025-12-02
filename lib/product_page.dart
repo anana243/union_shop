@@ -13,6 +13,12 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    final title = args?['title'] as String? ?? 'Product';
+    final price = args?['price'] as String? ?? '';
+    final imageUrl = args?['imageUrl'] as String? ?? '';
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
