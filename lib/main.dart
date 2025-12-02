@@ -49,74 +49,182 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Union Shop', style: TextStyle(fontSize: 16)),
         backgroundColor: const Color(0xFF4d2963),
-        toolbarHeight: 56, // Standard mobile height
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/');
-            },
+            onPressed: () => Navigator.pushNamed(context, '/'),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 8), // Reduce padding
-              minimumSize: Size(50, 40), // Smaller button size
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
             ),
-            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)),
+            child: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/shop'); // route is lowercase
-            },
+            onPressed: () => Navigator.pushNamed(context, '/shop'),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              minimumSize: Size(50, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
             ),
-            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display is capitalized
+            child: const Text('Shop', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/print-shack'); // route is lowercase with hyphen
-            },
+            onPressed: () => Navigator.pushNamed(context, '/print-shack'),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 6),
-              minimumSize: Size(50, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              minimumSize: const Size(40, 36),
             ),
-            child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display as you want
+            child: const Text('Print', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/sale'); // Add this
-            },
+            onPressed: () => Navigator.pushNamed(context, '/sale'),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              minimumSize: Size(50, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
             ),
-            child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display with exclamation
+            child: const Text('Sale', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/about'); // Add this
-            },
+            onPressed: () => Navigator.pushNamed(context, '/about'),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              minimumSize: Size(50, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              minimumSize: const Size(40, 36),
             ),
-            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0.5)), // display is capitalized
+            child: const Text('About', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
         ],
       ), // Close AppBar
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Welcome to Union Shop',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // Hero Section (keep this)
+            SizedBox(
+              height: 400,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  // Background image
+                  Positioned.fill(
+                    child: Image.network(
+                      'https://example.com/your-background-image.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  // Gradient overlay
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black54,
+                          Colors.black26,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
+                  // Content in the hero section
+                  Positioned(
+                    top: 50,
+                    left: 20,
+                    right: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Discover the',
+                          style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          'Best Products',
+                          style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/shop');
+                          },
+                          child: const Text('Shop Now'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                            backgroundColor: const Color(0xFF4d2963),
+                            textStyle: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/shop');
-              },
-              child: Text('BROWSE PRODUCTS'),
+
+            // Products Section (keep this)
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Featured Products',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return ProductCard(
+                          title: 'Product ${index + 1}',
+                          price: '\$${(index + 1) * 10}',
+                          imageUrl: 'https://example.com/product${index + 1}-image.jpg',
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Footer (keep this)
+            Container(
+              color: const Color(0xFF4d2963),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const Text(
+                    'Union Shop',
+                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Your one-stop shop for the best products',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(context, '/about'),
+                        child: const Text('About Us', style: TextStyle(color: Colors.white)),
+                      ),
+                      const SizedBox(width: 16),
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(context, '/contact'),
+                        child: const Text('Contact', style: TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
