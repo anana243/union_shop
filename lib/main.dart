@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/product_page.dart';
+import 'app_layout.dart';
+import 'widgets/hover_product_tile.dart';
+import 'widgets/hover_text.dart';
+import 'widgets/footer_subscribe_box.dart';
+import 'product_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -19,18 +23,20 @@ class UnionShopApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
-        '/shop': (context) => ShopPage(),
-        '/print-shack': (context) => PrintShackPage(),
-        '/sale': (context) => SalePage(),
-        '/about': (context) => AboutPage(),
+        '/shop': (context) => const ShopPage(),
+        '/print-shack': (context) => const PrintShackPage(),
+        '/sale': (context) => const SalePage(),
+        '/about': (context) => const AboutPage(),
         '/products': (context) => const AppLayout(
           title: 'Union',
           child: Center(
             child: Text('All Products Page (coming soon)', style: TextStyle(fontSize: 20)),
           ),
         ),
-        // Use the actual ProductPage from product_page.dart
-        '/product': (context) => const ProductPage(), // ensure ProductPage has a const/default constructor
+        '/search': (context) => const SearchPage(),
+        '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
+        '/refund-policy': (context) => const RefundPolicyPage(),
+        '/product': (context) => const ProductPage(),
       },
     );
   }
