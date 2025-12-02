@@ -28,11 +28,10 @@ class _ProductTileState extends State<ProductTile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Slightly larger but bounded image, centered feel
               ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: 340,
-                  maxHeight: 260,
+                  maxWidth: 360,
+                  maxHeight: 280,
                 ),
                 child: AspectRatio(
                   aspectRatio: 1,
@@ -64,16 +63,13 @@ class _ProductTileState extends State<ProductTile> {
                 p.title,
                 maxLines: 2,
                 style: TextStyle(
-                  fontSize: 15, // slightly bigger
+                  fontSize: 15,
                   color: Colors.black,
                   decoration: _hover ? TextDecoration.underline : TextDecoration.none,
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
-                p.price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-              ),
+              Text(p.price, style: const TextStyle(fontSize: 13, color: Colors.grey)),
             ],
           ),
         ),
