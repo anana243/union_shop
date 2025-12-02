@@ -4,10 +4,29 @@ import 'pages/shop_page.dart';
 import 'pages/print_shack_page.dart';
 import 'pages/sale_page.dart';
 import 'pages/about_page.dart';
-import 'pages/search_page.dart';
-import 'pages/terms_and_conditions_page.dart';
-import 'pages/refund_policy_page.dart';
-import 'product_page.dart';
+
+// Temporary pages
+class HungryPage extends StatelessWidget {
+  const HungryPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Hungry')),
+      body: const Center(child: Text('Temporary Hungry page — replace with external link later.')),
+    );
+  }
+}
+
+class AccommodationPage extends StatelessWidget {
+  const AccommodationPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Accommodation')),
+      body: const Center(child: Text('Temporary Accommodation page — replace with real route later.')),
+    );
+  }
+}
 
 void main() {
   runApp(const UnionShopApp());
@@ -21,24 +40,20 @@ class UnionShopApp extends StatelessWidget {
     return MaterialApp(
       title: 'Union Shop',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
-      ),
-      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/shop': (context) => const ShopPage(),
         '/print-shack': (context) => const PrintShackPage(),
         '/sale': (context) => const SalePage(),
         '/about': (context) => const AboutPage(),
-        '/search': (context) => const SearchPage(),
-        '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
-        '/refund-policy': (context) => const RefundPolicyPage(),
-        '/products': (context) => const Scaffold(
-              body: Center(child: Padding(padding: EdgeInsets.all(40), child: Text('All Products Page (coming soon)', style: TextStyle(fontSize: 20)))),
-            ),
-        '/product': (context) => const ProductPage(),
+        '/hungry': (context) => const HungryPage(), // temp
+        '/accommodation': (context) => const AccommodationPage(), // temp
       },
+      initialRoute: '/',
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light(primary: Color(0xFF4d2963)),
+        useMaterial3: true,
+      ),
     );
   }
 }
