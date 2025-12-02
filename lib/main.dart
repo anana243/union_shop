@@ -8,7 +8,7 @@ import 'pages/search_page.dart';
 import 'pages/terms_and_conditions_page.dart';
 import 'pages/refund_policy_page.dart';
 import 'pages/sign_in_page.dart';
-import 'product_page.dart';
+import 'pages/product_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
