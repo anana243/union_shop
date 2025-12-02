@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'test_helper.dart';
 
 import 'package:union_shop/product_page.dart';
 
 void main() {
-  testWidgets('ProductPage displays route args (title, price, image)', (tester) async {
+  setupTests();
+
+  testWidgets('ProductPage displays route args', (tester) async {
     final app = MaterialApp(
       routes: {'/product': (context) => const ProductPage()},
-      // Provide route settings with args
       home: Builder(
         builder: (context) {
           Future.microtask(() {
             Navigator.pushNamed(context, '/product', arguments: {
               'title': 'Test Product',
               'price': '£99.99',
-              'imageUrl': 'https://example.com/image.png', // won’t load in tests; that’s OK
+              'imageUrl': 'https://example.com/image.png',
             });
           });
           return const SizedBox.shrink();
@@ -22,8 +24,8 @@ void main() {
       ),
     );
 
-    await tester.pump(); // build
-    await tester.pump(const Duration(milliseconds: 100)); // allow navigation
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('Test Product'), findsOneWidget);
     expect(find.text('£99.99'), findsOneWidget);
