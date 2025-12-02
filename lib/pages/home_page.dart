@@ -246,119 +246,106 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final isPhone = w < 600;
-    final sidePadding = isPhone ? 24.0 : 16.0;
-    final maxWidth = isPhone ? 520.0 : 1100.0;
-    final height = isPhone ? 240.0 : 320.0; // smaller on phone
+    final height = isPhone ? 300.0 : 340.0; // smaller than before
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sidePadding),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: height,
-                child: NotificationListener<ScrollNotification>(
-                  onNotification: (notification) {
-                    if (notification is ScrollUpdateNotification) {
-                      _pauseForUser();
-                    } else if (notification is ScrollEndNotification) {
-                      _restartAutoAfterIdle();
-                    }
-                    return false;
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8), // soften edges
-                    child: Stack(
-                      children: [
-                        PageView.builder(
-                          controller: _controller,
-                          itemCount: _slides.length,
-                          itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
-                        ),
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          bottom: 8,
-                          child: Center(
+    return SizedBox(
+      height: height,
+      width: double.infinity,
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            _pauseForUser();
+          } else if (notification is ScrollEndNotification) {
+            _restartAutoAfterIdle();
+          }
+          return false;
+        },
+        child: Stack(
+          children: [
+            // Full-bleed hero image with overlay
+            PageView.builder(
+              controller: _controller,
+              itemCount: _slides.length,
+              itemBuilder: (context, i) => _HeroSlide(data: _slides[i]),
+            ),
+
+            // Minimal control cluster centered near bottom
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 10,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.35),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Left arrow close to dots
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: _prev,
+                        icon: const Icon(Icons.chevron_left, color: Colors.white, size: 20),
+                        tooltip: 'Previous',
+                      ),
+                      const SizedBox(width: 6),
+
+                      // Dots (clickable)
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(_slides.length, (i) {
+                          final active = i == _index;
+                          return GestureDetector(
+                            onTap: () => _jumpTo(i),
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                              color: Colors.black.withOpacity(0.35),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: _prev,
-                                    icon: const Icon(Icons.chevron_left, color: Colors.white),
-                                    tooltip: 'Previous',
-                                  ),
-                                  const Spacer(),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: List.generate(_slides.length, (i) {
-                                      final active = i == _index;
-                                      return GestureDetector(
-                                        onTap: () => _jumpTo(i),
-                                        child: Container(
-                                          width: active ? 10 : 8,
-                                          height: active ? 10 : 8,
-                                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: active ? Colors.white : Colors.white.withOpacity(0.6),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                                  ),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: _next,
-                                    icon: const Icon(Icons.chevron_right, color: Colors.white),
-                                    tooltip: 'Next',
-                                  ),
-                                  const SizedBox(width: 8),
-                                  IconButton(
-                                    onPressed: _togglePause,
-                                    icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white),
-                                    tooltip: _paused ? 'Resume' : 'Pause',
-                                  ),
-                                ],
+                              width: active ? 10 : 8,
+                              height: active ? 10 : 8,
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: active ? Colors.white : Colors.white.withOpacity(0.6),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          );
+                        }),
+                      ),
+
+                      const SizedBox(width: 6),
+                      // Right arrow close to dots
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: _next,
+                        icon: const Icon(Icons.chevron_right, color: Colors.white, size: 20),
+                        tooltip: 'Next',
+                      ),
+
+                      const SizedBox(width: 8),
+                      // Pause/play close to dots
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: _togglePause,
+                        icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white, size: 20),
+                        tooltip: _paused ? 'Resume' : 'Pause',
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 16), // margin so below links aren’t covered
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class _SlideData {
-  final String imageUrl;
-  final String title;
-  final String body;
-  final String ctaLabel;
-  final String onTapRoute;
-
-  const _SlideData({
-    required this.imageUrl,
-    required this.title,
-    required this.body,
-    required this.ctaLabel,
-    required this.onTapRoute,
-  });
-}
-
+// Keep _HeroSlide full-width and revert any extra clipping/padding previously added
 class _HeroSlide extends StatelessWidget {
   final _SlideData data;
   const _HeroSlide({required this.data});
@@ -372,7 +359,7 @@ class _HeroSlide extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(data.imageUrl),
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // full-width image
               ),
             ),
             child: Container(color: Colors.black.withOpacity(0.65)),
@@ -381,38 +368,31 @@ class _HeroSlide extends StatelessWidget {
         Positioned(
           left: 24,
           right: 24,
-          top: 80,
+          top: 60, // slightly higher to keep controls unobstructed
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 data.title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 12),
               Text(
                 data.body,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 17, color: Colors.white),
               ),
-              const SizedBox(height: 26),
+              const SizedBox(height: 22),
               ElevatedButton(
                 onPressed: () => Navigator.pushReplacementNamed(context, data.onTapRoute),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                 ),
-                child: Text(
-                  data.ctaLabel,
-                  style: const TextStyle(fontSize: 14, letterSpacing: 0.8),
-                ),
+                child: Text(data.ctaLabel, style: const TextStyle(fontSize: 13, letterSpacing: 0.6)),
               ),
             ],
           ),
