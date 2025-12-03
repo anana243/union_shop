@@ -4,6 +4,7 @@ import '../models/product.dart';
 import '../services/product_repository.dart';
 import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
+import '../constants.dart';
 
 class PortsmouthCityPage extends StatelessWidget {
   const PortsmouthCityPage({super.key});
@@ -17,10 +18,7 @@ class PortsmouthCityPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const HeroCarousel(
-            imageUrl:
-                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          ),
+          const HeroCarousel(imageUrl: kHeroImageUrl),
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: ConstrainedBox(
