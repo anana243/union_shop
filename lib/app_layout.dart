@@ -33,7 +33,7 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: isMobile,
         title: isMobile
             ? Text(widget.title)
             : Row(
@@ -72,7 +72,7 @@ class _AppLayoutState extends State<AppLayout> {
         actions: [
           if (_searchOpen && !isMobile)
             Container(
-              width: 300,
+              width: 200,
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
                 controller: _searchController,
