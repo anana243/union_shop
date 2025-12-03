@@ -284,10 +284,9 @@ class _SignInPageState extends State<SignInPage> {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         side: BorderSide(color: Colors.grey[400]!),
                       ),
-                      icon: Image.network(
-                        'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
-                        height: 20,
-                        width: 20,
+                      icon: const Icon(
+                        Icons.login,
+                        size: 20,
                       ),
                       label: const Text(
                         'Continue with Google',
