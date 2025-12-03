@@ -31,7 +31,7 @@ class _AppLayoutState extends State<AppLayout> {
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
         // Remove redundant desktop Home icon
-        leading: isMobile ? null : null,
+        leading: MediaQuery.of(context).size.width < 900 ? null : null,
         title: isMobile
             ? Text(widget.title)
             : Row(
@@ -136,7 +136,6 @@ class _AppLayoutState extends State<AppLayout> {
 
 class _Footer extends StatelessWidget {
   const _Footer();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -147,7 +146,6 @@ class _Footer extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 1100),
           child: Wrap(
             alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 20,
             runSpacing: 10,
             children: const [
