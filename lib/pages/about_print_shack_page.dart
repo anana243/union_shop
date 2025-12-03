@@ -25,7 +25,8 @@ class AboutPrintShackPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Text(
                       'The Union Print Shack',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 12),
                     const Text(
@@ -34,7 +35,8 @@ class AboutPrintShackPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 28),
                     const Text('Our Services',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 12),
                     _buildServiceItem(
                       'Personalized Text',
