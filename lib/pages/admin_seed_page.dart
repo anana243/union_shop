@@ -31,6 +31,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'city-postcard',
           'collections': ['city'],
           'featured': false,
+          'subtitle': 'Illustrated postcard by Julia Gash',
         },
         {
           'title': 'City Keyring',
@@ -39,6 +40,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'city-keyring',
           'collections': ['city'],
           'featured': false,
+          'subtitle': 'Portsmouth skyline keyring',
         },
         {
           'title': 'City Badge',
@@ -47,6 +49,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'city-badge',
           'collections': ['city'],
           'featured': false,
+          'subtitle': 'Pin badge from the City Collection',
         },
       ];
 
@@ -87,6 +90,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'signature-hoodie',
           'collections': ['clothing', 'signature'],
           'featured': true,
+          'subtitle': 'Premium fit with embroidered crest',
         },
         {
           'title': 'Essential T-Shirt',
@@ -95,6 +99,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'essential-tee',
           'collections': ['clothing', 'essential'],
           'featured': true,
+          'subtitle': 'Everyday cotton tee',
         },
         {
           'title': 'Varsity Sweatshirt',
@@ -103,6 +108,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'varsity-sweatshirt',
           'collections': ['clothing'],
           'featured': false,
+          'subtitle': 'Classic campus style',
         },
       ];
 
@@ -143,6 +149,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'julia-gash-mug',
           'collections': ['merchandise', 'city'],
           'featured': false,
+          'subtitle': 'City skyline ceramic mug',
         },
         {
           'title': 'UPSU Tote Bag',
@@ -151,6 +158,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'upsu-tote-bag',
           'collections': ['merchandise', 'upsu'],
           'featured': false,
+          'subtitle': 'Reusable cotton tote',
         },
         {
           'title': 'City Magnet',
@@ -159,6 +167,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'city-magnet',
           'collections': ['merchandise', 'city'],
           'featured': true,
+          'subtitle': 'Fridge magnet featuring Portsmouth',
         },
       ];
 
@@ -199,6 +208,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'clearance-hoodie',
           'collections': ['clothing', 'sale'],
           'featured': false,
+          'subtitle': 'Last season special',
         },
         {
           'title': 'Sale Mug',
@@ -207,6 +217,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'slug': 'sale-mug',
           'collections': ['merchandise', 'sale'],
           'featured': false,
+          'subtitle': 'Discounted drinkware',
         },
       ];
 
