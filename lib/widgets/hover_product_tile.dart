@@ -36,7 +36,8 @@ class _HoverProductTileState extends State<HoverProductTile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 300, maxHeight: 220),
+                constraints:
+                    const BoxConstraints(maxWidth: 300, maxHeight: 220),
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Stack(
@@ -49,12 +50,14 @@ class _HoverProductTileState extends State<HoverProductTile> {
                           return Container(
                             color: Colors.grey[300],
                             child: const Center(
-                              child: Icon(Icons.image_not_supported, color: Colors.grey),
+                              child: Icon(Icons.image_not_supported,
+                                  color: Colors.grey),
                             ),
                           );
                         },
                       ),
-                      if (_hover) Container(color: Colors.black.withOpacity(0.15)),
+                      if (_hover)
+                        Container(color: Colors.black.withOpacity(0.15)),
                     ],
                   ),
                 ),
@@ -66,11 +69,13 @@ class _HoverProductTileState extends State<HoverProductTile> {
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
-                  decoration: _hover ? TextDecoration.underline : TextDecoration.none,
+                  decoration:
+                      _hover ? TextDecoration.underline : TextDecoration.none,
                 ),
               ),
               const SizedBox(height: 6),
-              Text(widget.price, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+              Text(widget.price,
+                  style: const TextStyle(fontSize: 13, color: Colors.grey)),
             ],
           ),
         ),
