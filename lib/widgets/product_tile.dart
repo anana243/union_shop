@@ -16,6 +16,8 @@ class _ProductTileState extends State<ProductTile> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print('Product imageUrl: ${widget.product.imageUrl}');
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hover = true),
