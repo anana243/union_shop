@@ -12,7 +12,7 @@ void main() {
     testWidgets('renders with title', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ShopPage(),
+          home: SizedBox(width: 1200, child: ShopPage()),
         ),
       );
 
@@ -22,7 +22,7 @@ void main() {
     testWidgets('has filter dropdown', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ShopPage(),
+          home: SizedBox(width: 1200, child: ShopPage()),
         ),
       );
 
@@ -33,7 +33,7 @@ void main() {
     testWidgets('has sort dropdown', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ShopPage(),
+          home: SizedBox(width: 1200, child: ShopPage()),
         ),
       );
 
@@ -51,7 +51,9 @@ void main() {
 
       // Tap the filter dropdown
       await tester.tap(find.text('All Products'));
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Clothing'), findsOneWidget);
       expect(find.text('Merchandise'), findsOneWidget);
@@ -65,13 +67,15 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ShopPage(),
+          home: SizedBox(width: 1200, child: ShopPage()),
         ),
       );
 
       // Tap the sort dropdown
       await tester.tap(find.text('Featured'));
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Alphabetically, A-Z'), findsOneWidget);
       expect(find.text('Alphabetically, Z-A'), findsOneWidget);
