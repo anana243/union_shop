@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
+import '../constants.dart';
 import '../models/product.dart';
 import '../services/product_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static const _heroImageUrl =
-      'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561';
+  static const _heroImageUrl = kHeroImageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +218,7 @@ class _RangeCardState extends State<_RangeCard> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
-        onTap: () => Navigator.pushReplacementNamed(context, widget.route),
+        onTap: () => Navigator.pushNamed(context, widget.route),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: widget.maxWidth),
           child: AspectRatio(
@@ -285,8 +285,7 @@ class _PersonalizeSplit extends StatelessWidget {
                       style: TextStyle(fontSize: 15)),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushReplacementNamed(context, '/print-shack'),
+                    onPressed: () => Navigator.pushNamed(context, '/print-shack'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4d2963),
                       foregroundColor: Colors.white,
@@ -320,8 +319,7 @@ class _PersonalizeSplit extends StatelessWidget {
                 textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, '/print-shack'),
+                onPressed: () => Navigator.pushNamed(context, '/print-shack'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
