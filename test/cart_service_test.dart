@@ -53,7 +53,7 @@ void main() {
       expect(items.first.quantity, equals(3));
     });
 
-    test('remove product from cart decreases quantity', () {
+    test('remove product from cart removes entire item', () {
       const product = Product(
         id: '1',
         title: 'Test Product',
@@ -66,7 +66,8 @@ void main() {
       cartService.add(product);
       cartService.remove(product);
 
-      expect(cartService.count, equals(1));
+      expect(cartService.count, equals(0));
+      expect(cartService.items.length, equals(0));
     });
 
     test('remove last item removes product from cart', () {
