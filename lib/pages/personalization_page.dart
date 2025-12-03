@@ -11,6 +11,7 @@ class PersonalizationPage extends StatefulWidget {
 class _PersonalizationPageState extends State<PersonalizationPage> {
   String _selectedOption = '1 Line of Text';
   final _textController = TextEditingController();
+  int _quantity = 1;
 
   final Map<String, double> _priceMap = {
     '1 Line of Text': 3.00,
@@ -139,6 +140,40 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                           ),
                         ),
                       ],
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Quantity',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              if (_quantity > 1) {
+                                setState(() => _quantity--);
+                              }
+                            },
+                            icon: const Icon(Icons.remove_circle_outline),
+                          ),
+                          Text(
+                            '$_quantity',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() => _quantity++);
+                            },
+                            icon: const Icon(Icons.add_circle_outline),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
