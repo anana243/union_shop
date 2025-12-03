@@ -16,8 +16,9 @@ void main() {
     addTearDown(() => tester.view.resetDevicePixelRatio());
 
     const product = Product(
+      id: '1',
       title: 'Tile Product',
-      price: '£12.00',
+      price: 12.00,
       imageUrl: 'https://example.com/image.png',
       slug: 'tile-product',
     );
