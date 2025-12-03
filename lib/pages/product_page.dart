@@ -41,12 +41,8 @@ class ProductPage extends StatelessWidget {
                           child: Image.network(
                             product.imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.image_not_supported, size: 50),
-                              );
-                            },
+                            errorBuilder: (context, error, stackTrace) =>
+                                Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
                           ),
                         ),
                       ),
@@ -96,12 +92,8 @@ class ProductPage extends StatelessWidget {
                         child: Image.network(
                           product.imageUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              child: const Icon(Icons.image_not_supported, size: 50),
-                            );
-                          },
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
                         ),
                       ),
                       const SizedBox(height: 24),
