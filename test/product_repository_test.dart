@@ -1,8 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/services/product_repository.dart';
 import 'package:union_shop/models/product.dart';
+import 'test_helper.dart';
 
 void main() {
+  setUpAll(() {
+    setupFirebaseTest();
+  });
+
   group('ProductRepository', () {
     late ProductRepository repo;
 
