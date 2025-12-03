@@ -2,7 +2,7 @@ class Product {
   final String id;
   final String title;
   final String imageUrl;
-  final double price; // store as number in DB
+  final double price;
   final String slug;
 
   const Product({
