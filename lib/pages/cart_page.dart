@@ -61,18 +61,18 @@ class CartPage extends StatelessWidget {
                           width: 56,
                           height: 56,
                           child: Image.network(
-                            p.imageUrl,
+                            p.product.imageUrl,
                             fit: BoxFit.cover,
                             errorBuilder: (c, e, s) => Container(
                                 color: Colors.grey[300],
                                 child: const Icon(Icons.image)),
                           ),
                         ),
-                        title: Text(p.title),
-                        subtitle: Text('£${p.price.toStringAsFixed(2)}'),
+                        title: Text(p.product.title),
+                        subtitle: Text('£${p.product.price.toStringAsFixed(2)}'),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete_outline),
-                          onPressed: () => CartService.instance.remove(p),
+                          onPressed: () => CartService.instance.remove(p.product),
                         ),
                       );
                     },
