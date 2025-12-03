@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../models/product.dart';
 import '../services/product_repository.dart';
-import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
 import '../constants.dart';
 import '../widgets/product_grid.dart';
