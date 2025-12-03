@@ -117,7 +117,7 @@ class _ClothingPageState extends State<ClothingPage> {
                     );
                   }
 
-                  final allProducts = snapshot.data ?? [];
+                  final allProducts = List<Product>.from(snapshot.data ?? []);
                   if (allProducts.isEmpty) {
                     return const Center(
                       child: Padding(
@@ -128,7 +128,26 @@ class _ClothingPageState extends State<ClothingPage> {
                     );
                   }
 
-                  final totalPages =
+                  // Basic client-side sorting
+                  switch (_sortBy) {
+                    case 'A-Z':
+                      allProducts.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+                      break;
+                    case 'Z-A':
+                      allProducts.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+                      break;
+                    case 'Price Low':
+                      allProducts.sort((a, b) => a.price.compareTo(b.price));
+                      break;
+                    case 'Price High':
+                      allProducts.sort((a, b) => b.price.compareTo(a.price));
+                      break;
+                    // Featured/Best Selling/Date sorts are placeholders without data fields
+                    default:
+                      break;
+                  }
+
+                    final totalPages =
                       (allProducts.length / _itemsPerPage).ceil();
                   final startIndex = (_currentPage - 1) * _itemsPerPage;
                   final endIndex =
