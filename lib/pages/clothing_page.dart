@@ -14,6 +14,8 @@ class ClothingPage extends StatefulWidget {
 class _ClothingPageState extends State<ClothingPage> {
   String _filterBy = 'All Products';
   String _sortBy = 'Featured';
+  int _currentPage = 1;
+  final int _itemsPerPage = 12;
 
   @override
   Widget build(BuildContext context) {
