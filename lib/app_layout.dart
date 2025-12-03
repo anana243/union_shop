@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'widgets/footer_subscribe_box.dart';
+import 'services/cart_service.dart';
 
 class AppLayout extends StatefulWidget {
   final String title;
@@ -31,7 +32,7 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        leading: isMobile ? null : null, // no redundant home icon
+        leading: isMobile ? null : null,
         title: isMobile
             ? Text(widget.title)
             : Row(
@@ -64,14 +65,48 @@ class _AppLayoutState extends State<AppLayout> {
                 ),
               ),
             ),
-          IconButton(icon: Icon(_searchOpen ? Icons.close : Icons.search), tooltip: 'Search', onPressed: () {
-            setState(() {
-              _searchOpen = !_searchOpen;
-              if (!_searchOpen) _searchController.clear();
-            });
-          }),
-          IconButton(icon: const Icon(Icons.shopping_cart_outlined), tooltip: 'Cart', onPressed: () => Navigator.pushNamed(context, '/cart')),
-          IconButton(icon: const Icon(Icons.person_outline), tooltip: 'Account', onPressed: () => Navigator.pushNamed(context, '/sign-in')),
+          IconButton(
+            icon: Icon(_searchOpen ? Icons.close : Icons.search),
+            tooltip: 'Search',
+            onPressed: () {
+              setState(() {
+                _searchOpen = !_searchOpen;
+                if (!_searchOpen) _searchController.clear();
+              });
+            },
+          ),
+          // Cart icon with badge
+          AnimatedBuilder(
+            animation: CartService.instance,
+            builder: (context, _) {
+              final count = CartService.instance.count;
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart_outlined),
+                    tooltip: 'Cart',
+                    onPressed: () => Navigator.pushNamed(context, '/cart'),
+                  ),
+                  if (count > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10)),
+                        child: Text('$count', style: const TextStyle(color: Colors.white, fontSize: 11)),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.person_outline),
+            tooltip: 'Account',
+            onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+          ),
           const SizedBox(width: 8),
         ],
       ),
@@ -89,10 +124,11 @@ class _AppLayoutState extends State<AppLayout> {
               ),
             )
           : null,
+      // Footer pinned at bottom, only visible after scrolling down
       body: Column(
         children: [
           Expanded(child: SingleChildScrollView(child: widget.child)),
-          const _Footer(), // sits at bottom; only visible when scrolled down
+          const _Footer(),
         ],
       ),
     );
