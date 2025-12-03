@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
+import '../services/product_repository.dart';
+import '../models/product.dart';
+import '../widgets/product_tile.dart';
 
 class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
@@ -91,6 +94,41 @@ class _ClothingPageState extends State<ClothingPage> {
                     const Text('0 products', style: TextStyle(fontSize: 14)),
                   ],
                 ),
+              ),
+              const SizedBox(height: 32),
+              FutureBuilder<List<Product>>(
+                future: ProductRepository().listByCollection('clothing'),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(40.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  
+                  final products = snapshot.data ?? [];
+                  if (products.isEmpty) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(40.0),
+                        child: Text('No products available yet',
+                            style: TextStyle(fontSize: 16, color: Colors.grey)),
+                      ),
+                    );
+                  }
+                  
+                  return Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 24,
+                    runSpacing: 24,
+                    children: products.map((p) => ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 220),
+                      child: ProductTile(product: p),
+                    )).toList(),
+                  );
+                },
               ),
             ],
           ),
