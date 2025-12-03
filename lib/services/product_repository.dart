@@ -33,6 +33,11 @@ class ProductRepository {
     return q.docs.map((d) => Product.fromMap(d.id, d.data())).toList();
   }
 
+  Future<List<Product>> listAll({int limit = 100}) async {
+    final q = await _col.limit(limit).get();
+    return q.docs.map((d) => Product.fromMap(d.id, d.data())).toList();
+  }
+
   Future<Product?> getBySlug(String slug) async {
     final q = await _col.where('slug', isEqualTo: slug).limit(1).get();
     if (q.docs.isEmpty) return null;
