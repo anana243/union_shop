@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
-import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
 import '../constants.dart';
+import '../widgets/product_grid.dart';
 import '../models/product.dart';
 import '../services/product_repository.dart';
 
@@ -120,31 +120,9 @@ class _Section extends StatelessWidget {
             }
 
             if (cityLayout) {
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 1.0,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, i) => ProductTile(product: products[i]),
-              );
+              return ProductGrid(products: products, twoColumnGrid: true);
             }
-
-            return Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 24,
-              runSpacing: 24,
-              children: products
-                  .map((p) => ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 220),
-                        child: ProductTile(product: p),
-                      ))
-                  .toList(),
-            );
+            return ProductGrid(products: products);
           },
         ),
       ],
