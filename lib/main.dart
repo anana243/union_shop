@@ -12,6 +12,7 @@ import 'pages/refund_policy_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/product_page.dart';
 import 'pages/cart_page.dart';
+import 'pages/checkout_success_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
@@ -20,7 +21,9 @@ class HungryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Hungry')),
-      body: const Center(child: Text('Temporary Hungry page — replace with external link later.')),
+      body: const Center(
+          child: Text(
+              'Temporary Hungry page — replace with external link later.')),
     );
   }
 }
@@ -31,7 +34,9 @@ class AccommodationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Accommodation')),
-      body: const Center(child: Text('Temporary Accommodation page — replace with real route later.')),
+      body: const Center(
+          child: Text(
+              'Temporary Accommodation page — replace with real route later.')),
     );
   }
 }
@@ -62,6 +67,7 @@ class UnionShopApp extends StatelessWidget {
         '/sign-in': (context) => const SignInPage(),
         '/product': (context) => const ProductPage(),
         '/cart': (context) => const CartPage(),
+        '/checkout-success': (context) => const CheckoutSuccessPage(),
         '/hungry': (context) => const HungryPage(),
         '/accommodation': (context) => const AccommodationPage(),
       },
