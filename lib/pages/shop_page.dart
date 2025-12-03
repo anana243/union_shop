@@ -12,26 +12,23 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
-  String _filterBy = 'All Products';
+  static const List<_Filter> _filters = [
+    _Filter('All Products', null),
+    _Filter('Clothing', 'clothing'),
+    _Filter('Merchandise', 'merchandise'),
+    _Filter('Portsmouth City Collection', 'city'),
+    _Filter('University Merch', 'upsu'),
+    _Filter('Signature Range', 'signature'),
+    _Filter('Essential Range', 'essential'),
+  ];
+
+  String _filterBy = _filters.first.label;
   String _sortBy = 'Featured';
 
   Future<List<Product>> _load(ProductRepository repo) {
-    switch (_filterBy) {
-      case 'Clothing':
-        return repo.listByCollection('clothing');
-      case 'Merchandise':
-        return repo.listByCollection('merchandise');
-      case 'Portsmouth City Collection':
-        return repo.listByCollection('city');
-      case 'University Merch':
-        return repo.listByCollection('upsu');
-      case 'Signature Range':
-        return repo.listByCollection('signature');
-      case 'Essential Range':
-        return repo.listByCollection('essential');
-      default:
-        return repo.listAll(limit: 100);
-    }
+    final f = _filters.firstWhere((e) => e.label == _filterBy);
+    if (f.collection == null) return repo.listAll(limit: 100);
+    return repo.listByCollection(f.collection!);
   }
 
   void _sort(List<Product> items) {
@@ -87,15 +84,12 @@ class _ShopPageState extends State<ShopPage> {
                     DropdownButton<String>(
                       value: _filterBy,
                       underline: Container(),
-                      items: const [
-                        DropdownMenuItem(value: 'All Products', child: Text('All Products')),
-                        DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
-                        DropdownMenuItem(value: 'Merchandise', child: Text('Merchandise')),
-                        DropdownMenuItem(value: 'Portsmouth City Collection', child: Text('Portsmouth City Collection')),
-                        DropdownMenuItem(value: 'University Merch', child: Text('University Merch')),
-                        DropdownMenuItem(value: 'Signature Range', child: Text('Signature Range')),
-                        DropdownMenuItem(value: 'Essential Range', child: Text('Essential Range')),
-                      ],
+                      items: _filters
+                          .map((f) => DropdownMenuItem(
+                                value: f.label,
+                                child: Text(f.label),
+                              ))
+                          .toList(),
                       onChanged: (value) => setState(() => _filterBy = value!),
                     ),
                     const SizedBox(width: 24),
@@ -160,4 +154,10 @@ class _ShopPageState extends State<ShopPage> {
       ),
     );
   }
+}
+
+class _Filter {
+  final String label;
+  final String? collection;
+  const _Filter(this.label, this.collection);
 }
