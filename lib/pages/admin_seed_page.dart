@@ -69,6 +69,166 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
     }
   }
 
+  Future<void> _seedClothingProducts() async {
+    setState(() {
+      _isLoading = true;
+      _message = '';
+    });
+
+    try {
+      final db = FirebaseFirestore.instance;
+      final batch = db.batch();
+
+      final items = [
+        {
+          'title': 'Signature Hoodie',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 35.00,
+          'slug': 'signature-hoodie',
+          'collections': ['clothing', 'signature'],
+          'featured': true,
+        },
+        {
+          'title': 'Essential T-Shirt',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 12.00,
+          'slug': 'essential-tee',
+          'collections': ['clothing', 'essential'],
+          'featured': true,
+        },
+        {
+          'title': 'Varsity Sweatshirt',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 28.00,
+          'slug': 'varsity-sweatshirt',
+          'collections': ['clothing'],
+          'featured': false,
+        },
+      ];
+
+      for (final product in items) {
+        final docRef = db.collection('products').doc(product['slug'] as String);
+        batch.set(docRef, product);
+      }
+
+      await batch.commit();
+
+      setState(() {
+        _isLoading = false;
+        _message = 'Added clothing/signature/essential demo products.';
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _message = 'Error: $e';
+      });
+    }
+  }
+
+  Future<void> _seedMerchandiseProducts() async {
+    setState(() {
+      _isLoading = true;
+      _message = '';
+    });
+
+    try {
+      final db = FirebaseFirestore.instance;
+      final batch = db.batch();
+
+      final items = [
+        {
+          'title': 'Julia Gash Mug',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 9.00,
+          'slug': 'julia-gash-mug',
+          'collections': ['merchandise', 'city'],
+          'featured': false,
+        },
+        {
+          'title': 'UPSU Tote Bag',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 6.00,
+          'slug': 'upsu-tote-bag',
+          'collections': ['merchandise', 'upsu'],
+          'featured': false,
+        },
+        {
+          'title': 'City Magnet',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 4.00,
+          'slug': 'city-magnet',
+          'collections': ['merchandise', 'city'],
+          'featured': true,
+        },
+      ];
+
+      for (final product in items) {
+        final docRef = db.collection('products').doc(product['slug'] as String);
+        batch.set(docRef, product);
+      }
+
+      await batch.commit();
+
+      setState(() {
+        _isLoading = false;
+        _message = 'Added merchandise (Julia Gash/UPSU) demo products.';
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _message = 'Error: $e';
+      });
+    }
+  }
+
+  Future<void> _seedSaleProducts() async {
+    setState(() {
+      _isLoading = true;
+      _message = '';
+    });
+
+    try {
+      final db = FirebaseFirestore.instance;
+      final batch = db.batch();
+
+      final items = [
+        {
+          'title': 'Clearance Hoodie',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 20.00,
+          'slug': 'clearance-hoodie',
+          'collections': ['clothing', 'sale'],
+          'featured': false,
+        },
+        {
+          'title': 'Sale Mug',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 3.50,
+          'slug': 'sale-mug',
+          'collections': ['merchandise', 'sale'],
+          'featured': false,
+        },
+      ];
+
+      for (final product in items) {
+        final docRef = db.collection('products').doc(product['slug'] as String);
+        batch.set(docRef, product);
+      }
+
+      await batch.commit();
+
+      setState(() {
+        _isLoading = false;
+        _message = 'Added sale demo products.';
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _message = 'Error: $e';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppLayout(
@@ -102,6 +262,36 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                         ),
                       )
                     : const Text('Add Portsmouth City Products (3 items)'),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _seedClothingProducts,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                ),
+                child: const Text('Add Clothing/Signature/Essential'),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _seedMerchandiseProducts,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                ),
+                child: const Text('Add Merchandise (Julia Gash/UPSU)'),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _seedSaleProducts,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                ),
+                child: const Text('Add Sale Items'),
               ),
               if (_message.isNotEmpty) ...[
                 const SizedBox(height: 24),
