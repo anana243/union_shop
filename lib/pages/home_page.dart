@@ -90,10 +90,23 @@ class _Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Center(
-            child: Text(title,
-                style: const TextStyle(
-                    fontSize: 22, fontWeight: FontWeight.w600))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(title,
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.w600)),
+              ),
+            ),
+            if (cityLayout)
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/portsmouth-city'),
+                child: const Text('View All'),
+              ),
+          ],
+        ),
         const SizedBox(height: 20),
         FutureBuilder<List<Product>>(
           future: future,
