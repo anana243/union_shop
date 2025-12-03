@@ -3,153 +3,148 @@ import '../app_layout.dart';
 import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
 import '../models/product.dart';
+import '../services/product_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static const _heroImageUrl = 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561';
-  static const _productImageUrl = 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282';
+  static const _heroImageUrl =
+      'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561';
 
   @override
   Widget build(BuildContext context) {
-    final essential = [
-      const Product(title: 'Essential Hoodie', price: '£14.00', imageUrl: _productImageUrl, slug: 'essential-hoodie'),
-      const Product(title: 'Essential Tee', price: '£13.50', imageUrl: _productImageUrl, slug: 'essential-tee'),
-    ];
-
-    final signature = [
-      const Product(title: 'Signature Sweatshirt', price: '£22.00', imageUrl: _productImageUrl, slug: 'signature-sweatshirt'),
-      const Product(title: 'Signature Cap', price: '£16.00', imageUrl: _productImageUrl, slug: 'signature-cap'),
-    ];
-
-    final city = [
-      const Product(title: 'Placeholder Product 1', price: '£10.00', imageUrl: _productImageUrl, slug: 'city1'),
-      const Product(title: 'Placeholder Product 2', price: '£15.00', imageUrl: _productImageUrl, slug: 'city2'),
-      const Product(title: 'Placeholder Product 3', price: '£20.00', imageUrl: _productImageUrl, slug: 'city3'),
-      const Product(title: 'Placeholder Product 4', price: '£25.00', imageUrl: _productImageUrl, slug: 'city4'),
-    ];
+    final repo = ProductRepository();
 
     return AppLayout(
       title: 'Union',
-      child: Column(
-        children: [
-          HeroCarousel(imageUrl: _heroImageUrl),
-          _buildProductsSection(context, essential, signature, city),
-        ],
-      ),
-    );
-  }
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            HeroCarousel(imageUrl: _heroImageUrl),
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 32),
 
-  Widget _buildProductsSection(
-    BuildContext context,
-    List<Product> essential,
-    List<Product> signature,
-    List<Product> city,
-  ) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1100),
-          child: Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 32),
-                _buildProductGroup('Essential Range - over 20% off!', essential),
-                const SizedBox(height: 40),
-                _buildProductGroup('Signature Range', signature),
-                const SizedBox(height: 40),
-                _buildCityCollection('Portsmouth City Collection', city),
-                const SizedBox(height: 20),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/products'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4d2963),
-                      foregroundColor: Colors.white,
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    _Section(
+                      title: 'Essential Range - over 20% off!',
+                      future: repo.listByCollection('essential'),
                     ),
-                    child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
-                  ),
-                ),
-                const SizedBox(height: 32),
-                const Center(
-                  child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
-                ),
-                const SizedBox(height: 20),
-                _OurRangeGrid(
-                  items: const [
-                    _RangeItem(title: 'Clothing', route: '/shop'),
-                    _RangeItem(title: 'Merchandise', route: '/shop'),
-                    _RangeItem(title: 'Graduation', route: '/shop'),
-                    _RangeItem(title: 'Sale', route: '/sale'),
+                    const SizedBox(height: 40),
+
+                    _Section(
+                      title: 'Signature Range',
+                      future: repo.listByCollection('signature'),
+                    ),
+                    const SizedBox(height: 40),
+
+                    _Section(
+                      title: 'Portsmouth City Collection',
+                      future: repo.listByCollection('city'),
+                      cityLayout: true,
+                    ),
+
+                    const SizedBox(height: 32),
+                    const Center(
+                      child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+                    ),
+                    const SizedBox(height: 20),
+                    const _OurRangeGrid(
+                      items: [
+                        _RangeItem(title: 'Clothing', route: '/shop'),
+                        _RangeItem(title: 'Merchandise', route: '/shop'),
+                        _RangeItem(title: 'Graduation', route: '/shop'),
+                        _RangeItem(title: 'Sale', route: '/sale'),
+                      ],
+                      imageUrl:
+                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                    ),
+
+                    const SizedBox(height: 64),
+                    const _PersonalizeSplit(
+                      imageUrl:
+                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                    ),
                   ],
-                  imageUrl: _productImageUrl,
                 ),
-                const SizedBox(height: 64),
-                _PersonalizeSplit(imageUrl: _productImageUrl),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildCityCollection(String title, List<Product> products) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isWide = constraints.maxWidth >= 700;
-        if (isWide) {
-          return Column(
-            children: [
-              Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
-              const SizedBox(height: 20),
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 24,
-                runSpacing: 24,
-                children: products.map((p) => ProductTile(product: p)).toList(),
-              ),
-            ],
-          );
-        } else {
-          return Column(
-            children: [
-              Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
-              const SizedBox(height: 20),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 24,
-                  mainAxisSpacing: 24,
-                  childAspectRatio: 0.7,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, i) => ProductTile(product: products[i]),
-              ),
-            ],
-          );
-        }
-      },
-    );
-  }
+class _Section extends StatelessWidget {
+  final String title;
+  final Future<List<Product>> future;
+  final bool cityLayout;
 
-  Widget _buildProductGroup(String title, List<Product> products) {
+  const _Section({
+    required this.title,
+    required this.future,
+    this.cityLayout = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
         const SizedBox(height: 20),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 24,
-          runSpacing: 24,
-          children: products.map((p) => ProductTile(product: p)).toList(),
+        FutureBuilder<List<Product>>(
+          future: future,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.red)));
+            }
+            final products = snapshot.data ?? [];
+            if (products.isEmpty) {
+              return const Center(child: Text('No products found'));
+            }
+
+            if (cityLayout) {
+              return LayoutBuilder(builder: (context, constraints) {
+                final isWide = constraints.maxWidth >= 700;
+                if (isWide) {
+                  return Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 24,
+                    runSpacing: 24,
+                    children: products.map((p) => ProductTile(product: p)).toList(),
+                  );
+                } else {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 24,
+                      childAspectRatio: 0.7,
+                    ),
+                    itemCount: products.length,
+                    itemBuilder: (context, i) => ProductTile(product: products[i]),
+                  );
+                }
+              });
+            }
+
+            return Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 24,
+              runSpacing: 24,
+              children: products.map((p) => ProductTile(product: p)).toList(),
+            );
+          },
         ),
       ],
     );
