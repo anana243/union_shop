@@ -106,6 +106,7 @@ class _ClothingPageState extends State<ClothingPage> {
                   ],
                 ),
               ),
+            ),
               const SizedBox(height: 32),
               FutureBuilder<List<Product>>(
                 future: ProductRepository().listByCollection('clothing'),
