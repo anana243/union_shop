@@ -49,7 +49,22 @@ class _AppLayoutState extends State<AppLayout> {
                 ],
               ),
         actions: [
-          if (_searchOpen)
+          if (_searchOpen && !isMobile)
+            Container(
+              width: 300,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextField(
+                controller: _searchController,
+                autofocus: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(hintText: 'Search products...', hintStyle: TextStyle(color: Colors.white70), border: InputBorder.none),
+                onSubmitted: (query) {
+                  Navigator.pushNamed(context, '/search', arguments: query);
+                  setState(() => _searchOpen = false);
+                },
+              ),
+            ),
+          if (_searchOpen && isMobile)
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -124,12 +139,13 @@ class _AppLayoutState extends State<AppLayout> {
               ),
             )
           : null,
-      // Footer pinned at bottom, only visible after scrolling down
-      body: Column(
-        children: [
-          Expanded(child: SingleChildScrollView(child: widget.child)),
-          const _Footer(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            widget.child,
+            const _Footer(),
+          ],
+        ),
       ),
     );
   }
@@ -194,13 +210,22 @@ class _FooterLinksRow extends StatelessWidget {
             Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),
           ],
         ),
-        GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),
-        GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
-        GestureDetector(
-          onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon')));
-          },
-          child: Text('Contact', style: link),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon')));
+            },
+            child: Text('Contact', style: link),
+          ),
         ),
       ],
     );
