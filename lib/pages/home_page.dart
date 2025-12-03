@@ -57,15 +57,11 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
-
                 _buildProductGroup('Essential Range - over 20% off!', essential),
                 const SizedBox(height: 40),
-
                 _buildProductGroup('Signature Range', signature),
                 const SizedBox(height: 40),
-
                 _buildCityCollection('Portsmouth City Collection', city),
-
                 const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
@@ -79,14 +75,11 @@ class HomePage extends StatelessWidget {
                     child: const Text('VIEW ALL', style: TextStyle(fontSize: 14, letterSpacing: 1)),
                   ),
                 ),
-
                 const SizedBox(height: 32),
-
                 const Center(
                   child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
                 const SizedBox(height: 20),
-
                 _OurRangeGrid(
                   items: const [
                     _RangeItem(title: 'Clothing', route: '/shop'),
@@ -96,9 +89,7 @@ class HomePage extends StatelessWidget {
                   ],
                   imageUrl: _productImageUrl,
                 ),
-
                 const SizedBox(height: 64),
-
                 _PersonalizeSplit(imageUrl: _productImageUrl),
               ],
             ),
@@ -112,16 +103,10 @@ class HomePage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWide = constraints.maxWidth >= 700;
-
         if (isWide) {
           return Column(
             children: [
-              Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                ),
-              ),
+              Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
               const SizedBox(height: 20),
               Wrap(
                 alignment: WrapAlignment.center,
@@ -134,12 +119,7 @@ class HomePage extends StatelessWidget {
         } else {
           return Column(
             children: [
-              Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                ),
-              ),
+              Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
               const SizedBox(height: 20),
               GridView.builder(
                 shrinkWrap: true,
@@ -163,12 +143,7 @@ class HomePage extends StatelessWidget {
   Widget _buildProductGroup(String title, List<Product> products) {
     return Column(
       children: [
-        Center(
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-        ),
+        Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
         const SizedBox(height: 20),
         Wrap(
           alignment: WrapAlignment.center,
@@ -191,7 +166,6 @@ class _OurRangeGrid extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       const spacing = 20.0;
       final maxWidth = constraints.maxWidth;
-
       int targetPerRow;
       if (maxWidth >= 900) {
         targetPerRow = 4;
@@ -200,7 +174,6 @@ class _OurRangeGrid extends StatelessWidget {
       } else {
         targetPerRow = 2;
       }
-
       final totalSpacing = spacing * (targetPerRow - 1);
       final cardWidth = (maxWidth - totalSpacing) / targetPerRow;
 
@@ -257,28 +230,13 @@ class _RangeCardState extends State<_RangeCard> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (c, e, s) => Container(color: Colors.grey[300]),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 120),
-                  color: Colors.black.withOpacity(_hover ? 0.18 : 0.08),
-                ),
+                Image.network(widget.imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) => Container(color: Colors.grey[300])),
+                AnimatedContainer(duration: const Duration(milliseconds: 120), color: Colors.black.withOpacity(_hover ? 0.18 : 0.08)),
                 Center(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     color: Colors.black.withOpacity(0.35),
-                    child: Text(
-                      widget.title.toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.8,
-                      ),
-                    ),
+                    child: Text(widget.title.toUpperCase(), style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.8)),
                   ),
                 ),
               ],
@@ -301,27 +259,16 @@ class _PersonalizeSplit extends StatelessWidget {
       if (isWide) {
         return Row(
           children: [
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1.2,
-                child: Image.network(imageUrl, fit: BoxFit.cover),
-              ),
-            ),
+            Expanded(child: AspectRatio(aspectRatio: 1.2, child: Image.network(imageUrl, fit: BoxFit.cover))),
             const SizedBox(width: 32),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Add a personal touch',
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-                  ),
+                  const Text('Add a personal touch', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Personalize your garments and gifts with our in-house printing service.',
-                    style: TextStyle(fontSize: 15),
-                  ),
+                  const Text('Personalize your garments and gifts with our in-house printing service.', style: TextStyle(fontSize: 15)),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
@@ -341,22 +288,11 @@ class _PersonalizeSplit extends StatelessWidget {
       } else {
         return Column(
           children: [
-            AspectRatio(
-              aspectRatio: 1.2,
-              child: Image.network(imageUrl, fit: BoxFit.cover),
-            ),
+            AspectRatio(aspectRatio: 1.2, child: Image.network(imageUrl, fit: BoxFit.cover)),
             const SizedBox(height: 24),
-            const Text(
-              'Add a personal touch',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
+            const Text('Add a personal touch', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
             const SizedBox(height: 12),
-            const Text(
-              'Personalize your garments and gifts with our in-house printing service.',
-              style: TextStyle(fontSize: 15),
-              textAlign: TextAlign.center,
-            ),
+            const Text('Personalize your garments and gifts with our in-house printing service.', style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
@@ -366,17 +302,17 @@ class _PersonalizeSplit extends StatelessWidget {
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
-              child: const Text('LEARN MORE', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),xt('LEARN MORE', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
+              child: const Text('LEARN MORE', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
             ),
           ],
         );
       }
-    });    });
+    });
   }
 }
 
 class _RangeItem {
   final String title;
   final String route;
-  const _RangeItem({required this.title, required this.route});.title, required this.route});
+  const _RangeItem({required this.title, required this.route});
 }
