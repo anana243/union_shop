@@ -220,7 +220,7 @@ class _AppLayoutState extends State<AppLayout> {
                       onTap: () =>
                           Navigator.pushReplacementNamed(context, '/shop')),
                   ListTile(
-                      leading: const Icon(Icons.print),
+                      leading: const Icon(Icons.palette),
                       title: const Text('Print Shack'),
                       onTap: () => Navigator.pushReplacementNamed(
                           context, '/print-shack')),
