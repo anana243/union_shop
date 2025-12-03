@@ -52,6 +52,15 @@ class _ProductTileState extends State<ProductTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.product.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600), maxLines: 2, overflow: TextOverflow.ellipsis),
+                      if (widget.product.subtitle.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.product.subtitle,
+                          style: const TextStyle(fontSize: 12, color: Colors.black87),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                       const SizedBox(height: 6),
                       Text(priceLabel, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF4d2963))),
                     ],
