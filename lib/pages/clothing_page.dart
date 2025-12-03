@@ -131,10 +131,14 @@ class _ClothingPageState extends State<ClothingPage> {
                   // Basic client-side sorting
                   switch (_sortBy) {
                     case 'A-Z':
-                      allProducts.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+                      allProducts.sort((a, b) => a.title
+                          .toLowerCase()
+                          .compareTo(b.title.toLowerCase()));
                       break;
                     case 'Z-A':
-                      allProducts.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+                      allProducts.sort((a, b) => b.title
+                          .toLowerCase()
+                          .compareTo(a.title.toLowerCase()));
                       break;
                     case 'Price Low':
                       allProducts.sort((a, b) => a.price.compareTo(b.price));
@@ -147,7 +151,7 @@ class _ClothingPageState extends State<ClothingPage> {
                       break;
                   }
 
-                    final totalPages =
+                  final totalPages =
                       (allProducts.length / _itemsPerPage).ceil();
                   final startIndex = (_currentPage - 1) * _itemsPerPage;
                   final endIndex =
