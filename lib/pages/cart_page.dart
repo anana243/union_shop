@@ -16,6 +16,7 @@ class CartPage extends StatelessWidget {
           builder: (context, _) {
             final items = CartService.instance.items;
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
                   children: [
@@ -26,7 +27,8 @@ class CartPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 if (items.isEmpty)
-                  const Expanded(
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 100.0),
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -41,12 +43,13 @@ class CartPage extends StatelessWidget {
                     ),
                   )
                 else
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: items.length,
-                      separatorBuilder: (_, __) => const Divider(),
-                      itemBuilder: (context, i) {
-                        final p = items[i];
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: items.length,
+                    separatorBuilder: (_, __) => const Divider(),
+                    itemBuilder: (context, i) {
+                      final p = items[i];
                         return ListTile(
                           leading: SizedBox(
                             width: 56,
