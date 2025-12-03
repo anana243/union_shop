@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       title: 'Union',
       child: Column(
         children: [
-          HeroCarousel(imageUrl: _heroImageUrl),
+          const HeroCarousel(imageUrl: _heroImageUrl),
           Padding(
             padding: const EdgeInsets.all(40.0),
             child: ConstrainedBox(
@@ -50,8 +50,8 @@ class HomePage extends StatelessWidget {
                             fontSize: 22, fontWeight: FontWeight.w600)),
                   ),
                   const SizedBox(height: 20),
-                  _OurRangeGrid(
-                    items: const [
+                  const _OurRangeGrid(
+                    items: [
                       _RangeItem(title: 'Clothing', route: '/shop'),
                       _RangeItem(title: 'Merchandise', route: '/shop'),
                       _RangeItem(title: 'Graduation', route: '/shop'),
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                         _heroImageUrl, // use the same hero image to avoid duplication
                   ),
                   const SizedBox(height: 64),
-                  _PersonalizeSplit(
+                  const _PersonalizeSplit(
                     imageUrl: _heroImageUrl, // reuse constant
                   ),
                 ],
