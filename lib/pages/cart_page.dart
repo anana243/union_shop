@@ -18,8 +18,7 @@ class CartPage extends StatelessWidget {
           animation: CartService.instance,
           builder: (context, _) {
             final items = CartService.instance.items;
-            final total =
-                items.fold<double>(0, (sum, item) => sum + item.price);
+            final total = CartService.instance.total;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,7 +55,8 @@ class CartPage extends StatelessWidget {
                     itemCount: items.length,
                     separatorBuilder: (_, __) => const Divider(),
                     itemBuilder: (context, i) {
-                      final p = items[i];
+                      final cartItem = items[i];
+                      final p = cartItem.product;
                       return ListTile(
                         leading: SizedBox(
                           width: 56,
@@ -70,10 +70,52 @@ class CartPage extends StatelessWidget {
                           ),
                         ),
                         title: Text(p.title),
-                        subtitle: Text('£${p.price.toStringAsFixed(2)}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete_outline),
-                          onPressed: () => CartService.instance.remove(p),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('£${p.price.toStringAsFixed(2)} each'),
+                            const SizedBox(height: 4),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove, size: 18),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  onPressed: () => CartService.instance
+                                      .updateQuantity(p, cartItem.quantity - 1),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  child: Text('${cartItem.quantity}',
+                                      style: const TextStyle(fontSize: 16)),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.add, size: 18),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  onPressed: () => CartService.instance
+                                      .updateQuantity(p, cartItem.quantity + 1),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '£${(p.price * cartItem.quantity).toStringAsFixed(2)}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline, size: 20),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () => CartService.instance.remove(p),
+                            ),
+                          ],
                         ),
                       );
                     },
