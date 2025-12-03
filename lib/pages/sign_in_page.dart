@@ -60,13 +60,33 @@ class _SignInPageState extends State<SignInPage> {
       } else if (e.code == 'email-already-in-use') {
         message = 'Email already in use';
       } else if (e.code == 'weak-password') {
-        message = 'Password is too weak';
+        message = 'Password is too weak (minimum 6 characters)';
       } else if (e.code == 'invalid-email') {
         message = 'Invalid email address';
+      } else if (e.code == 'invalid-credential') {
+        message = 'Invalid credentials. Please check your email and password.';
+      } else if (e.code == 'network-request-failed') {
+        message = 'Network error. Please check your internet connection.';
+      } else {
+        message = 'Error: ${e.message ?? e.code}';
       }
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(message),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Unexpected error: $e'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          ),
         );
       }
     } finally {
