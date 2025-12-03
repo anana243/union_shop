@@ -10,7 +10,8 @@ class ProductRepository {
     return d.exists;
   }
 
-  CollectionReference<Map<String, dynamic>> get _col => _db.collection('products');
+  CollectionReference<Map<String, dynamic>> get _col =>
+      _db.collection('products');
 
   Future<List<Product>> listByCollection(String collection) async {
     // Primary: documents with array field `collections` containing the value
