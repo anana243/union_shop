@@ -1,80 +1,68 @@
 # Union Shop
 
-A Flutter web app showcasing a shop front with a shared layout, responsive product sections, and placeholder product pages.
+Flutter web storefront for the Students’ Union shop, with Firebase-backed products, filtering, cart, and personalization.
 
 ## Features
 
-- Shared layout (AppBar + centered navigation + footer)
-- Footer: Help & Information links with hover feedback and subscribe box
-- Home page sections:
-  - Essential Range
-  - Signature Range
-  - Portsmouth City Collection (2x2 grid on wide screens, centered)
-- Hover/tap feedback on product tiles
-- Product detail placeholder page via named routes
-- Split, maintainable code structure
+- Shared layout with responsive navigation and footer
+- Home sections: Essential, Signature, Portsmouth City, Personalization promo
+- Shop page: filter (All, Clothing, Merchandise, City, University, Signature, Essential) and sorting (A–Z, Z–A, Price)
+- Dedicated pages: Clothing, Sale, City Collection, Print Shack About, About Us
+- Product tiles with hover, price, and optional subtitle
+- Product detail page with add-to-cart
+- Personalization page (text/logo, quantity, cart) with a minimal notice
 
 ## Tech
 
-- Flutter (web)
-- Material UI components
-- Responsive layout with Wrap/GridView and constraints
+- Flutter (Web)
+- Firebase (Core/Auth if enabled) + Firestore for products
+- Material 3 components
 
-## Project Structure
+## Project Structure (high level)
 
-- lib/
-  - main.dart
-  - app_layout.dart
-  - product_page.dart
-  - models/
-    - product.dart
-  - widgets/
-    - product_tile.dart
-    - hover_text.dart
-    - footer_subscribe_box.dart
-  - pages/
-    - home_page.dart
-    - shop_page.dart
-    - print_shack_page.dart
-    - sale_page.dart
-    - about_page.dart
-    - search_page.dart
-    - terms_and_conditions_page.dart
-    - refund_policy_page.dart
+- `lib/`
+  - `main.dart` – routes / theme
+  - `app_layout.dart` – shared scaffold
+  - `constants.dart` – shared constants (hero image URL)
+  - `models/`
+    - `product.dart` – id, title, imageUrl, price, slug, subtitle
+  - `services/`
+    - `product_repository.dart` – Firestore queries (collections + legacy category)
+    - `cart_service.dart`
+  - `widgets/`
+    - `hero_carousel.dart`
+    - `product_tile.dart`
+    - `product_grid.dart` – shared wrap/grid layout for tiles
+    - `footer_subscribe_box.dart`, etc.
+  - `pages/` – `home`, `shop`, `clothing`, `sale`, `portsmouth_city`, `print_shack_page`, `about_print_shack_page`, `about_page`, `personalization_page`, etc.
+
+## Firestore Data
+
+Collection: `products`
+
+- Required: `title` (string), `imageUrl` (string), `price` (number), `slug` (string)
+- Recommended: `collections` (array of strings) e.g. `['clothing']`, `['city']`, `['sale']`
+- Optional: `subtitle` (string), `featured` (bool), legacy `category` (string)
+
+Admin seeding
+
+- Navigate to `/admin-seed` and use buttons to add demo products for Clothing/Signature/Essential, Merchandise (UPSU/Julia Gash), Sale, and City.
 
 ## Getting Started
 
-1. Install Flutter:
-   - Windows PowerShell:
-     - winget install Flutter.Flutter
-   - Or follow: <https://docs.flutter.dev/get-started/install>
-2. Enable web:
-   - flutter config --enable-web
-3. Fetch dependencies:
-   - flutter pub get
-4. Run (Chrome):
-   - flutter run -d chrome
+- Install Flutter (Windows PowerShell):
+  - `winget install Flutter.Flutter`
+  - Or follow <https://docs.flutter.dev/get-started/install>
+- Enable web: `flutter config --enable-web`
+- Install deps: `flutter pub get`
+- Firebase init: ensure `lib/firebase_options.dart` exists (already included)
+- Run: `flutter run -d chrome`
 
-## Navigation & Routing
+## Notes
 
-- Named routes configured in main.dart
-- Product tiles navigate to `/product` with route arguments:
-  - title, price, imageUrl, slug
-
-## Development Notes
-
-- Avoid const for stateful widgets (HoverText, FooterSubscribeBox)
-- Product images are slightly larger, constrained to prevent overflow
-- Portsmouth City Collection grid is centered using ConstrainedBox
-- Use Navigator.pushReplacementNamed for top navigation to keep the stack shallow
-
-## Roadmap
-
-- Implement real product data source
-- Build full product detail UI (images carousel, variants, cart)
-- Responsive hamburger menu for small screens
-- Accessibility improvements (semantics, focus states)
-- Unit/widget tests for tiles and pages
+- Navigation uses `Navigator.pushNamed` to preserve back history.
+- City product grid uses a 2-column layout; other pages use a responsive wrap.
+- If older products don’t appear, add `collections: ['clothing' | 'merchandise' | 'city' | 'sale' | 'signature' | 'essential' | 'upsu']`.
 
 ## License
 
