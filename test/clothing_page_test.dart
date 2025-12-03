@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/pages/clothing_page.dart';
+import 'test_helper.dart';
 
 void main() {
+  setUpAll(() {
+    setupFirebaseTest();
+  });
+
   group('ClothingPage', () {
     testWidgets('renders with title', (WidgetTester tester) async {
       await tester.pumpWidget(
