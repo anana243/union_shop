@@ -44,22 +44,19 @@ class ProductRepository {
     if (q.docs.isEmpty) return null;
     final d = q.docs.first;
     return Product.fromMap(d.id, d.data());
+  }
 
   Future<List<Product>> searchProducts(String query) async {
     if (query.trim().isEmpty) return [];
-    
+
     final lowercaseQuery = query.toLowerCase().trim();
-    
-    // Get all products and filter in memory
-    // Firestore doesn't support full-text search natively
+
+    // Firestore doesn't support full-text search natively; fetch and filter
     final allProducts = await listAll(limit: 500);
-    
+
     return allProducts.where((product) {
-      final titleMatch = product.title.toLowerCase().contains(lowercaseQuery);
-      final subtitleMatch = product.subtitle.toLowerCase().contains(lowercaseQuery);
-      
-      return titleMatch || subtitleMatch;
+      final title = product.title.toLowerCase();
+      final subtitle = product.subtitle.toLowerCase();
+      return title.contains(lowercaseQuery) || subtitle.contains(lowercaseQuery);
     }).toList();
   }
-  }
-}
