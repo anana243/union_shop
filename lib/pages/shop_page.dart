@@ -34,10 +34,12 @@ class _ShopPageState extends State<ShopPage> {
   void _sort(List<Product> items) {
     switch (_sortBy) {
       case 'A-Z':
-        items.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+        items.sort(
+            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         break;
       case 'Z-A':
-        items.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+        items.sort(
+            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
         break;
       case 'Price Low':
         items.sort((a, b) => a.price.compareTo(b.price));
@@ -72,7 +74,8 @@ class _ShopPageState extends State<ShopPage> {
               ),
               const SizedBox(height: 24),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   border: Border.all(color: Colors.grey.shade300),
@@ -99,11 +102,18 @@ class _ShopPageState extends State<ShopPage> {
                       value: _sortBy,
                       underline: Container(),
                       items: const [
-                        DropdownMenuItem(value: 'Featured', child: Text('Featured')),
-                        DropdownMenuItem(value: 'A-Z', child: Text('Alphabetically, A-Z')),
-                        DropdownMenuItem(value: 'Z-A', child: Text('Alphabetically, Z-A')),
-                        DropdownMenuItem(value: 'Price Low', child: Text('Price, Low to High')),
-                        DropdownMenuItem(value: 'Price High', child: Text('Price, High to Low')),
+                        DropdownMenuItem(
+                            value: 'Featured', child: Text('Featured')),
+                        DropdownMenuItem(
+                            value: 'A-Z', child: Text('Alphabetically, A-Z')),
+                        DropdownMenuItem(
+                            value: 'Z-A', child: Text('Alphabetically, Z-A')),
+                        DropdownMenuItem(
+                            value: 'Price Low',
+                            child: Text('Price, Low to High')),
+                        DropdownMenuItem(
+                            value: 'Price High',
+                            child: Text('Price, High to Low')),
                       ],
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
@@ -112,7 +122,8 @@ class _ShopPageState extends State<ShopPage> {
                       future: _load(repo),
                       builder: (context, snapshot) {
                         final count = snapshot.data?.length ?? 0;
-                        return Text('$count products', style: const TextStyle(fontSize: 14));
+                        return Text('$count products',
+                            style: const TextStyle(fontSize: 14));
                       },
                     ),
                   ],
