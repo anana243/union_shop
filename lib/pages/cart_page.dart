@@ -49,30 +49,95 @@ class CartPage extends StatelessWidget {
                     ),
                   )
                 else
-                  ListView.separated(
+                  ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: items.length,
-                    separatorBuilder: (_, __) => const Divider(),
                     itemBuilder: (context, i) {
                       final p = items[i];
-                      return ListTile(
-                        leading: SizedBox(
-                          width: 56,
-                          height: 56,
-                          child: Image.network(
-                            p.product.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (c, e, s) => Container(
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.image)),
-                          ),
-                        ),
-                        title: Text(p.product.title),
-                        subtitle: Text('£${p.product.price.toStringAsFixed(2)}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete_outline),
-                          onPressed: () => CartService.instance.remove(p.product),
+                      final isMobile = MediaQuery.of(context).size.width < 900;
+                      final imageSize = isMobile ? 80.0 : 120.0;
+                      
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: imageSize,
+                              height: imageSize,
+                              child: Image.network(
+                                p.product.imageUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (c, e, s) => Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(Icons.image)),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    p.product.title,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '£${p.product.price.toStringAsFixed(2)} each',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => CartService.instance.updateQuantity(p.product, p.quantity - 1),
+                                        icon: const Icon(Icons.remove_circle_outline),
+                                        padding: EdgeInsets.zero,
+                                        constraints: const BoxConstraints(),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                                        child: Text(
+                                          'Qty: ${p.quantity}',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => CartService.instance.updateQuantity(p.product, p.quantity + 1),
+                                        icon: const Icon(Icons.add_circle_outline),
+                                        padding: EdgeInsets.zero,
+                                        constraints: const BoxConstraints(),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                        'Total: £${(p.product.price * p.quantity).toStringAsFixed(2)}',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF4d2963),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () => CartService.instance.remove(p.product),
+                            ),
+                          ],
                         ),
                       );
                     },
