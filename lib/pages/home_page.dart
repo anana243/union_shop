@@ -126,7 +126,7 @@ class _Section extends StatelessWidget {
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
-                      childAspectRatio: 0.75,
+                      childAspectRatio: 0.8,
                     ),
                     itemCount: products.length,
                     itemBuilder: (context, i) =>
