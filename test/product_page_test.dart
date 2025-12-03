@@ -5,7 +5,9 @@ import 'test_helper.dart';
 import 'package:union_shop/pages/product_page.dart';
 
 void main() {
-  setupTests();
+  setUpAll(() {
+    setupFirebaseTest();
+  });
 
   testWidgets('ProductPage displays provided args', (tester) async {
     // Set larger viewport so content isn't clipped
