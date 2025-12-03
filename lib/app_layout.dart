@@ -61,10 +61,11 @@ class _AppLayoutState extends State<AppLayout> {
                       itemBuilder: (context) => [
                         const PopupMenuItem(value: '/clothing', child: Text('Clothing')),
                         const PopupMenuItem(value: '/shop', child: Text('Merchandise')),
-                        const PopupMenuItem(value: '/shop', child: Text('Accessories')),
-                        const PopupMenuItem(value: '/shop', child: Text('Stationery')),
-                        const PopupMenuItem(value: '/shop', child: Text('Home & Living')),
-                        const PopupMenuItem(value: '/shop', child: Text('Graduation')),
+                        const PopupMenuItem(value: '/shop', child: Text('Signature Range')),
+                        const PopupMenuItem(value: '/shop', child: Text('Essential Range')),
+                        const PopupMenuItem(value: '/portsmouth-city', child: Text('Portsmouth City Collection')),
+                        const PopupMenuItem(value: '/pride', child: Text('Pride Collection')),
+                        const PopupMenuItem(value: '/graduation', child: Text('Graduation')),
                       ],
                     ),
                     PopupMenuButton<String>(
@@ -81,8 +82,8 @@ class _AppLayoutState extends State<AppLayout> {
                         ),
                       ),
                       itemBuilder: (context) => [
-                        const PopupMenuItem(value: '/print-shack', child: Text('Custom Printing')),
-                        const PopupMenuItem(value: '/print-shack', child: Text('Design Services')),
+                        const PopupMenuItem(value: '/print-shack/about', child: Text('About Print Shack')),
+                        const PopupMenuItem(value: '/personalization', child: Text('Personalization')),
                       ],
                     ),
                     TextButton(
