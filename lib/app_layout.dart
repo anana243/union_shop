@@ -30,12 +30,8 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        leading: isMobile
-            ? null // Show hamburger on mobile
-            : IconButton(
-                icon: const Icon(Icons.home),
-                onPressed: () => Navigator.pushReplacementNamed(context, '/'),
-              ),
+        // Remove redundant desktop Home icon
+        leading: isMobile ? null : null,
         title: isMobile
             ? Text(widget.title)
             : Row(
@@ -118,36 +114,54 @@ class _AppLayoutState extends State<AppLayout> {
                     decoration: BoxDecoration(color: Color(0xFF4d2963)),
                     child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.home),
-                    title: const Text('Home'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.shopping_bag),
-                    title: const Text('Shop'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/shop'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.print),
-                    title: const Text('Print Shack'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/print-shack'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.local_offer),
-                    title: const Text('Sale'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/sale'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: const Text('About'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/about'),
-                  ),
+                  ListTile(leading: const Icon(Icons.home), title: const Text('Home'), onTap: () => Navigator.pushReplacementNamed(context, '/')),
+                  ListTile(leading: const Icon(Icons.shopping_bag), title: const Text('Shop'), onTap: () => Navigator.pushReplacementNamed(context, '/shop')),
+                  ListTile(leading: const Icon(Icons.print), title: const Text('Print Shack'), onTap: () => Navigator.pushReplacementNamed(context, '/print-shack')),
+                  ListTile(leading: const Icon(Icons.local_offer), title: const Text('Sale'), onTap: () => Navigator.pushReplacementNamed(context, '/sale')),
+                  ListTile(leading: const Icon(Icons.info), title: const Text('About'), onTap: () => Navigator.pushReplacementNamed(context, '/about')),
                 ],
               ),
             )
           : null,
-      body: SingleChildScrollView(child: widget.child),
+      // Restore footer
+      body: Column(
+        children: [
+          Expanded(child: SingleChildScrollView(child: widget.child)),
+          const _Footer(),
+        ],
+      ),
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFF5F5F5),
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 20,
+            runSpacing: 10,
+            children: const [
+              Text('© Union Shop', style: TextStyle(color: Colors.black54)),
+              Text('•', style: TextStyle(color: Colors.black26)),
+              Text('Terms & Conditions', style: TextStyle(color: Colors.black54)),
+              Text('•', style: TextStyle(color: Colors.black26)),
+              Text('Refund Policy', style: TextStyle(color: Colors.black54)),
+              Text('•', style: TextStyle(color: Colors.black26)),
+              Text('Contact', style: TextStyle(color: Colors.black54)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
