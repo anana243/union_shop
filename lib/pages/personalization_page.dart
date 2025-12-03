@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
+import '../models/product.dart';
+import '../services/cart_service.dart';
 
 class PersonalizationPage extends StatefulWidget {
   const PersonalizationPage({super.key});
@@ -26,6 +28,39 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  void _addToCart() {
+    if (_textController.text.trim().isEmpty && !_selectedOption.contains('Logo')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter your personalization text')),
+      );
+      return;
+    }
+
+    final product = Product(
+      id: 'personalization-${DateTime.now().millisecondsSinceEpoch}',
+      title: 'Personalization - $_selectedOption${_textController.text.isNotEmpty ? ": ${_textController.text}" : ""}',
+      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      price: _priceMap[_selectedOption]!,
+      slug: 'personalization',
+    );
+
+    for (int i = 0; i < _quantity; i++) {
+      CartService.instance.add(product);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Added $_quantity personalization item(s) to cart'),
+        backgroundColor: Colors.green,
+      ),
+    );
+
+    setState(() {
+      _textController.clear();
+      _quantity = 1;
+    });
   }
 
   @override
@@ -173,6 +208,22 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                             icon: const Icon(Icons.add_circle_outline),
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 32),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _addToCart,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: const Text(
+                            'ADD TO CART',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
                       ),
                     ],
                   ),
