@@ -92,6 +92,7 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
         const SizedBox(height: 20),
@@ -100,9 +101,6 @@ class _Section extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.red)));
             }
             final products = snapshot.data ?? [];
             if (products.isEmpty) {
@@ -140,7 +138,10 @@ class _Section extends StatelessWidget {
               alignment: WrapAlignment.center,
               spacing: 24,
               runSpacing: 24,
-              children: products.map((p) => ProductTile(product: p)).toList(),
+              children: products.map((p) => ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 220),
+                child: ProductTile(product: p),
+              )).toList(),
             );
           },
         ),
