@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'widgets/footer_subscribe_box.dart';
 
 class AppLayout extends StatefulWidget {
   final String title;
@@ -145,34 +146,93 @@ class _Footer extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1100),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // left-aligned links
-              Wrap(
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 20,
-                runSpacing: 10,
-                children: const [
-                  Text('Terms & Conditions', style: TextStyle(color: Colors.black54)),
-                  Text('•', style: TextStyle(color: Colors.black26)),
-                  Text('Refund Policy', style: TextStyle(color: Colors.black54)),
-                  Text('•', style: TextStyle(color: Colors.black26)),
-                  Text('Opening Times', style: TextStyle(color: Colors.black54)),
-                  Text('•', style: TextStyle(color: Colors.black26)),
-                  Text('Contact', style: TextStyle(color: Colors.black54)),
-                ],
-              ),
-              const SizedBox(height: 18),
-              // subscribe box centered
-              Center(child: FooterSubscribeBox()),
-              const SizedBox(height: 10),
-              const Center(child: Text('© Union Shop', style: TextStyle(color: Colors.black45))),
-            ],
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isNarrow = constraints.maxWidth < 700;
+              if (isNarrow) {
+                // Stack vertically on narrow screens
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _FooterLinksRow(),
+                    const SizedBox(height: 18),
+                    Center(child: FooterSubscribeBox()),
+                    const SizedBox(height: 10),
+                    const Center(child: Text('© Union Shop', style: TextStyle(color: Colors.black45))),
+                  ],
+                );
+              } else {
+                // Left links, right subscribe box (classic layout)
+                return Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: _FooterLinksRow()),
+                        const SizedBox(width: 20),
+                        SizedBox(
+                          width: 360, // subscribe panel width
+                          child: FooterSubscribeBox(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('© Union Shop', style: TextStyle(color: Colors.black45)),
+                    ),
+                  ],
+                );
+              }
+            },
           ),
         ),
       ),
+    );
+  }
+}
+
+// Footer links: Opening Times detail, Terms, Refund, Contact
+class _FooterLinksRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
+    return Wrap(
+      alignment: WrapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 20,
+      runSpacing: 10,
+      children: [
+        // Opening Times – inline details bubble style preserved by simple text
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(Icons.schedule, size: 18, color: Colors.black38),
+            SizedBox(width: 6),
+            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),
+          ],
+        ),
+        // Terms & Conditions
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
+          child: Text('Terms & Conditions', style: link),
+        ),
+        // Refund Policy
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/refund-policy'),
+          child: Text('Refund Policy', style: link),
+        ),
+        // Contact (kept as simple text; replace with route when you have it)
+        GestureDetector(
+          onTap: () {
+            // TODO: add contact route or external link when ready
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Contact page coming soon')),
+            );
+          },
+          child: Text('Contact', style: link),
+        ),
+      ],
     );
   }
 }
