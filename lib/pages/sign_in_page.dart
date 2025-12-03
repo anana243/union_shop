@@ -107,12 +107,16 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return AppLayout(
       title: 'Union',
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Form(
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 200,
+        ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -203,6 +207,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
       ),
+    ),
     );
   }
 }
