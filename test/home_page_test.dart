@@ -5,11 +5,6 @@ import 'test_helper.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 
-void main() {
-  setUpAll(() {
-    setupFirebaseTest();
-  });
-
 Widget _app(Widget home) => MaterialApp(
       routes: {
         '/': (context) => home,
@@ -19,7 +14,9 @@ Widget _app(Widget home) => MaterialApp(
     );
 
 void main() {
-  setupTests();
+  setUpAll(() {
+    setupFirebaseTest();
+  });
 
   testWidgets('HomePage shows sections and View All', (tester) async {
     // Larger viewport to fit all content
