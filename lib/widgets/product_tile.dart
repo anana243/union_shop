@@ -12,6 +12,8 @@ class ProductTile extends StatefulWidget {
 class _ProductTileState extends State<ProductTile> {
   bool _hover = false;
 
+  String get priceLabel => '£${widget.product.price.toStringAsFixed(2)}';
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -19,25 +21,13 @@ class _ProductTileState extends State<ProductTile> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            '/product',
-            arguments: widget.product,
-          );
-        },
+        onTap: () => Navigator.pushNamed(context, '/product', arguments: widget.product),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: _hover
-                ? [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    )
-                  ]
+                ? [BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 12, offset: const Offset(0, 4))]
                 : [],
           ),
           child: Column(
@@ -48,12 +38,8 @@ class _ProductTileState extends State<ProductTile> {
                 child: Image.network(
                   widget.product.imageUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.image_not_supported, size: 50),
-                    );
-                  },
+                  errorBuilder: (context, error, stackTrace) =>
+                      Container(color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
                 ),
               ),
               Padding(
@@ -63,21 +49,14 @@ class _ProductTileState extends State<ProductTile> {
                   children: [
                     Text(
                       widget.product.title,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      widget.product.price,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF4d2963),
-                      ),
+                      priceLabel,
+                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF4d2963)),
                     ),
                   ],
                 ),
