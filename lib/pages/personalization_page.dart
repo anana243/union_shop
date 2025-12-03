@@ -225,6 +225,38 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 32),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.orange[50],
+                          border: Border.all(color: Colors.orange[200]!),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.info_outline, color: Colors.orange[800]),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Important Notice',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.orange[800],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Please ensure all spelling is correct before submitting your purchase, as we will print your item with the exact wording you provide. We will not be responsible for any incorrect spellings printed on your garment. Personalized items do not qualify for refunds.',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ],
