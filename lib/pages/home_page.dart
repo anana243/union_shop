@@ -121,9 +121,9 @@ class _Section extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      childAspectRatio: 0.7,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.75,
                     ),
                     itemCount: products.length,
                     itemBuilder: (context, i) => ProductTile(product: products[i]),
