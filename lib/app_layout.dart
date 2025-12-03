@@ -136,26 +136,39 @@ class _AppLayoutState extends State<AppLayout> {
 
 class _Footer extends StatelessWidget {
   const _Footer();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFF5F5F5),
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 24),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1100),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 10,
-            children: const [
-              Text('© Union Shop', style: TextStyle(color: Colors.black54)),
-              Text('•', style: TextStyle(color: Colors.black26)),
-              Text('Terms & Conditions', style: TextStyle(color: Colors.black54)),
-              Text('•', style: TextStyle(color: Colors.black26)),
-              Text('Refund Policy', style: TextStyle(color: Colors.black54)),
-              Text('•', style: TextStyle(color: Colors.black26)),
-              Text('Contact', style: TextStyle(color: Colors.black54)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // left-aligned links
+              Wrap(
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 20,
+                runSpacing: 10,
+                children: const [
+                  Text('Terms & Conditions', style: TextStyle(color: Colors.black54)),
+                  Text('•', style: TextStyle(color: Colors.black26)),
+                  Text('Refund Policy', style: TextStyle(color: Colors.black54)),
+                  Text('•', style: TextStyle(color: Colors.black26)),
+                  Text('Opening Times', style: TextStyle(color: Colors.black54)),
+                  Text('•', style: TextStyle(color: Colors.black26)),
+                  Text('Contact', style: TextStyle(color: Colors.black54)),
+                ],
+              ),
+              const SizedBox(height: 18),
+              // subscribe box centered
+              const Center(child: FooterSubscribeBox()),
+              const SizedBox(height: 10),
+              const Center(child: Text('© Union Shop', style: TextStyle(color: Colors.black45))),
             ],
           ),
         ),
