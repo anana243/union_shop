@@ -18,14 +18,15 @@ class CartPage extends StatelessWidget {
           animation: CartService.instance,
           builder: (context, _) {
             final items = CartService.instance.items;
-            final total = items.fold<double>(0, (sum, item) => sum + item.price);
-            
+            final total =
+                items.fold<double>(0, (sum, item) => sum + item.price);
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text('Shopping Cart',
-                    style: TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 24),
                 if (items.isEmpty)
                   const Padding(
