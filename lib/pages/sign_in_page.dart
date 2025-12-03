@@ -263,6 +263,37 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: _handlePasswordReset,
                         child: const Text('Forgot Password?'),
                       ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: Colors.grey[400])),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            'OR',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                        ),
+                        Expanded(child: Divider(color: Colors.grey[400])),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: _isLoading ? null : _handleGoogleSignIn,
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        side: BorderSide(color: Colors.grey[400]!),
+                      ),
+                      icon: Image.network(
+                        'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                      label: const Text(
+                        'Continue with Google',
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     TextButton(
                       onPressed: () {
