@@ -102,7 +102,8 @@ class _Section extends StatelessWidget {
             ),
             if (cityLayout)
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/portsmouth-city'),
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/portsmouth-city'),
                 child: const Text('View All'),
               ),
           ],
@@ -263,7 +264,8 @@ class _PersonalizeSplit extends StatelessWidget {
                       style: TextStyle(fontSize: 15)),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/print-shack'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4d2963),
                       foregroundColor: Colors.white,
@@ -297,7 +299,7 @@ class _PersonalizeSplit extends StatelessWidget {
                 textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+              onPressed: () => Navigator.pushNamed(context, '/print-shack'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
