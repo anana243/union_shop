@@ -31,7 +31,8 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
   }
 
   void _addToCart() {
-    if (_textController.text.trim().isEmpty && !_selectedOption.contains('Logo')) {
+    if (_textController.text.trim().isEmpty &&
+        !_selectedOption.contains('Logo')) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter your personalization text')),
       );
@@ -40,8 +41,10 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
 
     final product = Product(
       id: 'personalization-${DateTime.now().millisecondsSinceEpoch}',
-      title: 'Personalization - $_selectedOption${_textController.text.isNotEmpty ? ": ${_textController.text}" : ""}',
-      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      title:
+          'Personalization - $_selectedOption${_textController.text.isNotEmpty ? ": ${_textController.text}" : ""}',
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
       price: _priceMap[_selectedOption]!,
       slug: 'personalization',
     );
@@ -165,7 +168,8 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                         const SizedBox(height: 12),
                         TextField(
                           controller: _textController,
-                          maxLength: _selectedOption == '1 Line of Text' ? 10 : null,
+                          maxLength:
+                              _selectedOption == '1 Line of Text' ? 10 : null,
                           maxLines: _selectedOption.contains('Line')
                               ? int.parse(_selectedOption.split(' ')[0])
                               : 1,
@@ -236,7 +240,8 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.info_outline, color: Colors.grey[600], size: 18),
+                            Icon(Icons.info_outline,
+                                color: Colors.grey[600], size: 18),
                             const SizedBox(width: 8),
                             const Expanded(
                               child: Column(
@@ -252,7 +257,10 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                                   SizedBox(height: 4),
                                   Text(
                                     'Please double‑check spelling before purchase. We print exactly what you provide. Personalized items are not eligible for refunds.',
-                                    style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.4),
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.black87,
+                                        height: 1.4),
                                   ),
                                 ],
                               ),
