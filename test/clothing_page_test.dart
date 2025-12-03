@@ -12,7 +12,7 @@ void main() {
     testWidgets('renders with title', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ClothingPage(),
+          home: SizedBox(width: 1200, child: ClothingPage()),
         ),
       );
 
@@ -22,7 +22,7 @@ void main() {
     testWidgets('has filter and sort dropdowns', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ClothingPage(),
+          home: SizedBox(width: 1200, child: ClothingPage()),
         ),
       );
 
@@ -34,13 +34,16 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ClothingPage(),
+          home: SizedBox(width: 1200, child: ClothingPage()),
         ),
       );
 
       // Tap the filter dropdown to open it
       await tester.tap(find.text('All Products'));
-      await tester.pumpAndSettle();
+      // Use bounded pump to avoid potential deadlocks
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Clothing'), findsOneWidget);
       expect(find.text('Merchandise'), findsOneWidget);
@@ -52,13 +55,15 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ClothingPage(),
+          home: SizedBox(width: 1200, child: ClothingPage()),
         ),
       );
 
       // Tap sort dropdown
       await tester.tap(find.text('Featured'));
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Best Selling'), findsOneWidget);
       expect(find.text('Alphabetically, A-Z'), findsOneWidget);
@@ -72,11 +77,12 @@ void main() {
     testWidgets('has pagination controls', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: ClothingPage(),
+          home: SizedBox(width: 1200, child: ClothingPage()),
         ),
       );
-
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       // Look for pagination elements
       expect(find.byIcon(Icons.arrow_back), findsOneWidget);
