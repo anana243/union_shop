@@ -11,6 +11,7 @@ import 'pages/terms_and_conditions_page.dart';
 import 'pages/refund_policy_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/product_page.dart';
+import 'pages/cart_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
@@ -60,6 +61,7 @@ class UnionShopApp extends StatelessWidget {
         '/refund-policy': (context) => const RefundPolicyPage(),
         '/sign-in': (context) => const SignInPage(),
         '/product': (context) => const ProductPage(),
+        '/cart': (context) => const CartPage(),
         '/hungry': (context) => const HungryPage(),
         '/accommodation': (context) => const AccommodationPage(),
       },
