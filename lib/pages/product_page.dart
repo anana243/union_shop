@@ -12,9 +12,9 @@ class ProductPage extends StatelessWidget {
     final product = ModalRoute.of(context)?.settings.arguments as Product?;
 
     if (product == null) {
-      return AppLayout(
+      return const AppLayout(
         title: 'Product Not Found',
-        child: const Center(
+        child: Center(
           child: Text('Product not found', style: TextStyle(fontSize: 18)),
         ),
       );
