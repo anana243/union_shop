@@ -107,7 +107,7 @@ class _ClothingPageState extends State<ClothingPage> {
                       ),
                     );
                   }
-                  
+
                   final products = snapshot.data ?? [];
                   if (products.isEmpty) {
                     return const Center(
@@ -118,15 +118,17 @@ class _ClothingPageState extends State<ClothingPage> {
                       ),
                     );
                   }
-                  
+
                   return Wrap(
                     alignment: WrapAlignment.center,
                     spacing: 24,
                     runSpacing: 24,
-                    children: products.map((p) => ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 220),
-                      child: ProductTile(product: p),
-                    )).toList(),
+                    children: products
+                        .map((p) => ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 220),
+                              child: ProductTile(product: p),
+                            ))
+                        .toList(),
                   );
                 },
               ),
