@@ -77,7 +77,7 @@ class CartPage extends StatelessWidget {
                       );
                     },
                   ),
-                if (items.isNotEmpty) ..[
+                if (items.isNotEmpty) ...[
                   const SizedBox(height: 32),
                   const Divider(thickness: 2),
                   const SizedBox(height: 16),
