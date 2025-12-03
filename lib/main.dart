@@ -14,6 +14,7 @@ import 'pages/product_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/checkout_success_page.dart';
 import 'pages/clothing_page.dart';
+import 'pages/admin_seed_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
@@ -70,6 +71,7 @@ class UnionShopApp extends StatelessWidget {
         '/cart': (context) => const CartPage(),
         '/checkout-success': (context) => const CheckoutSuccessPage(),
         '/clothing': (context) => const ClothingPage(),
+        '/admin-seed': (context) => const AdminSeedPage(),
         '/hungry': (context) => const HungryPage(),
         '/accommodation': (context) => const AccommodationPage(),
       },
