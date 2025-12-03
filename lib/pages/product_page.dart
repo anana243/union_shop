@@ -37,8 +37,10 @@ class ProductPage extends StatelessWidget {
                 final image = Image.network(
                   product.imageUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (c, e, s) =>
-                      Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
+                  errorBuilder: (c, e, s) => Container(
+                      height: 300,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.image_not_supported, size: 50)),
                 );
 
                 final details = Column(
@@ -46,7 +48,8 @@ class ProductPage extends StatelessWidget {
                   children: [
                     Text(
                       product.title,
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -61,7 +64,8 @@ class ProductPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         CartService.instance.add(product);
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to cart')));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Added to cart')));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4d2963),
@@ -76,7 +80,8 @@ class ProductPage extends StatelessWidget {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(child: AspectRatio(aspectRatio: 1, child: image)),
+                      Expanded(
+                          child: AspectRatio(aspectRatio: 1, child: image)),
                       const SizedBox(width: 40),
                       Expanded(child: details),
                     ],
