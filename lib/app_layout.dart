@@ -166,7 +166,7 @@ class _Footer extends StatelessWidget {
               ),
               const SizedBox(height: 18),
               // subscribe box centered
-              const Center(child: FooterSubscribeBox()),
+              Center(child: FooterSubscribeBox()),
               const SizedBox(height: 10),
               const Center(child: Text('© Union Shop', style: TextStyle(color: Colors.black45))),
             ],
