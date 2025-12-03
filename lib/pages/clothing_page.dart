@@ -13,10 +13,18 @@ class ClothingPage extends StatelessWidget {
           minHeight: MediaQuery.of(context).size.height - 200,
         ),
         padding: const EdgeInsets.all(40.0),
-        child: const Center(
-          child: Text(
-            'Clothing Page',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Clothing',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
         ),
       ),
