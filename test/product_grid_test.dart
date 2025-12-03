@@ -28,7 +28,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ProductGrid(products: testProducts),
+            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts)),
           ),
         ),
       );
@@ -42,7 +42,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ProductGrid(products: testProducts, twoColumnGrid: true),
+            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts, twoColumnGrid: true)),
           ),
         ),
       );
@@ -56,12 +56,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ProductGrid(products: testProducts),
+            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts)),
           ),
         ),
       );
-
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Test Product 1'), findsOneWidget);
       expect(find.text('Test Product 2'), findsOneWidget);
@@ -72,12 +73,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ProductGrid(products: testProducts, twoColumnGrid: true),
+            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts, twoColumnGrid: true)),
           ),
         ),
       );
-
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       expect(find.text('Test Product 1'), findsOneWidget);
       expect(find.text('Test Product 2'), findsOneWidget);
@@ -87,7 +89,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ProductGrid(products: const []),
+            body: SizedBox(width: 1200, child: ProductGrid(products: const [])),
           ),
         ),
       );
