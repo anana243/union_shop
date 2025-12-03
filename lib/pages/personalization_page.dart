@@ -227,32 +227,35 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                       ),
                       const SizedBox(height: 32),
                       Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.orange[50],
-                          border: Border.all(color: Colors.orange[200]!),
-                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey[100],
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Column(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Icon(Icons.info_outline, color: Colors.orange[800]),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Important Notice',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.orange[800],
+                            Icon(Icons.info_outline, color: Colors.grey[600], size: 18),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    'Note',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Please ensure all spelling is correct before submitting your purchase, as we will print your item with the exact wording you provide. We will not be responsible for any incorrect spellings printed on your garment. Personalized items do not qualify for refunds.',
-                              style: TextStyle(fontSize: 14),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'Please double‑check spelling before purchase. We print exactly what you provide. Personalized items are not eligible for refunds.',
+                                    style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.4),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
