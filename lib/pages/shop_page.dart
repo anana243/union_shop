@@ -80,11 +80,13 @@ class _ShopPageState extends State<ShopPage> {
                   color: Colors.grey.shade100,
                   border: Border.all(color: Colors.grey.shade300),
                 ),
-                child: Row(
-                  children: [
-                    const Text('Filter by:', style: TextStyle(fontSize: 14)),
-                    const SizedBox(width: 8),
-                    DropdownButton<String>(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      const Text('Filter by:', style: TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
                       value: _filterBy,
                       underline: Container(),
                       items: _filters
