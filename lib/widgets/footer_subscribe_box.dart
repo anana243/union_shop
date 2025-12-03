@@ -16,12 +16,16 @@ class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
     super.dispose();
   }
 
-  bool _isValidEmail(String v) => RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v);
+  bool _isValidEmail(String v) =>
+      RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v);
 
   void _subscribe() {
     final ok = _isValidEmail(_email.text.trim());
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(ok ? 'Subscribed! Check your inbox.' : 'Please enter a valid email address')),
+      SnackBar(
+          content: Text(ok
+              ? 'Subscribed! Check your inbox.'
+              : 'Please enter a valid email address')),
     );
     if (ok) _email.clear();
   }
@@ -33,7 +37,8 @@ class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('LATEST OFFERS', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          const Text('LATEST OFFERS',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           TextField(
             controller: _email,
@@ -41,7 +46,8 @@ class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
             decoration: InputDecoration(
               hintText: 'Email address',
               isDense: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
                 borderSide: BorderSide(color: Colors.grey[300]!),
@@ -66,9 +72,11 @@ class _FooterSubscribeBoxState extends State<FooterSubscribeBox> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
               ),
-              child: const Text('SUBSCRIBE', style: TextStyle(fontSize: 12, letterSpacing: 0.8)),
+              child: const Text('SUBSCRIBE',
+                  style: TextStyle(fontSize: 12, letterSpacing: 0.8)),
             ),
           ),
         ],
