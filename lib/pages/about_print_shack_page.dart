@@ -1,82 +1,62 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
+import '../widgets/hero_carousel.dart';
 
 class AboutPrintShackPage extends StatelessWidget {
   const AboutPrintShackPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const heroUrl = 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561';
+
     return AppLayout(
       title: 'Union',
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 600),
-        padding: const EdgeInsets.all(24),
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'About Print Shack',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const HeroCarousel(imageUrl: heroUrl),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 900),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    const Text(
+                      'The Union Print Shack',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Make it yours with simple, transparent pricing — no surprises. Personalize clothing and merchandise with custom text or logos, then check our Terms & Conditions for personalization guidelines.',
+                      style: TextStyle(fontSize: 15, height: 1.6),
+                    ),
+                    const SizedBox(height: 28),
+                    const Text('Our Services',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 12),
+                    _buildServiceItem(
+                      'Personalized Text',
+                      'Add 1–4 lines of text in a variety of styles.',
+                    ),
+                    const SizedBox(height: 10),
+                    _buildServiceItem(
+                      'Logo Printing',
+                      'Small or large logo placement for garments and gifts.',
+                    ),
+                    const SizedBox(height: 10),
+                    _buildServiceItem(
+                      'Helpful Guidance',
+                      'Not sure what to choose? We\'ll help you get it right.',
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Welcome to Print Shack, your one-stop shop for custom printing and personalization services!',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'At Print Shack, we specialize in bringing your creative visions to life. Whether you\'re looking to personalize your clothing, create custom merchandise, or add a unique touch to your accessories, we\'ve got you covered.',
-                  style: TextStyle(fontSize: 16, height: 1.6),
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Our Services',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                _buildServiceItem(
-                  'Custom Text Printing',
-                  'Add personalized text to your garments with our high-quality printing service. Choose from multiple lines and font sizes.',
-                ),
-                const SizedBox(height: 12),
-                _buildServiceItem(
-                  'Logo Printing',
-                  'Print your logo or design on any item. We offer both small and large logo options to suit your needs.',
-                ),
-                const SizedBox(height: 12),
-                _buildServiceItem(
-                  'Design Consultation',
-                  'Not sure what you want? Our team is here to help you create the perfect design for your personalized items.',
-                ),
-                const SizedBox(height: 32),
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4d2963).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Quality Guarantee',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        'We use only the highest quality materials and printing techniques to ensure your personalized items look great and last long. Every item is carefully crafted and inspected before shipping.',
-                        style: TextStyle(fontSize: 16, height: 1.6),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
