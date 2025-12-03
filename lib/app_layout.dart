@@ -24,11 +24,48 @@ class _AppLayoutState extends State<AppLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 900;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        title: Text(widget.title),
+        leading: isMobile
+            ? null // Show hamburger on mobile
+            : IconButton(
+                icon: const Icon(Icons.home),
+                onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+              ),
+        title: isMobile
+            ? Text(widget.title)
+            : Row(
+                children: [
+                  Text(widget.title),
+                  const SizedBox(width: 32),
+                  if (!_searchOpen) ...[
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+                      child: const Text('HOME', style: TextStyle(color: Colors.white)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, '/shop'),
+                      child: const Text('SHOP', style: TextStyle(color: Colors.white)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+                      child: const Text('PRINT SHACK', style: TextStyle(color: Colors.white)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, '/sale'),
+                      child: const Text('SALE', style: TextStyle(color: Colors.white)),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, '/about'),
+                      child: const Text('ABOUT', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
+                ],
+              ),
         actions: [
           if (_searchOpen)
             Expanded(
@@ -39,7 +76,7 @@ class _AppLayoutState extends State<AppLayout> {
                   autofocus: true,
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
-                    hintText: 'Search...',
+                    hintText: 'Search products...',
                     hintStyle: TextStyle(color: Colors.white70),
                     border: InputBorder.none,
                   ),
@@ -52,6 +89,7 @@ class _AppLayoutState extends State<AppLayout> {
             ),
           IconButton(
             icon: Icon(_searchOpen ? Icons.close : Icons.search),
+            tooltip: 'Search',
             onPressed: () {
               setState(() {
                 _searchOpen = !_searchOpen;
@@ -60,26 +98,55 @@ class _AppLayoutState extends State<AppLayout> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.person),
+            icon: const Icon(Icons.shopping_cart_outlined),
+            tooltip: 'Cart',
+            onPressed: () => Navigator.pushNamed(context, '/cart'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.person_outline),
+            tooltip: 'Account',
             onPressed: () => Navigator.pushNamed(context, '/sign-in'),
           ),
+          const SizedBox(width: 8),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFF4d2963)),
-              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
-            ),
-            ListTile(title: const Text('Home'), onTap: () => Navigator.pushReplacementNamed(context, '/')),
-            ListTile(title: const Text('Shop'), onTap: () => Navigator.pushReplacementNamed(context, '/shop')),
-            ListTile(title: const Text('Print Shack'), onTap: () => Navigator.pushReplacementNamed(context, '/print-shack')),
-            ListTile(title: const Text('Sale'), onTap: () => Navigator.pushReplacementNamed(context, '/sale')),
-            ListTile(title: const Text('About'), onTap: () => Navigator.pushReplacementNamed(context, '/about')),
-          ],
-        ),
-      ),
+      drawer: isMobile
+          ? Drawer(
+              child: ListView(
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(color: Color(0xFF4d2963)),
+                    child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
+                    onTap: () => Navigator.pushReplacementNamed(context, '/'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.shopping_bag),
+                    title: const Text('Shop'),
+                    onTap: () => Navigator.pushReplacementNamed(context, '/shop'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.print),
+                    title: const Text('Print Shack'),
+                    onTap: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.local_offer),
+                    title: const Text('Sale'),
+                    onTap: () => Navigator.pushReplacementNamed(context, '/sale'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text('About'),
+                    onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+                  ),
+                ],
+              ),
+            )
+          : null,
       body: SingleChildScrollView(child: widget.child),
     );
   }
