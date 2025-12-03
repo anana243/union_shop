@@ -107,6 +107,14 @@ class _ShopPageState extends State<ShopPage> {
                       ],
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
+                    const Spacer(),
+                    FutureBuilder<List<Product>>(
+                      future: _load(repo),
+                      builder: (context, snapshot) {
+                        final count = snapshot.data?.length ?? 0;
+                        return Text('$count products', style: const TextStyle(fontSize: 14));
+                      },
+                    ),
                   ],
                 ),
               ),
