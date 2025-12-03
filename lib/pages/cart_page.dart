@@ -20,9 +20,14 @@ class CartPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(context), tooltip: 'Back'),
+                    IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(context),
+                        tooltip: 'Back'),
                     const SizedBox(width: 8),
-                    const Text('Shopping Cart', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                    const Text('Shopping Cart',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600)),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -33,11 +38,16 @@ class CartPage extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey),
+                          Icon(Icons.shopping_cart_outlined,
+                              size: 64, color: Colors.grey),
                           SizedBox(height: 16),
-                          Text('Your cart is empty', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                          Text('Your cart is empty',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600)),
                           SizedBox(height: 8),
-                          Text('Browse products and add them to your cart.', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                          Text('Browse products and add them to your cart.',
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.grey)),
                         ],
                       ),
                     ),
@@ -50,25 +60,27 @@ class CartPage extends StatelessWidget {
                     separatorBuilder: (_, __) => const Divider(),
                     itemBuilder: (context, i) {
                       final p = items[i];
-                        return ListTile(
-                          leading: SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Image.network(
-                              p.imageUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (c, e, s) => Container(color: Colors.grey[300], child: const Icon(Icons.image)),
-                            ),
+                      return ListTile(
+                        leading: SizedBox(
+                          width: 56,
+                          height: 56,
+                          child: Image.network(
+                            p.imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (c, e, s) => Container(
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.image)),
                           ),
-                          title: Text(p.title),
-                          subtitle: Text('£${p.price.toStringAsFixed(2)}'),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline),
-                            onPressed: () => CartService.instance.remove(p),
-                          ),
-                        );
-                      },
-                    ),
+                        ),
+                        title: Text(p.title),
+                        subtitle: Text('£${p.price.toStringAsFixed(2)}'),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete_outline),
+                          onPressed: () => CartService.instance.remove(p),
+                        ),
+                      );
+                    },
+                  ),
               ],
             );
           },
