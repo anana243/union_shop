@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../services/product_repository.dart';
 import '../models/product.dart';
-import '../widgets/product_tile.dart';
+import '../widgets/product_grid.dart';
 
 class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
@@ -156,18 +156,7 @@ class _ClothingPageState extends State<ClothingPage> {
 
                   return Column(
                     children: [
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 24,
-                        runSpacing: 24,
-                        children: products
-                            .map((p) => ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 220),
-                                  child: ProductTile(product: p),
-                                ))
-                            .toList(),
-                      ),
+                      ProductGrid(products: products),
                       const SizedBox(height: 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
