@@ -21,12 +21,13 @@ class SalePage extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1100),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   SizedBox(height: 16),
                   Text('Union Sale',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
                   SizedBox(height: 8),
                   Text(
                     "Get yours before they're all gone. All prices shown are inclusive of the discounts.",
