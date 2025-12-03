@@ -32,6 +32,66 @@ class _ClothingPageState extends State<ClothingPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Row(
+                  children: [
+                    const Text('Filter by:', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 8),
+                    DropdownButton<String>(
+                      value: _filterBy,
+                      underline: Container(),
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'All Products', child: Text('All Products')),
+                        DropdownMenuItem(
+                            value: 'Clothing', child: Text('Clothing')),
+                        DropdownMenuItem(
+                            value: 'Merchandise', child: Text('Merchandise')),
+                        DropdownMenuItem(
+                            value: 'Popular', child: Text('Popular')),
+                        DropdownMenuItem(value: 'UPSU', child: Text('UPSU')),
+                      ],
+                      onChanged: (value) => setState(() => _filterBy = value!),
+                    ),
+                    const SizedBox(width: 24),
+                    const Text('Sort by:', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 8),
+                    DropdownButton<String>(
+                      value: _sortBy,
+                      underline: Container(),
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'Featured', child: Text('Featured')),
+                        DropdownMenuItem(
+                            value: 'Best Selling', child: Text('Best Selling')),
+                        DropdownMenuItem(
+                            value: 'A-Z', child: Text('Alphabetically, A-Z')),
+                        DropdownMenuItem(
+                            value: 'Z-A', child: Text('Alphabetically, Z-A')),
+                        DropdownMenuItem(
+                            value: 'Price Low',
+                            child: Text('Price, Low to High')),
+                        DropdownMenuItem(
+                            value: 'Price High',
+                            child: Text('Price, High to Low')),
+                        DropdownMenuItem(
+                            value: 'Date Old', child: Text('Date, Old to New')),
+                        DropdownMenuItem(
+                            value: 'Date New', child: Text('Date, New to Old')),
+                      ],
+                      onChanged: (value) => setState(() => _sortBy = value!),
+                    ),
+                    const Spacer(),
+                    const Text('0 products', style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
