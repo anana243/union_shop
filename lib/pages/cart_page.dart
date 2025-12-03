@@ -9,27 +9,23 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppLayout(
       title: 'Union',
-      child: Padding(
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 200,
+        ),
         padding: const EdgeInsets.all(40.0),
         child: AnimatedBuilder(
           animation: CartService.instance,
           builder: (context, _) {
             final items = CartService.instance.items;
+            final total = items.fold<double>(0, (sum, item) => sum + item.price);
+            
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () => Navigator.pop(context),
-                        tooltip: 'Back'),
-                    const SizedBox(width: 8),
-                    const Text('Shopping Cart',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600)),
-                  ],
-                ),
+                const Text('Shopping Cart',
+                    style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 24),
                 if (items.isEmpty)
                   const Padding(
@@ -81,6 +77,58 @@ class CartPage extends StatelessWidget {
                       );
                     },
                   ),
+                if (items.isNotEmpty) ..[
+                  const SizedBox(height: 32),
+                  const Divider(thickness: 2),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Total:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '£${total.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4d2963),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Checkout feature coming soon!'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4d2963),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                    child: const Text(
+                      'PROCEED TO CHECKOUT',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ],
               ],
             );
           },
