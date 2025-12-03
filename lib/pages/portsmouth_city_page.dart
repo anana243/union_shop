@@ -5,6 +5,7 @@ import '../services/product_repository.dart';
 import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
 import '../constants.dart';
+import '../widgets/product_grid.dart';
 
 class PortsmouthCityPage extends StatelessWidget {
   const PortsmouthCityPage({super.key});
@@ -62,18 +63,7 @@ class PortsmouthCityPage extends StatelessWidget {
                   );
                 }
 
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 1.0,
-                  ),
-                  itemCount: products.length,
-                  itemBuilder: (context, i) => ProductTile(product: products[i]),
-                );
+                return ProductGrid(products: products, twoColumnGrid: true);
               },
               ),
             ),
