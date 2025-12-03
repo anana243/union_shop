@@ -41,11 +41,31 @@ class _AppLayoutState extends State<AppLayout> {
                   Text(widget.title),
                   const SizedBox(width: 32),
                   if (!_searchOpen) ...[
-                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/'), child: const Text('HOME', style: TextStyle(color: Colors.white))),
-                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/shop'), child: const Text('SHOP', style: TextStyle(color: Colors.white))),
-                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'), child: const Text('PRINT SHACK', style: TextStyle(color: Colors.white))),
-                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/sale'), child: const Text('SALE', style: TextStyle(color: Colors.white))),
-                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/about'), child: const Text('ABOUT', style: TextStyle(color: Colors.white))),
+                    TextButton(
+                        onPressed: () =>
+                            Navigator.pushReplacementNamed(context, '/'),
+                        child: const Text('HOME',
+                            style: TextStyle(color: Colors.white))),
+                    TextButton(
+                        onPressed: () =>
+                            Navigator.pushReplacementNamed(context, '/shop'),
+                        child: const Text('SHOP',
+                            style: TextStyle(color: Colors.white))),
+                    TextButton(
+                        onPressed: () => Navigator.pushReplacementNamed(
+                            context, '/print-shack'),
+                        child: const Text('PRINT SHACK',
+                            style: TextStyle(color: Colors.white))),
+                    TextButton(
+                        onPressed: () =>
+                            Navigator.pushReplacementNamed(context, '/sale'),
+                        child: const Text('SALE',
+                            style: TextStyle(color: Colors.white))),
+                    TextButton(
+                        onPressed: () =>
+                            Navigator.pushReplacementNamed(context, '/about'),
+                        child: const Text('ABOUT',
+                            style: TextStyle(color: Colors.white))),
                   ],
                 ],
               ),
@@ -58,7 +78,10 @@ class _AppLayoutState extends State<AppLayout> {
                 controller: _searchController,
                 autofocus: true,
                 style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(hintText: 'Search products...', hintStyle: TextStyle(color: Colors.white70), border: InputBorder.none),
+                decoration: const InputDecoration(
+                    hintText: 'Search products...',
+                    hintStyle: TextStyle(color: Colors.white70),
+                    border: InputBorder.none),
                 onSubmitted: (query) {
                   Navigator.pushNamed(context, '/search', arguments: query);
                   setState(() => _searchOpen = false);
@@ -73,7 +96,10 @@ class _AppLayoutState extends State<AppLayout> {
                   controller: _searchController,
                   autofocus: true,
                   style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(hintText: 'Search products...', hintStyle: TextStyle(color: Colors.white70), border: InputBorder.none),
+                  decoration: const InputDecoration(
+                      hintText: 'Search products...',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      border: InputBorder.none),
                   onSubmitted: (query) {
                     Navigator.pushNamed(context, '/search', arguments: query);
                     setState(() => _searchOpen = false);
@@ -109,9 +135,14 @@ class _AppLayoutState extends State<AppLayout> {
                       right: 6,
                       top: 6,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10)),
-                        child: Text('$count', style: const TextStyle(color: Colors.white, fontSize: 11)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text('$count',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 11)),
                       ),
                     ),
                 ],
@@ -132,7 +163,8 @@ class _AppLayoutState extends State<AppLayout> {
                       await FirebaseAuth.instance.signOut();
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Signed out successfully')),
+                          const SnackBar(
+                              content: Text('Signed out successfully')),
                         );
                       }
                     }
@@ -173,12 +205,35 @@ class _AppLayoutState extends State<AppLayout> {
           ? Drawer(
               child: ListView(
                 children: [
-                  const DrawerHeader(decoration: BoxDecoration(color: Color(0xFF4d2963)), child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24))),
-                  ListTile(leading: const Icon(Icons.home), title: const Text('Home'), onTap: () => Navigator.pushReplacementNamed(context, '/')),
-                  ListTile(leading: const Icon(Icons.shopping_bag), title: const Text('Shop'), onTap: () => Navigator.pushReplacementNamed(context, '/shop')),
-                  ListTile(leading: const Icon(Icons.print), title: const Text('Print Shack'), onTap: () => Navigator.pushReplacementNamed(context, '/print-shack')),
-                  ListTile(leading: const Icon(Icons.local_offer), title: const Text('Sale'), onTap: () => Navigator.pushReplacementNamed(context, '/sale')),
-                  ListTile(leading: const Icon(Icons.info), title: const Text('About'), onTap: () => Navigator.pushReplacementNamed(context, '/about')),
+                  const DrawerHeader(
+                      decoration: BoxDecoration(color: Color(0xFF4d2963)),
+                      child: Text('Menu',
+                          style: TextStyle(color: Colors.white, fontSize: 24))),
+                  ListTile(
+                      leading: const Icon(Icons.home),
+                      title: const Text('Home'),
+                      onTap: () =>
+                          Navigator.pushReplacementNamed(context, '/')),
+                  ListTile(
+                      leading: const Icon(Icons.shopping_bag),
+                      title: const Text('Shop'),
+                      onTap: () =>
+                          Navigator.pushReplacementNamed(context, '/shop')),
+                  ListTile(
+                      leading: const Icon(Icons.print),
+                      title: const Text('Print Shack'),
+                      onTap: () => Navigator.pushReplacementNamed(
+                          context, '/print-shack')),
+                  ListTile(
+                      leading: const Icon(Icons.local_offer),
+                      title: const Text('Sale'),
+                      onTap: () =>
+                          Navigator.pushReplacementNamed(context, '/sale')),
+                  ListTile(
+                      leading: const Icon(Icons.info),
+                      title: const Text('About'),
+                      onTap: () =>
+                          Navigator.pushReplacementNamed(context, '/about')),
                 ],
               ),
             )
@@ -239,7 +294,8 @@ class _Footer extends StatelessWidget {
 class _FooterLinksRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
+    TextStyle link = const TextStyle(
+        color: Colors.black54, decoration: TextDecoration.underline);
     return Wrap(
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -251,22 +307,29 @@ class _FooterLinksRow extends StatelessWidget {
           children: const [
             Icon(Icons.schedule, size: 18, color: Colors.black38),
             SizedBox(width: 6),
-            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),
+            Text('Opening Times: Mon–Fri 9:00–17:00',
+                style: TextStyle(color: Colors.black54)),
           ],
         ),
         MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),
+          child: GestureDetector(
+              onTap: () =>
+                  Navigator.pushNamed(context, '/terms-and-conditions'),
+              child: Text('Terms & Conditions', style: link)),
         ),
         MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
+          child: GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/refund-policy'),
+              child: Text('Refund Policy', style: link)),
         ),
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Contact page coming soon')));
             },
             child: Text('Contact', style: link),
           ),
