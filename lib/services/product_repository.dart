@@ -2,8 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/product.dart';
 
 class ProductRepository {
-  final FirebaseFirestore _db;
-  ProductRepository({FirebaseFirestore? db}) : _db = db ?? FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  Future<bool> ping() async {
+    await _db.collection('_ping').doc('web').set({'ok': true});
+    final d = await _db.collection('_ping').doc('web').get();
+    return d.exists;
+  }
 
   CollectionReference<Map<String, dynamic>> get _col => _db.collection('products');
 
