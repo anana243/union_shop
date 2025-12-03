@@ -118,10 +118,53 @@ class _AppLayoutState extends State<AppLayout> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            tooltip: 'Account',
-            onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              final user = snapshot.data;
+              if (user != null) {
+                return PopupMenuButton<String>(
+                  icon: const Icon(Icons.person),
+                  tooltip: 'Account',
+                  offset: const Offset(0, 50),
+                  onSelected: (value) async {
+                    if (value == 'signout') {
+                      await FirebaseAuth.instance.signOut();
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Signed out successfully')),
+                        );
+                      }
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem<String>(
+                      enabled: false,
+                      child: Text(
+                        user.email ?? 'User',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const PopupMenuDivider(),
+                    const PopupMenuItem<String>(
+                      value: 'signout',
+                      child: Row(
+                        children: [
+                          Icon(Icons.logout, size: 18),
+                          SizedBox(width: 8),
+                          Text('Sign Out'),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return IconButton(
+                icon: const Icon(Icons.person_outline),
+                tooltip: 'Sign In',
+                onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
