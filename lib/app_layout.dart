@@ -33,7 +33,7 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        leading: isMobile ? null : null,
+        automaticallyImplyLeading: false,
         title: isMobile
             ? Text(widget.title)
             : Row(
