@@ -93,7 +93,14 @@ class _ClothingPageState extends State<ClothingPage> {
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
                     const Spacer(),
-                    const Text('0 products', style: TextStyle(fontSize: 14)),
+                    FutureBuilder<List<Product>>(
+                      future: ProductRepository().listByCollection('clothing'),
+                      builder: (context, snapshot) {
+                        final count = snapshot.data?.length ?? 0;
+                        return Text('$count products',
+                            style: const TextStyle(fontSize: 14));
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -110,8 +117,8 @@ class _ClothingPageState extends State<ClothingPage> {
                     );
                   }
 
-                  final products = snapshot.data ?? [];
-                  if (products.isEmpty) {
+                  final allProducts = snapshot.data ?? [];
+                  if (allProducts.isEmpty) {
                     return const Center(
                       child: Padding(
                         padding: EdgeInsets.all(40.0),
@@ -121,16 +128,52 @@ class _ClothingPageState extends State<ClothingPage> {
                     );
                   }
 
-                  return Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: products
-                        .map((p) => ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 220),
-                              child: ProductTile(product: p),
-                            ))
-                        .toList(),
+                  final totalPages =
+                      (allProducts.length / _itemsPerPage).ceil();
+                  final startIndex = (_currentPage - 1) * _itemsPerPage;
+                  final endIndex =
+                      (startIndex + _itemsPerPage).clamp(0, allProducts.length);
+                  final products = allProducts.sublist(startIndex, endIndex);
+
+                  return Column(
+                    children: [
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 24,
+                        runSpacing: 24,
+                        children: products
+                            .map((p) => ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 220),
+                                  child: ProductTile(product: p),
+                                ))
+                            .toList(),
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.arrow_back),
+                            onPressed: _currentPage > 1
+                                ? () => setState(() => _currentPage--)
+                                : null,
+                          ),
+                          const SizedBox(width: 16),
+                          Text(
+                            'Page $_currentPage of $totalPages',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          const SizedBox(width: 16),
+                          IconButton(
+                            icon: const Icon(Icons.arrow_forward),
+                            onPressed: _currentPage < totalPages
+                                ? () => setState(() => _currentPage++)
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ],
                   );
                 },
               ),
