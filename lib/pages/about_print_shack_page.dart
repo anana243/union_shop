@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../widgets/hero_carousel.dart';
+import '../constants.dart';
 
 class AboutPrintShackPage extends StatelessWidget {
   const AboutPrintShackPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const heroUrl = 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561';
-
     return AppLayout(
       title: 'Union',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const HeroCarousel(imageUrl: heroUrl),
+          const HeroCarousel(imageUrl: kHeroImageUrl),
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Center(
