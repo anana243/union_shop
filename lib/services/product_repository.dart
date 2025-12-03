@@ -13,8 +13,19 @@ class ProductRepository {
   CollectionReference<Map<String, dynamic>> get _col => _db.collection('products');
 
   Future<List<Product>> listByCollection(String collection) async {
-    final q = await _col.where('collections', arrayContains: collection).get();
-    return q.docs.map((d) => Product.fromMap(d.id, d.data())).toList();
+    // Primary: documents with array field `collections` containing the value
+    final q1 = await _col.where('collections', arrayContains: collection).get();
+    final byCollections = {
+      for (final d in q1.docs) d.id: Product.fromMap(d.id, d.data())
+    };
+
+    // Fallback: some older docs may use a single `category` field
+    final q2 = await _col.where('category', isEqualTo: collection).get();
+    for (final d in q2.docs) {
+      byCollections.putIfAbsent(d.id, () => Product.fromMap(d.id, d.data()));
+    }
+
+    return byCollections.values.toList();
   }
 
   Future<List<Product>> listFeatured() async {
