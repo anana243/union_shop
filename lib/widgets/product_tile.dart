@@ -25,14 +25,22 @@ class _ProductTileState extends State<ProductTile> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, '/product', arguments: widget.product),
+        onTap: () =>
+            Navigator.pushNamed(context, '/product', arguments: widget.product),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxTileWidth),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
             decoration: BoxDecoration(
               color: Colors.white,
-              boxShadow: _hover ? [BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 10, offset: const Offset(0, 3))] : [],
+              boxShadow: _hover
+                  ? [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.12),
+                          blurRadius: 10,
+                          offset: const Offset(0, 3))
+                    ]
+                  : [],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +51,9 @@ class _ProductTileState extends State<ProductTile> {
                     widget.product.imageUrl,
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.low,
-                    errorBuilder: (c, e, s) => Container(color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 42)),
+                    errorBuilder: (c, e, s) => Container(
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.image_not_supported, size: 42)),
                   ),
                 ),
                 Padding(
@@ -51,18 +61,27 @@ class _ProductTileState extends State<ProductTile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.product.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600), maxLines: 2, overflow: TextOverflow.ellipsis),
+                      Text(widget.product.title,
+                          style: const TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w600),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis),
                       if (widget.product.subtitle.isNotEmpty) ...[
                         const SizedBox(height: 4),
                         Text(
                           widget.product.subtitle,
-                          style: const TextStyle(fontSize: 12, color: Colors.black87),
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black87),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                       const SizedBox(height: 6),
-                      Text(priceLabel, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF4d2963))),
+                      Text(priceLabel,
+                          style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF4d2963))),
                     ],
                   ),
                 ),
