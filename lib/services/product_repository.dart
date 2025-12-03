@@ -60,3 +60,4 @@ class ProductRepository {
       return title.contains(lowercaseQuery) || subtitle.contains(lowercaseQuery);
     }).toList();
   }
+}
