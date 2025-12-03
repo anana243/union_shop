@@ -17,36 +17,35 @@ class HomePage extends StatelessWidget {
 
     return AppLayout(
       title: 'Union',
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            HeroCarousel(imageUrl: _heroImageUrl),
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1100),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 32),
+      child: Column(
+        children: [
+          HeroCarousel(imageUrl: _heroImageUrl),
+          Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 32),
 
-                    _Section(
-                      title: 'Essential Range - over 20% off!',
-                      future: repo.listByCollection('essential'),
-                    ),
-                    const SizedBox(height: 40),
+                  _Section(
+                    title: 'Essential Range - over 20% off!',
+                    future: repo.listByCollection('essential'),
+                  ),
+                  const SizedBox(height: 40),
 
-                    _Section(
-                      title: 'Signature Range',
-                      future: repo.listByCollection('signature'),
-                    ),
-                    const SizedBox(height: 40),
+                  _Section(
+                    title: 'Signature Range',
+                    future: repo.listByCollection('signature'),
+                  ),
+                  const SizedBox(height: 40),
 
-                    _Section(
-                      title: 'Portsmouth City Collection',
-                      future: repo.listByCollection('city'),
-                      cityLayout: true,
-                    ),
+                  _Section(
+                    title: 'Portsmouth City Collection',
+                    future: repo.listByCollection('city'),
+                    cityLayout: true,
+                  ),
 
                     const SizedBox(height: 32),
                     const Center(
@@ -64,15 +63,14 @@ class HomePage extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 64),
-                    _PersonalizeSplit(
-                      imageUrl: _heroImageUrl, // reuse constant
-                    ),
-                  ],
-                ),
+                  _PersonalizeSplit(
+                    imageUrl: _heroImageUrl, // reuse constant
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
