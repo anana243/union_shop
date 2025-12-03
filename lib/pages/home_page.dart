@@ -53,21 +53,19 @@ class HomePage extends StatelessWidget {
                       child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                     ),
                     const SizedBox(height: 20),
-                    const _OurRangeGrid(
-                      items: [
+                    _OurRangeGrid(
+                      items: const [
                         _RangeItem(title: 'Clothing', route: '/shop'),
                         _RangeItem(title: 'Merchandise', route: '/shop'),
                         _RangeItem(title: 'Graduation', route: '/shop'),
                         _RangeItem(title: 'Sale', route: '/sale'),
                       ],
-                      imageUrl:
-                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                      imageUrl: _heroImageUrl, // use the same hero image to avoid duplication
                     ),
 
                     const SizedBox(height: 64),
-                    const _PersonalizeSplit(
-                      imageUrl:
-                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                    _PersonalizeSplit(
+                      imageUrl: _heroImageUrl, // reuse constant
                     ),
                   ],
                 ),
