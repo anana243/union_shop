@@ -21,8 +21,11 @@ class ProductPage extends StatelessWidget {
     }
 
     return AppLayout(
-      title: product.title,
+      title: 'Union',
       child: Container(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 200,
+        ),
         color: Colors.white,
         padding: const EdgeInsets.all(40.0),
         child: Center(
