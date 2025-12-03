@@ -25,14 +25,16 @@ class _HeroCarouselState extends State<HeroCarousel> {
       _SlideData(
         imageUrl: widget.imageUrl,
         title: 'Essential Range - over 20% off!',
-        body: 'Over 20% off our Essential Range. Come and grab yours while stock lasts.',
+        body:
+            'Over 20% off our Essential Range. Come and grab yours while stock lasts.',
         ctaLabel: 'BROWSE COLLECTION',
         onTapRoute: '/shop',
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
         title: 'The Print Shack',
-        body: 'Create something uniquely you with our personalization service - from £3 for one line of text.',
+        body:
+            'Create something uniquely you with our personalization service - from £3 for one line of text.',
         ctaLabel: 'FIND OUT MORE',
         onTapRoute: '/print-shack',
       ),
@@ -95,20 +97,23 @@ class _HeroCarouselState extends State<HeroCarousel> {
   void _prev() {
     _pauseForUser();
     final target = (_index - 1).clamp(0, _slides.length - 1);
-    _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    _controller.animateToPage(target,
+        duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
     _restartAutoAfterIdle();
   }
 
   void _next() {
     _pauseForUser();
     final target = (_index + 1) % _slides.length;
-    _controller.animateToPage(target, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    _controller.animateToPage(target,
+        duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
     _restartAutoAfterIdle();
   }
 
   void _jumpTo(int i) {
     _pauseForUser();
-    _controller.animateToPage(i, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+    _controller.animateToPage(i,
+        duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
     _restartAutoAfterIdle();
   }
 
@@ -142,7 +147,8 @@ class _HeroCarouselState extends State<HeroCarousel> {
               bottom: 10,
               child: Center(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.35),
                     borderRadius: BorderRadius.circular(16),
@@ -154,7 +160,8 @@ class _HeroCarouselState extends State<HeroCarousel> {
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: _prev,
-                        icon: const Icon(Icons.chevron_left, color: Colors.white, size: 20),
+                        icon: const Icon(Icons.chevron_left,
+                            color: Colors.white, size: 20),
                         tooltip: 'Previous',
                       ),
                       const SizedBox(width: 6),
@@ -170,7 +177,9 @@ class _HeroCarouselState extends State<HeroCarousel> {
                               margin: const EdgeInsets.symmetric(horizontal: 3),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: active ? Colors.white : Colors.white.withOpacity(0.6),
+                                color: active
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.6),
                               ),
                             ),
                           );
@@ -181,7 +190,8 @@ class _HeroCarouselState extends State<HeroCarousel> {
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: _next,
-                        icon: const Icon(Icons.chevron_right, color: Colors.white, size: 20),
+                        icon: const Icon(Icons.chevron_right,
+                            color: Colors.white, size: 20),
                         tooltip: 'Next',
                       ),
                       const SizedBox(width: 8),
@@ -189,7 +199,8 @@ class _HeroCarouselState extends State<HeroCarousel> {
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: _togglePause,
-                        icon: Icon(_paused ? Icons.play_arrow : Icons.pause, color: Colors.white, size: 20),
+                        icon: Icon(_paused ? Icons.play_arrow : Icons.pause,
+                            color: Colors.white, size: 20),
                         tooltip: _paused ? 'Resume' : 'Pause',
                       ),
                     ],
@@ -233,7 +244,10 @@ class _HeroSlide extends StatelessWidget {
               Text(
                 data.title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+                style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(height: 12),
               Text(
@@ -243,14 +257,18 @@ class _HeroSlide extends StatelessWidget {
               ),
               const SizedBox(height: 22),
               ElevatedButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, data.onTapRoute),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, data.onTapRoute),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                 ),
-                child: Text(data.ctaLabel, style: const TextStyle(fontSize: 13, letterSpacing: 0.6)),
+                child: Text(data.ctaLabel,
+                    style: const TextStyle(fontSize: 13, letterSpacing: 0.6)),
               ),
             ],
           ),
