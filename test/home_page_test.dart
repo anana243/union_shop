@@ -6,12 +6,12 @@ import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 
 Widget _app(Widget home) => MaterialApp(
-  routes: {
-    '/': (context) => home,
-    '/product': (context) => const ProductPage(),
-  },
-  initialRoute: '/',
-);
+      routes: {
+        '/': (context) => home,
+        '/product': (context) => const ProductPage(),
+      },
+      initialRoute: '/',
+    );
 
 void main() {
   setupTests();
