@@ -26,7 +26,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
       final cityProducts = [
         {
           'title': 'City Postcard',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 3.50,
           'slug': 'city-postcard',
           'collections': ['city'],
@@ -35,7 +36,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'City Keyring',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 8.00,
           'slug': 'city-keyring',
           'collections': ['city'],
@@ -44,7 +46,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'City Badge',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 5.00,
           'slug': 'city-badge',
           'collections': ['city'],
@@ -85,7 +88,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
       final items = [
         {
           'title': 'Signature Hoodie',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 35.00,
           'slug': 'signature-hoodie',
           'collections': ['clothing', 'signature'],
@@ -94,7 +98,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'Essential T-Shirt',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 12.00,
           'slug': 'essential-tee',
           'collections': ['clothing', 'essential'],
@@ -103,7 +108,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'Varsity Sweatshirt',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 28.00,
           'slug': 'varsity-sweatshirt',
           'collections': ['clothing'],
@@ -144,7 +150,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
       final items = [
         {
           'title': 'Julia Gash Mug',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 9.00,
           'slug': 'julia-gash-mug',
           'collections': ['merchandise', 'city'],
@@ -153,7 +160,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'UPSU Tote Bag',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 6.00,
           'slug': 'upsu-tote-bag',
           'collections': ['merchandise', 'upsu'],
@@ -162,7 +170,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'City Magnet',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 4.00,
           'slug': 'city-magnet',
           'collections': ['merchandise', 'city'],
@@ -203,7 +212,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
       final items = [
         {
           'title': 'Clearance Hoodie',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 20.00,
           'slug': 'clearance-hoodie',
           'collections': ['clothing', 'sale'],
@@ -212,7 +222,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'Sale Mug',
-          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 3.50,
           'slug': 'sale-mug',
           'collections': ['merchandise', 'sale'],
@@ -261,7 +272,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 ),
                 child: _isLoading
                     ? const SizedBox(
@@ -269,7 +281,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                         width: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
                     : const Text('Add Portsmouth City Products (3 items)'),
@@ -280,7 +293,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 ),
                 child: const Text('Add Clothing/Signature/Essential'),
               ),
@@ -290,7 +304,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 ),
                 child: const Text('Add Merchandise (Julia Gash/UPSU)'),
               ),
@@ -300,7 +315,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 ),
                 child: const Text('Add Sale Items'),
               ),
@@ -309,7 +325,9 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                 Text(
                   _message,
                   style: TextStyle(
-                    color: _message.startsWith('Error') ? Colors.red : Colors.green,
+                    color: _message.startsWith('Error')
+                        ? Colors.red
+                        : Colors.green,
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
