@@ -15,6 +15,11 @@ import 'pages/cart_page.dart';
 import 'pages/checkout_success_page.dart';
 import 'pages/clothing_page.dart';
 import 'pages/admin_seed_page.dart';
+import 'pages/portsmouth_city_page.dart';
+import 'pages/pride_page.dart';
+import 'pages/graduation_page.dart';
+import 'pages/personalization_page.dart';
+import 'pages/about_print_shack_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
@@ -72,6 +77,11 @@ class UnionShopApp extends StatelessWidget {
         '/checkout-success': (context) => const CheckoutSuccessPage(),
         '/clothing': (context) => const ClothingPage(),
         '/admin-seed': (context) => const AdminSeedPage(),
+        '/portsmouth-city': (context) => const PortsmouthCityPage(),
+        '/pride': (context) => const PridePage(),
+        '/graduation': (context) => const GraduationPage(),
+        '/personalization': (context) => const PersonalizationPage(),
+        '/print-shack/about': (context) => const AboutPrintShackPage(),
         '/hungry': (context) => const HungryPage(),
         '/accommodation': (context) => const AccommodationPage(),
       },
