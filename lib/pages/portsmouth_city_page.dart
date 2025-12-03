@@ -23,9 +23,9 @@ class PortsmouthCityPage extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1100),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   SizedBox(height: 16),
                   Text(
                     'Portsmouth City Collection',
