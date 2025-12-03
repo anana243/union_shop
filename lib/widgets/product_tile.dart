@@ -21,7 +21,13 @@ class _ProductTileState extends State<ProductTile> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, '/product', arguments: widget.product),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/product',
+            arguments: widget.product, // ← This should be a Product object
+          );
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(
