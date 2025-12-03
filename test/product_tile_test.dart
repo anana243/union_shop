@@ -7,7 +7,9 @@ import 'package:union_shop/models/product.dart';
 import 'package:union_shop/pages/product_page.dart';
 
 void main() {
-  setupTests();
+  setUpAll(() {
+    setupFirebaseTest();
+  });
 
   testWidgets('ProductTile navigates to ProductPage', (tester) async {
     tester.view.physicalSize = const Size(800, 1200);
