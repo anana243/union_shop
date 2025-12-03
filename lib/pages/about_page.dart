@@ -13,10 +13,12 @@ class AboutPage extends StatelessWidget {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 900),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('About Us', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
+              children: [
+                Text('About Us',
+                    style:
+                        TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
                 SizedBox(height: 12),
                 Text(
                   'Welcome to the Union Shop — we\'re dedicated to offering the very best university‑branded products, with a range of clothing and merchandise available to shop all year round. We even offer an exclusive personalization service.',
@@ -28,7 +30,8 @@ class AboutPage extends StatelessWidget {
                   style: TextStyle(fontSize: 15, height: 1.6),
                 ),
                 SizedBox(height: 12),
-                Text('Happy shopping,\nThe Union Shop team', style: TextStyle(fontSize: 15, height: 1.6)),
+                Text('Happy shopping,\nThe Union Shop team',
+                    style: TextStyle(fontSize: 15, height: 1.6)),
               ],
             ),
           ),
