@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../app_layout.dart';
+import '../services/cart_service.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -30,103 +31,60 @@ class ProductPage extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final isWide = constraints.maxWidth >= 700;
+                final image = Image.network(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (c, e, s) =>
+                      Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
+                );
+
+                final details = Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.title,
+                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      '£${product.price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4d2963),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        CartService.instance.add(product);
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to cart')));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4d2963),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('ADD TO CART'),
+                    ),
+                  ],
+                );
 
                 if (isWide) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Image.network(
-                            product.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
-                          ),
-                        ),
-                      ),
+                      Expanded(child: AspectRatio(aspectRatio: 1, child: image)),
                       const SizedBox(width: 40),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.title,
-                              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              '£${product.price.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4d2963),
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            ElevatedButton(
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Add to cart - Coming soon!')),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4d2963),
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                              ),
-                              child: const Text('ADD TO CART'),
-                            ),
-                          ],
-                        ),
-                      ),
+                      Expanded(child: details),
                     ],
                   );
                 } else {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.network(
-                          product.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(height: 300, color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 50)),
-                        ),
-                      ),
+                      AspectRatio(aspectRatio: 1, child: image),
                       const SizedBox(height: 24),
-                      Text(
-                        product.title,
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        '£${product.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4d2963),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Add to cart - Coming soon!')),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
-                          child: const Text('ADD TO CART'),
-                        ),
-                      ),
+                      details,
                     ],
                   );
                 }
