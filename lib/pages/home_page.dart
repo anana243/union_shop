@@ -107,33 +107,18 @@ class _Section extends StatelessWidget {
             }
 
             if (cityLayout) {
-              return LayoutBuilder(builder: (context, constraints) {
-                final isWide = constraints.maxWidth >= 700;
-                if (isWide) {
-                  return Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 24,
-                    runSpacing: 24,
-                    children:
-                        products.map((p) => ProductTile(product: p)).toList(),
-                  );
-                } else {
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 0.8,
-                    ),
-                    itemCount: products.length,
-                    itemBuilder: (context, i) =>
-                        ProductTile(product: products[i]),
-                  );
-                }
-              });
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, i) => ProductTile(product: products[i]),
+              );
             }
 
             return Wrap(
