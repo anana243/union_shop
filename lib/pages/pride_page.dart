@@ -55,7 +55,8 @@ class PridePage extends StatelessWidget {
                     childAspectRatio: 0.8,
                   ),
                   itemCount: products.length,
-                  itemBuilder: (context, i) => ProductTile(product: products[i]),
+                  itemBuilder: (context, i) =>
+                      ProductTile(product: products[i]),
                 );
               },
             ),
