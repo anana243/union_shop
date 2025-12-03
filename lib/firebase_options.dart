@@ -24,7 +24,7 @@ class DefaultFirebaseOptions {
     apiKey: 'AIzaSyAmIOAUqz12gG8Z3C-uVQk7NPXFDQirt2Y',
     authDomain: 'union-shop-825b3.firebaseapp.com',
     projectId: 'union-shop-825b3',
-    storageBucket: 'union-shop-825b3.firebasestorage.app',
+    storageBucket: 'union-shop-825b3.appspot.com',
     messagingSenderId: '1051074814746',
     appId: '1:1051074814746:web:d410760faa5dbef50942a3',
   );
