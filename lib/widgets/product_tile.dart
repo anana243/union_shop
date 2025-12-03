@@ -48,7 +48,6 @@ class _ProductTileState extends State<ProductTile> {
                   child: Image.network(
                     widget.product.imageUrl,
                     fit: BoxFit.cover,
-                    filterQuality: FilterQuality.low,
                     errorBuilder: (context, error, stackTrace) =>
                         Container(color: Colors.grey[300], child: const Icon(Icons.image_not_supported, size: 42)),
                   ),
