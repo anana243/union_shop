@@ -105,12 +105,7 @@ class CartPage extends StatelessWidget {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Checkout feature coming soon!'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/checkout-success');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4d2963),
