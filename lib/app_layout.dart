@@ -40,7 +40,6 @@ class _AppLayoutState extends State<AppLayout> {
                 children: [
                   Text(widget.title),
                   const SizedBox(width: 32),
-                  if (!_searchOpen) ...[
                     TextButton(
                         onPressed: () =>
                             Navigator.pushReplacementNamed(context, '/'),
@@ -66,13 +65,43 @@ class _AppLayoutState extends State<AppLayout> {
                             Navigator.pushReplacementNamed(context, '/about'),
                         child: const Text('ABOUT',
                             style: TextStyle(color: Colors.white))),
-                  ],
                 ],
               ),
+        bottom: _searchOpen && isMobile
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: Container(
+                  color: const Color(0xFF4d2963),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: TextField(
+                    controller: _searchController,
+                    autofocus: true,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      hintText: 'Search products...',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white54),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    onSubmitted: (query) {
+                      Navigator.pushNamed(context, '/search', arguments: query);
+                      setState(() => _searchOpen = false);
+                    },
+                  ),
+                ),
+              )
+            : null,
         actions: [
           if (_searchOpen && !isMobile)
             Container(
-              width: 200,
+              width: 300,
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
                 controller: _searchController,
@@ -86,25 +115,6 @@ class _AppLayoutState extends State<AppLayout> {
                   Navigator.pushNamed(context, '/search', arguments: query);
                   setState(() => _searchOpen = false);
                 },
-              ),
-            ),
-          if (_searchOpen && isMobile)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextField(
-                  controller: _searchController,
-                  autofocus: true,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                      hintText: 'Search products...',
-                      hintStyle: TextStyle(color: Colors.white70),
-                      border: InputBorder.none),
-                  onSubmitted: (query) {
-                    Navigator.pushNamed(context, '/search', arguments: query);
-                    setState(() => _searchOpen = false);
-                  },
-                ),
               ),
             ),
           IconButton(
