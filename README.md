@@ -22,6 +22,7 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 ## ✨ Features
 
 ### User Features
+
 - **Dynamic Homepage** with hero carousel, featured product sections, and promotional content
 - **Advanced Product Browsing** with 7 filter categories and 5 sorting options
 - **Real-time Search** functionality across all products
@@ -33,10 +34,12 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 - **Account Management** with user profile display and sign-out capability
 
 ### Admin Features
+
 - **Admin Seed Page** for populating Firestore with demo products
 - **Product Management** through Firebase Console
 
 ### Technical Features
+
 - Material Design 3 UI components
 - State management using ChangeNotifier pattern
 - Repository pattern for data access layer
@@ -48,17 +51,20 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 ## 🔧 Technology Stack
 
 ### Frontend
+
 - **Flutter 3.0+** - Cross-platform UI framework
 - **Dart** - Programming language
 - **Material Design 3** - UI component library
 
 ### Backend & Cloud Services
+
 - **Firebase Core 3.15.0** - Firebase SDK
 - **Firebase Authentication 5.6.1** - User authentication system
 - **Cloud Firestore 5.6.10** - NoSQL database for product data
 - **Firebase Hosting** - Web hosting (deployment ready)
 
 ### Development Tools
+
 - **flutter_test** - Testing framework
 - **fake_cloud_firestore 3.1.0** - Mock Firestore for testing
 - **firebase_auth_mocks 0.14.2** - Mock authentication for testing
@@ -85,6 +91,7 @@ The application follows a **layered architecture** pattern:
 ```
 
 ### Design Patterns Used
+
 - **Singleton Pattern**: CartService for global state management
 - **Repository Pattern**: ProductRepository for data access abstraction
 - **Observer Pattern**: ChangeNotifier for reactive UI updates
@@ -157,6 +164,7 @@ union_shop/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Flutter SDK 3.0 or higher
 - Dart SDK 2.17 or higher
 - Firebase account
@@ -165,12 +173,14 @@ union_shop/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/anana243/union_shop.git
    cd union_shop
    ```
 
 2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
@@ -178,6 +188,7 @@ union_shop/
 3. **Configure Firebase** (see [Firebase Configuration](#firebase-configuration))
 
 4. **Run the application**
+
    ```bash
    # For web development
    flutter run -d chrome
@@ -401,6 +412,7 @@ firebase deploy --only hosting
 ### Theme Colors
 
 Primary brand color is defined in `main.dart`:
+
 ```dart
 primarySwatch: Colors.purple,
 primaryColor: Color(0xFF4d2963)
@@ -409,6 +421,7 @@ primaryColor: Color(0xFF4d2963)
 ### Hero Images
 
 Hero carousel images are defined in `constants.dart`:
+
 ```dart
 const kHeroImageUrl = 'https://...';
 ```
@@ -416,6 +429,7 @@ const kHeroImageUrl = 'https://...';
 ### Responsive Breakpoint
 
 Mobile/desktop breakpoint (900px) is used throughout:
+
 ```dart
 final isMobile = MediaQuery.of(context).size.width < 900;
 ```
