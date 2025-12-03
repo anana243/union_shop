@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/services/cart_service.dart';
 import 'package:union_shop/models/product.dart';
@@ -32,7 +31,7 @@ void main() {
       );
 
       cartService.add(product);
-      expect(cartService.itemCount, equals(1));
+      expect(cartService.count, equals(1));
     });
 
     test('add same product multiple times increases quantity', () {
@@ -48,7 +47,7 @@ void main() {
       cartService.add(product);
       cartService.add(product);
 
-      expect(cartService.itemCount, equals(3));
+      expect(cartService.count, equals(3));
       final items = cartService.items;
       expect(items.length, equals(1));
       expect(items.first.quantity, equals(3));
@@ -67,7 +66,7 @@ void main() {
       cartService.add(product);
       cartService.remove(product);
 
-      expect(cartService.itemCount, equals(1));
+      expect(cartService.count, equals(1));
     });
 
     test('remove last item removes product from cart', () {
@@ -82,7 +81,7 @@ void main() {
       cartService.add(product);
       cartService.remove(product);
 
-      expect(cartService.itemCount, equals(0));
+      expect(cartService.count, equals(0));
       expect(cartService.items.isEmpty, isTrue);
     });
 
@@ -121,14 +120,14 @@ void main() {
 
       cartService.add(product);
       cartService.add(product);
-      expect(cartService.itemCount, equals(2));
+      expect(cartService.count, equals(2));
 
       cartService.clear();
-      expect(cartService.itemCount, equals(0));
+      expect(cartService.count, equals(0));
       expect(cartService.items.isEmpty, isTrue);
     });
 
-    test('stream notifies listeners on cart changes', () async {
+    test('updateQuantity updates item quantity', () {
       const product = Product(
         id: '1',
         title: 'Test Product',
@@ -137,17 +136,27 @@ void main() {
         slug: 'test',
       );
 
-      expectLater(
-        cartService.stream,
-        emitsInOrder([
-          isA<List>().having((l) => l.length, 'length', 1),
-          isA<List>().having((l) => l.length, 'length', 0),
-        ]),
+      cartService.add(product);
+      cartService.updateQuantity(product, 5);
+
+      expect(cartService.count, equals(5));
+      expect(cartService.items.first.quantity, equals(5));
+    });
+
+    test('updateQuantity with 0 removes item', () {
+      const product = Product(
+        id: '1',
+        title: 'Test Product',
+        imageUrl: 'https://example.com/test.jpg',
+        price: 10.0,
+        slug: 'test',
       );
 
       cartService.add(product);
-      await Future.delayed(const Duration(milliseconds: 10));
-      cartService.clear();
+      cartService.updateQuantity(product, 0);
+
+      expect(cartService.count, equals(0));
+      expect(cartService.items.isEmpty, isTrue);
     });
   });
 }
