@@ -123,7 +123,7 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
-                        value: _selectedOption,
+                        initialValue: _selectedOption,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
@@ -238,10 +238,10 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                           children: [
                             Icon(Icons.info_outline, color: Colors.grey[600], size: 18),
                             const SizedBox(width: 8),
-                            Expanded(
+                            const Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
                                     'Note',
                                     style: TextStyle(
