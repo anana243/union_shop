@@ -28,41 +28,39 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 32),
-
                   _Section(
                     title: 'Essential Range - over 20% off!',
                     future: repo.listByCollection('essential'),
                   ),
                   const SizedBox(height: 40),
-
                   _Section(
                     title: 'Signature Range',
                     future: repo.listByCollection('signature'),
                   ),
                   const SizedBox(height: 40),
-
                   _Section(
                     title: 'Portsmouth City Collection',
                     future: repo.listByCollection('city'),
                     cityLayout: true,
                   ),
-
-                    const SizedBox(height: 32),
-                    const Center(
-                      child: Text('Our Range', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
-                    ),
-                    const SizedBox(height: 20),
-                    _OurRangeGrid(
-                      items: const [
-                        _RangeItem(title: 'Clothing', route: '/shop'),
-                        _RangeItem(title: 'Merchandise', route: '/shop'),
-                        _RangeItem(title: 'Graduation', route: '/shop'),
-                        _RangeItem(title: 'Sale', route: '/sale'),
-                      ],
-                      imageUrl: _heroImageUrl, // use the same hero image to avoid duplication
-                    ),
-
-                    const SizedBox(height: 64),
+                  const SizedBox(height: 32),
+                  const Center(
+                    child: Text('Our Range',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(height: 20),
+                  _OurRangeGrid(
+                    items: const [
+                      _RangeItem(title: 'Clothing', route: '/shop'),
+                      _RangeItem(title: 'Merchandise', route: '/shop'),
+                      _RangeItem(title: 'Graduation', route: '/shop'),
+                      _RangeItem(title: 'Sale', route: '/sale'),
+                    ],
+                    imageUrl:
+                        _heroImageUrl, // use the same hero image to avoid duplication
+                  ),
+                  const SizedBox(height: 64),
                   _PersonalizeSplit(
                     imageUrl: _heroImageUrl, // reuse constant
                   ),
@@ -92,7 +90,10 @@ class _Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Center(child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
+        Center(
+            child: Text(title,
+                style: const TextStyle(
+                    fontSize: 22, fontWeight: FontWeight.w600))),
         const SizedBox(height: 20),
         FutureBuilder<List<Product>>(
           future: future,
@@ -113,20 +114,23 @@ class _Section extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     spacing: 24,
                     runSpacing: 24,
-                    children: products.map((p) => ProductTile(product: p)).toList(),
+                    children:
+                        products.map((p) => ProductTile(product: p)).toList(),
                   );
                 } else {
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       childAspectRatio: 0.75,
                     ),
                     itemCount: products.length,
-                    itemBuilder: (context, i) => ProductTile(product: products[i]),
+                    itemBuilder: (context, i) =>
+                        ProductTile(product: products[i]),
                   );
                 }
               });
@@ -136,10 +140,12 @@ class _Section extends StatelessWidget {
               alignment: WrapAlignment.center,
               spacing: 24,
               runSpacing: 24,
-              children: products.map((p) => ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 220),
-                child: ProductTile(product: p),
-              )).toList(),
+              children: products
+                  .map((p) => ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 220),
+                        child: ProductTile(product: p),
+                      ))
+                  .toList(),
             );
           },
         ),
@@ -222,13 +228,24 @@ class _RangeCardState extends State<_RangeCard> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(widget.imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, s) => Container(color: Colors.grey[300])),
-                AnimatedContainer(duration: const Duration(milliseconds: 120), color: Colors.black.withOpacity(_hover ? 0.18 : 0.08)),
+                Image.network(widget.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (c, e, s) =>
+                        Container(color: Colors.grey[300])),
+                AnimatedContainer(
+                    duration: const Duration(milliseconds: 120),
+                    color: Colors.black.withOpacity(_hover ? 0.18 : 0.08)),
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     color: Colors.black.withOpacity(0.35),
-                    child: Text(widget.title.toUpperCase(), style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.8)),
+                    child: Text(widget.title.toUpperCase(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.8)),
                   ),
                 ),
               ],
@@ -251,26 +268,37 @@ class _PersonalizeSplit extends StatelessWidget {
       if (isWide) {
         return Row(
           children: [
-            Expanded(child: AspectRatio(aspectRatio: 1.2, child: Image.network(imageUrl, fit: BoxFit.cover))),
+            Expanded(
+                child: AspectRatio(
+                    aspectRatio: 1.2,
+                    child: Image.network(imageUrl, fit: BoxFit.cover))),
             const SizedBox(width: 32),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Add a personal touch', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
+                  const Text('Add a personal touch',
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 16),
-                  const Text('Personalize your garments and gifts with our in-house printing service.', style: TextStyle(fontSize: 15)),
+                  const Text(
+                      'Personalize your garments and gifts with our in-house printing service.',
+                      style: TextStyle(fontSize: 15)),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, '/print-shack'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4d2963),
                       foregroundColor: Colors.white,
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
                     ),
-                    child: const Text('LEARN MORE', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
+                    child: const Text('LEARN MORE',
+                        style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
                   ),
                 ],
               ),
@@ -280,21 +308,32 @@ class _PersonalizeSplit extends StatelessWidget {
       } else {
         return Column(
           children: [
-            AspectRatio(aspectRatio: 1.2, child: Image.network(imageUrl, fit: BoxFit.cover)),
+            AspectRatio(
+                aspectRatio: 1.2,
+                child: Image.network(imageUrl, fit: BoxFit.cover)),
             const SizedBox(height: 24),
-            const Text('Add a personal touch', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
+            const Text('Add a personal touch',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center),
             const SizedBox(height: 12),
-            const Text('Personalize your garments and gifts with our in-house printing service.', style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
+            const Text(
+                'Personalize your garments and gifts with our in-house printing service.',
+                style: TextStyle(fontSize: 15),
+                textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, '/print-shack'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
-              child: const Text('LEARN MORE', style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
+              child: const Text('LEARN MORE',
+                  style: TextStyle(fontSize: 13, letterSpacing: 0.8)),
             ),
           ],
         );
