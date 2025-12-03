@@ -11,14 +11,15 @@ void main() {
   setupTests();
 
   Widget app() => MaterialApp(
-    routes: {
-      '/': (context) => const AppLayout(title: 'Union', child: SizedBox.shrink()),
-      '/search': (context) => const SearchPage(),
-      '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
-      '/refund-policy': (context) => const RefundPolicyPage(),
-    },
-    initialRoute: '/',
-  );
+        routes: {
+          '/': (context) =>
+              const AppLayout(title: 'Union', child: SizedBox.shrink()),
+          '/search': (context) => const SearchPage(),
+          '/terms-and-conditions': (context) => const TermsAndConditionsPage(),
+          '/refund-policy': (context) => const RefundPolicyPage(),
+        },
+        initialRoute: '/',
+      );
 
   testWidgets('Footer Search link navigates', (tester) async {
     tester.view.physicalSize = const Size(800, 1200);
