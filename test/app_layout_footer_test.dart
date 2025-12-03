@@ -8,7 +8,9 @@ import 'package:union_shop/pages/terms_and_conditions_page.dart';
 import 'package:union_shop/pages/refund_policy_page.dart';
 
 void main() {
-  setupTests();
+  setUpAll(() {
+    setupFirebaseTest();
+  });
 
   Widget app() => MaterialApp(
         routes: {
