@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
 
-class ClothingPage extends StatelessWidget {
+class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
+
+  @override
+  State<ClothingPage> createState() => _ClothingPageState();
+}
+
+class _ClothingPageState extends State<ClothingPage> {
+  String _filterBy = 'All Products';
+  String _sortBy = 'Featured';
 
   @override
   Widget build(BuildContext context) {
