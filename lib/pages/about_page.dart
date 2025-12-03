@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../services/product_repository.dart';
 
 class AboutPage extends StatelessWidget {
@@ -24,6 +25,16 @@ class AboutPage extends StatelessWidget {
                 );
               },
               child: const Text('Seed sample products'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final ref = FirebaseStorage.instance.ref().child('Untitled.png'); // change if in a folder
+                final url = await ref.getDownloadURL();
+                // ignore: avoid_print
+                print('Storage URL: $url');
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Printed URL to console')));
+              },
+              child: const Text('Get image URL from Storage'),
             ),
           ],
         ),
