@@ -137,34 +137,34 @@ class _Footer extends StatelessWidget {
         ),
       ),
     );
-  }  }
+  }
 }
 
-class _FooterLinksRow extends StatelessWidget { extends StatelessWidget {
+class _FooterLinksRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline); const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
+    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
     return Wrap(
-      alignment: WrapAlignment.start,rapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.center,rossAlignment.center,
-      spacing: 20, 20,
-      runSpacing: 10,cing: 10,
-      children: [dren: [
-        Row(Row(
-          mainAxisSize: MainAxisSize.min,AxisSize.min,
-          children: const [       children: const [
-            Icon(Icons.schedule, size: 18, color: Colors.black38),le, size: 18, color: Colors.black38),
-            SizedBox(width: 6),            SizedBox(width: 6),
-            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),7:00', style: TextStyle(color: Colors.black54)),
-          ],,
+      alignment: WrapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 20,
+      runSpacing: 10,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(Icons.schedule, size: 18, color: Colors.black38),
+            SizedBox(width: 6),
+            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),
+          ],
         ),
-        GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),('Terms & Conditions', style: link)),
-        GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),tor(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
-        GestureDetector(ector(
+        GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),
+        GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
+        GestureDetector(
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon'))););(content: Text('Contact page coming soon')));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon')));
           },
-          child: Text('Contact', style: link),t', style: link),
+          child: Text('Contact', style: link),
         ),
       ],
     );
