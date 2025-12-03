@@ -45,16 +45,46 @@ class _AppLayoutState extends State<AppLayout> {
                             Navigator.pushReplacementNamed(context, '/'),
                         child: const Text('HOME',
                             style: TextStyle(color: Colors.white))),
-                    TextButton(
-                        onPressed: () =>
-                            Navigator.pushReplacementNamed(context, '/shop'),
-                        child: const Text('SHOP',
-                            style: TextStyle(color: Colors.white))),
-                    TextButton(
-                        onPressed: () => Navigator.pushReplacementNamed(
-                            context, '/print-shack'),
-                        child: const Text('PRINT SHACK',
-                            style: TextStyle(color: Colors.white))),
+                    PopupMenuButton<String>(
+                      onSelected: (value) => Navigator.pushReplacementNamed(context, value),
+                      offset: const Offset(0, 40),
+                      child: TextButton(
+                        onPressed: null,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('SHOP', style: TextStyle(color: Colors.white)),
+                            Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
+                          ],
+                        ),
+                      ),
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(value: '/clothing', child: Text('Clothing')),
+                        const PopupMenuItem(value: '/shop', child: Text('Merchandise')),
+                        const PopupMenuItem(value: '/shop', child: Text('Accessories')),
+                        const PopupMenuItem(value: '/shop', child: Text('Stationery')),
+                        const PopupMenuItem(value: '/shop', child: Text('Home & Living')),
+                        const PopupMenuItem(value: '/shop', child: Text('Graduation')),
+                      ],
+                    ),
+                    PopupMenuButton<String>(
+                      onSelected: (value) => Navigator.pushReplacementNamed(context, value),
+                      offset: const Offset(0, 40),
+                      child: TextButton(
+                        onPressed: null,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('PRINT SHACK', style: TextStyle(color: Colors.white)),
+                            Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
+                          ],
+                        ),
+                      ),
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(value: '/print-shack', child: Text('Custom Printing')),
+                        const PopupMenuItem(value: '/print-shack', child: Text('Design Services')),
+                      ],
+                    ),
                     TextButton(
                         onPressed: () =>
                             Navigator.pushReplacementNamed(context, '/sale'),
