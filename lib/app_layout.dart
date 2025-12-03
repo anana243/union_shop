@@ -40,62 +40,79 @@ class _AppLayoutState extends State<AppLayout> {
                 children: [
                   Text(widget.title),
                   const SizedBox(width: 32),
-                    TextButton(
-                        onPressed: () =>
-                            Navigator.pushReplacementNamed(context, '/'),
-                        child: const Text('HOME',
-                            style: TextStyle(color: Colors.white))),
-                    PopupMenuButton<String>(
-                      onSelected: (value) => Navigator.pushReplacementNamed(context, value),
-                      offset: const Offset(0, 40),
-                      child: TextButton(
-                        onPressed: null,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text('SHOP', style: TextStyle(color: Colors.white)),
-                            Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
-                          ],
-                        ),
+                  TextButton(
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, '/'),
+                      child: const Text('HOME',
+                          style: TextStyle(color: Colors.white))),
+                  PopupMenuButton<String>(
+                    onSelected: (value) =>
+                        Navigator.pushReplacementNamed(context, value),
+                    offset: const Offset(0, 40),
+                    child: TextButton(
+                      onPressed: null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text('SHOP', style: TextStyle(color: Colors.white)),
+                          Icon(Icons.arrow_drop_down,
+                              color: Colors.white, size: 20),
+                        ],
                       ),
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(value: '/clothing', child: Text('Clothing')),
-                        const PopupMenuItem(value: '/shop', child: Text('Merchandise')),
-                        const PopupMenuItem(value: '/shop', child: Text('Signature Range')),
-                        const PopupMenuItem(value: '/shop', child: Text('Essential Range')),
-                        const PopupMenuItem(value: '/portsmouth-city', child: Text('Portsmouth City Collection')),
-                        const PopupMenuItem(value: '/pride', child: Text('Pride Collection')),
-                        const PopupMenuItem(value: '/graduation', child: Text('Graduation')),
-                      ],
                     ),
-                    PopupMenuButton<String>(
-                      onSelected: (value) => Navigator.pushReplacementNamed(context, value),
-                      offset: const Offset(0, 40),
-                      child: TextButton(
-                        onPressed: null,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text('PRINT SHACK', style: TextStyle(color: Colors.white)),
-                            Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
-                          ],
-                        ),
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                          value: '/clothing', child: Text('Clothing')),
+                      const PopupMenuItem(
+                          value: '/shop', child: Text('Merchandise')),
+                      const PopupMenuItem(
+                          value: '/shop', child: Text('Signature Range')),
+                      const PopupMenuItem(
+                          value: '/shop', child: Text('Essential Range')),
+                      const PopupMenuItem(
+                          value: '/portsmouth-city',
+                          child: Text('Portsmouth City Collection')),
+                      const PopupMenuItem(
+                          value: '/pride', child: Text('Pride Collection')),
+                      const PopupMenuItem(
+                          value: '/graduation', child: Text('Graduation')),
+                    ],
+                  ),
+                  PopupMenuButton<String>(
+                    onSelected: (value) =>
+                        Navigator.pushReplacementNamed(context, value),
+                    offset: const Offset(0, 40),
+                    child: TextButton(
+                      onPressed: null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text('PRINT SHACK',
+                              style: TextStyle(color: Colors.white)),
+                          Icon(Icons.arrow_drop_down,
+                              color: Colors.white, size: 20),
+                        ],
                       ),
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(value: '/print-shack/about', child: Text('About Print Shack')),
-                        const PopupMenuItem(value: '/personalization', child: Text('Personalization')),
-                      ],
                     ),
-                    TextButton(
-                        onPressed: () =>
-                            Navigator.pushReplacementNamed(context, '/sale'),
-                        child: const Text('SALE',
-                            style: TextStyle(color: Colors.white))),
-                    TextButton(
-                        onPressed: () =>
-                            Navigator.pushReplacementNamed(context, '/about'),
-                        child: const Text('ABOUT',
-                            style: TextStyle(color: Colors.white))),
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                          value: '/print-shack/about',
+                          child: Text('About Print Shack')),
+                      const PopupMenuItem(
+                          value: '/personalization',
+                          child: Text('Personalization')),
+                    ],
+                  ),
+                  TextButton(
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, '/sale'),
+                      child: const Text('SALE',
+                          style: TextStyle(color: Colors.white))),
+                  TextButton(
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, '/about'),
+                      child: const Text('ABOUT',
+                          style: TextStyle(color: Colors.white))),
                 ],
               ),
         bottom: _searchOpen && isMobile
@@ -103,7 +120,8 @@ class _AppLayoutState extends State<AppLayout> {
                 preferredSize: const Size.fromHeight(60),
                 child: Container(
                   color: const Color(0xFF4d2963),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: TextField(
                     controller: _searchController,
                     autofocus: true,
