@@ -31,8 +31,7 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
-        // Remove redundant desktop Home icon
-        leading: MediaQuery.of(context).size.width < 900 ? null : null,
+        leading: isMobile ? null : null, // no redundant home icon
         title: isMobile
             ? Text(widget.title)
             : Row(
@@ -40,26 +39,11 @@ class _AppLayoutState extends State<AppLayout> {
                   Text(widget.title),
                   const SizedBox(width: 32),
                   if (!_searchOpen) ...[
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/'),
-                      child: const Text('HOME', style: TextStyle(color: Colors.white)),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/shop'),
-                      child: const Text('SHOP', style: TextStyle(color: Colors.white)),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'),
-                      child: const Text('PRINT SHACK', style: TextStyle(color: Colors.white)),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/sale'),
-                      child: const Text('SALE', style: TextStyle(color: Colors.white)),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/about'),
-                      child: const Text('ABOUT', style: TextStyle(color: Colors.white)),
-                    ),
+                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/'), child: const Text('HOME', style: TextStyle(color: Colors.white))),
+                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/shop'), child: const Text('SHOP', style: TextStyle(color: Colors.white))),
+                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/print-shack'), child: const Text('PRINT SHACK', style: TextStyle(color: Colors.white))),
+                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/sale'), child: const Text('SALE', style: TextStyle(color: Colors.white))),
+                    TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/about'), child: const Text('ABOUT', style: TextStyle(color: Colors.white))),
                   ],
                 ],
               ),
@@ -72,11 +56,7 @@ class _AppLayoutState extends State<AppLayout> {
                   controller: _searchController,
                   autofocus: true,
                   style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    hintText: 'Search products...',
-                    hintStyle: TextStyle(color: Colors.white70),
-                    border: InputBorder.none,
-                  ),
+                  decoration: const InputDecoration(hintText: 'Search products...', hintStyle: TextStyle(color: Colors.white70), border: InputBorder.none),
                   onSubmitted: (query) {
                     Navigator.pushNamed(context, '/search', arguments: query);
                     setState(() => _searchOpen = false);
@@ -84,26 +64,14 @@ class _AppLayoutState extends State<AppLayout> {
                 ),
               ),
             ),
-          IconButton(
-            icon: Icon(_searchOpen ? Icons.close : Icons.search),
-            tooltip: 'Search',
-            onPressed: () {
-              setState(() {
-                _searchOpen = !_searchOpen;
-                if (!_searchOpen) _searchController.clear();
-              });
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            tooltip: 'Cart',
-            onPressed: () => Navigator.pushNamed(context, '/cart'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            tooltip: 'Account',
-            onPressed: () => Navigator.pushNamed(context, '/sign-in'),
-          ),
+          IconButton(icon: Icon(_searchOpen ? Icons.close : Icons.search), tooltip: 'Search', onPressed: () {
+            setState(() {
+              _searchOpen = !_searchOpen;
+              if (!_searchOpen) _searchController.clear();
+            });
+          }),
+          IconButton(icon: const Icon(Icons.shopping_cart_outlined), tooltip: 'Cart', onPressed: () => Navigator.pushNamed(context, '/cart')),
+          IconButton(icon: const Icon(Icons.person_outline), tooltip: 'Account', onPressed: () => Navigator.pushNamed(context, '/sign-in')),
           const SizedBox(width: 8),
         ],
       ),
@@ -111,10 +79,7 @@ class _AppLayoutState extends State<AppLayout> {
           ? Drawer(
               child: ListView(
                 children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(color: Color(0xFF4d2963)),
-                    child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
-                  ),
+                  const DrawerHeader(decoration: BoxDecoration(color: Color(0xFF4d2963)), child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24))),
                   ListTile(leading: const Icon(Icons.home), title: const Text('Home'), onTap: () => Navigator.pushReplacementNamed(context, '/')),
                   ListTile(leading: const Icon(Icons.shopping_bag), title: const Text('Shop'), onTap: () => Navigator.pushReplacementNamed(context, '/shop')),
                   ListTile(leading: const Icon(Icons.print), title: const Text('Print Shack'), onTap: () => Navigator.pushReplacementNamed(context, '/print-shack')),
@@ -124,11 +89,10 @@ class _AppLayoutState extends State<AppLayout> {
               ),
             )
           : null,
-      // Restore footer
       body: Column(
         children: [
           Expanded(child: SingleChildScrollView(child: widget.child)),
-          const _Footer(),
+          const _Footer(), // sits at bottom; only visible when scrolled down
         ],
       ),
     );
@@ -150,37 +114,21 @@ class _Footer extends StatelessWidget {
             builder: (context, constraints) {
               final isNarrow = constraints.maxWidth < 700;
               if (isNarrow) {
-                // Stack vertically on narrow screens
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _FooterLinksRow(),
                     const SizedBox(height: 18),
                     Center(child: FooterSubscribeBox()),
-                    const SizedBox(height: 10),
-                    const Center(child: Text('© Union Shop', style: TextStyle(color: Colors.black45))),
                   ],
                 );
               } else {
-                // Left links, right subscribe box (classic layout)
-                return Column(
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(child: _FooterLinksRow()),
-                        const SizedBox(width: 20),
-                        SizedBox(
-                          width: 360, // subscribe panel width
-                          child: FooterSubscribeBox(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('© Union Shop', style: TextStyle(color: Colors.black45)),
-                    ),
+                    Expanded(child: _FooterLinksRow()),
+                    const SizedBox(width: 20),
+                    SizedBox(width: 360, child: FooterSubscribeBox()),
                   ],
                 );
               }
@@ -189,48 +137,34 @@ class _Footer extends StatelessWidget {
         ),
       ),
     );
-  }
+  }  }
 }
 
-// Footer links: Opening Times detail, Terms, Refund, Contact
-class _FooterLinksRow extends StatelessWidget {
+class _FooterLinksRow extends StatelessWidget { extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
+    TextStyle link = const TextStyle(color: Colors.black54, decoration: TextDecoration.underline); const TextStyle(color: Colors.black54, decoration: TextDecoration.underline);
     return Wrap(
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: 20,
-      runSpacing: 10,
-      children: [
-        // Opening Times – inline details bubble style preserved by simple text
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Icon(Icons.schedule, size: 18, color: Colors.black38),
-            SizedBox(width: 6),
-            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),
-          ],
+      alignment: WrapAlignment.start,rapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,rossAlignment.center,
+      spacing: 20, 20,
+      runSpacing: 10,cing: 10,
+      children: [dren: [
+        Row(Row(
+          mainAxisSize: MainAxisSize.min,AxisSize.min,
+          children: const [       children: const [
+            Icon(Icons.schedule, size: 18, color: Colors.black38),le, size: 18, color: Colors.black38),
+            SizedBox(width: 6),            SizedBox(width: 6),
+            Text('Opening Times: Mon–Fri 9:00–17:00', style: TextStyle(color: Colors.black54)),7:00', style: TextStyle(color: Colors.black54)),
+          ],,
         ),
-        // Terms & Conditions
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
-          child: Text('Terms & Conditions', style: link),
-        ),
-        // Refund Policy
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/refund-policy'),
-          child: Text('Refund Policy', style: link),
-        ),
-        // Contact (kept as simple text; replace with route when you have it)
-        GestureDetector(
+        GestureDetector(onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'), child: Text('Terms & Conditions', style: link)),('Terms & Conditions', style: link)),
+        GestureDetector(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),tor(onTap: () => Navigator.pushNamed(context, '/refund-policy'), child: Text('Refund Policy', style: link)),
+        GestureDetector(ector(
           onTap: () {
-            // TODO: add contact route or external link when ready
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Contact page coming soon')),
-            );
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contact page coming soon'))););(content: Text('Contact page coming soon')));
           },
-          child: Text('Contact', style: link),
+          child: Text('Contact', style: link),t', style: link),
         ),
       ],
     );
