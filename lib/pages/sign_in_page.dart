@@ -120,7 +120,8 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   Text(
                     _isSignUp ? 'Create Account' : 'Sign In',
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
@@ -173,7 +174,8 @@ class _SignInPageState extends State<SignInPage> {
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
                           )
                         : Text(_isSignUp ? 'CREATE ACCOUNT' : 'SIGN IN'),
