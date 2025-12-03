@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../services/product_repository.dart';
 import '../models/product.dart';
-import '../widgets/product_tile.dart';
 import '../widgets/hero_carousel.dart';
 import '../constants.dart';
+import '../widgets/product_grid.dart';
 
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
@@ -58,17 +58,7 @@ class SalePage extends StatelessWidget {
                       ),
                     );
                   }
-                  return Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: products
-                        .map((p) => ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 220),
-                              child: ProductTile(product: p),
-                            ))
-                        .toList(),
-                  );
+                  return ProductGrid(products: products);
                 },
               ),
             ),
