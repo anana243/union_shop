@@ -45,25 +45,25 @@ class PortsmouthCityPage extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1100),
               child: FutureBuilder<List<Product>>(
-              future: repo.listByCollection('city'),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                      padding: EdgeInsets.all(40.0),
-                      child: Center(child: CircularProgressIndicator()));
-                }
-                final products = snapshot.data ?? [];
-                if (products.isEmpty) {
-                  return const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(48.0),
-                      child: Text('No products found'),
-                    ),
-                  );
-                }
+                future: repo.listByCollection('city'),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Padding(
+                        padding: EdgeInsets.all(40.0),
+                        child: Center(child: CircularProgressIndicator()));
+                  }
+                  final products = snapshot.data ?? [];
+                  if (products.isEmpty) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(48.0),
+                        child: Text('No products found'),
+                      ),
+                    );
+                  }
 
-                return ProductGrid(products: products, twoColumnGrid: true);
-              },
+                  return ProductGrid(products: products, twoColumnGrid: true);
+                },
               ),
             ),
           ),
