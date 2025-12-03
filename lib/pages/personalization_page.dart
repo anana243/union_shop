@@ -10,6 +10,7 @@ class PersonalizationPage extends StatefulWidget {
 
 class _PersonalizationPageState extends State<PersonalizationPage> {
   String _selectedOption = '1 Line of Text';
+  final _textController = TextEditingController();
 
   final Map<String, double> _priceMap = {
     '1 Line of Text': 3.00,
@@ -19,6 +20,12 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
     'Small Logo': 8.00,
     'Large Logo': 12.00,
   };
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +107,42 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                           setState(() => _selectedOption = value!);
                         },
                       ),
+                      const SizedBox(height: 24),
+                      if (!_selectedOption.contains('Logo')) ...[
+                        const Text(
+                          'Personalization Text',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _selectedOption == '1 Line of Text'
+                              ? 'Maximum 10 characters'
+                              : 'Enter your text',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          controller: _textController,
+                          maxLength: _selectedOption == '1 Line of Text' ? 10 : null,
+                          maxLines: _selectedOption.contains('Line')
+                              ? int.parse(_selectedOption.split(' ')[0])
+                              : 1,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter your text here',
+                          ),
+                        ),
+                      ],
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
