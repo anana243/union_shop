@@ -57,9 +57,10 @@ class CartPage extends StatelessWidget {
                       final p = items[i];
                       final isMobile = MediaQuery.of(context).size.width < 900;
                       final imageSize = isMobile ? 80.0 : 120.0;
-                      
+
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 8),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -98,13 +99,17 @@ class CartPage extends StatelessWidget {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => CartService.instance.updateQuantity(p.product, p.quantity - 1),
-                                        icon: const Icon(Icons.remove_circle_outline),
+                                        onPressed: () => CartService.instance
+                                            .updateQuantity(
+                                                p.product, p.quantity - 1),
+                                        icon: const Icon(
+                                            Icons.remove_circle_outline),
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12),
                                         child: Text(
                                           'Qty: ${p.quantity}',
                                           style: const TextStyle(
@@ -114,8 +119,11 @@ class CartPage extends StatelessWidget {
                                         ),
                                       ),
                                       IconButton(
-                                        onPressed: () => CartService.instance.updateQuantity(p.product, p.quantity + 1),
-                                        icon: const Icon(Icons.add_circle_outline),
+                                        onPressed: () => CartService.instance
+                                            .updateQuantity(
+                                                p.product, p.quantity + 1),
+                                        icon: const Icon(
+                                            Icons.add_circle_outline),
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(),
                                       ),
@@ -135,7 +143,8 @@ class CartPage extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete_outline),
-                              onPressed: () => CartService.instance.remove(p.product),
+                              onPressed: () =>
+                                  CartService.instance.remove(p.product),
                             ),
                           ],
                         ),
