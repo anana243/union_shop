@@ -131,6 +131,7 @@ class _ShopPageState extends State<ShopPage> {
                   ],
                 ),
               ),
+            ),
               const SizedBox(height: 32),
               FutureBuilder<List<Product>>(
                 future: _load(repo),
