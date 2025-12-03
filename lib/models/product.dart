@@ -4,6 +4,7 @@ class Product {
   final String imageUrl;
   final double price;
   final String slug;
+  final String subtitle;
 
   const Product({
     required this.id,
@@ -11,6 +12,7 @@ class Product {
     required this.imageUrl,
     required this.price,
     required this.slug,
+    this.subtitle = '',
   });
 
   factory Product.fromMap(String id, Map<String, dynamic> map) {
@@ -22,6 +24,7 @@ class Product {
           ? (map['price'] as int).toDouble()
           : (map['price'] as num?)?.toDouble() ?? 0.0,
       slug: map['slug'] as String? ?? id,
+      subtitle: map['subtitle'] as String? ?? '',
     );
   }
 
@@ -31,6 +34,7 @@ class Product {
       'imageUrl': imageUrl,
       'price': price,
       'slug': slug,
+      'subtitle': subtitle,
     };
   }
 }
