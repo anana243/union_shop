@@ -5,7 +5,8 @@ import '../models/product.dart';
 import '../widgets/product_tile.dart';
 
 class ShopPage extends StatefulWidget {
-  const ShopPage({super.key});
+  final String? initialFilter;
+  const ShopPage({super.key, this.initialFilter});
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -17,12 +18,13 @@ class _ShopPageState extends State<ShopPage> {
     _Filter('Clothing', 'clothing'),
     _Filter('Merchandise', 'merchandise'),
     _Filter('Portsmouth City Collection', 'city'),
-    _Filter('University Merch', 'upsu'),
+    _Filter('Pride Collection', 'pride'),
+    _Filter('Graduation Collection', 'graduation'),
     _Filter('Signature Range', 'signature'),
     _Filter('Essential Range', 'essential'),
   ];
 
-  String _filterBy = _filters.first.label;
+  late String _filterBy;
   String _sortBy = 'Featured';
   late final ProductRepository _repo;
   Future<List<Product>>? _future;
@@ -31,6 +33,9 @@ class _ShopPageState extends State<ShopPage> {
   void initState() {
     super.initState();
     _repo = ProductRepository();
+    
+    // Use initialFilter if provided, otherwise default to 'All Products'
+    _filterBy = widget.initialFilter ?? _filters.first.label;
     _future = _load();
   }
 
@@ -75,9 +80,9 @@ class _ShopPageState extends State<ShopPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Shop',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+              Text(
+                _filterBy,
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
