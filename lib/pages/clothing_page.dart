@@ -94,7 +94,7 @@ class _ClothingPageState extends State<ClothingPage> {
                       ],
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
-                    const Spacer(),
+                    const SizedBox(width: 24),
                     FutureBuilder<List<Product>>(
                       future: ProductRepository().listByCollection('clothing'),
                       builder: (context, snapshot) {
