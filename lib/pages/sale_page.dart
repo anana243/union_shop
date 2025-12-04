@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../app_layout.dart';
 import '../services/product_repository.dart';
 import '../models/product.dart';
-import '../widgets/hero_carousel.dart';
 import '../constants.dart';
 import '../widgets/product_grid.dart';
 
@@ -13,11 +12,22 @@ class SalePage extends StatelessWidget {
     final repo = ProductRepository();
     return AppLayout(
       title: 'Union',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const HeroCarousel(imageUrl: kHeroImageUrl),
-          Padding(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 300,
+              child: Image.network(
+                kHeroImageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (c, e, s) => Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.image_not_supported, size: 50),
+                ),
+              ),
+            ),
+            Padding(
             padding: const EdgeInsets.all(24.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1100),
@@ -65,6 +75,7 @@ class SalePage extends StatelessWidget {
             ),
           ),
         ],
+        ),
       ),
     );
   }
