@@ -36,7 +36,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
         body:
             'Create something uniquely you with our personalization service - from £3 for one line of text.',
         ctaLabel: 'FIND OUT MORE',
-        onTapRoute: '/print-shack',
+        onTapRoute: '/print-shack/about',
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
