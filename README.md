@@ -14,9 +14,7 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Firebase Configuration](#firebase-configuration)
-- [Database Schema](#database-schema)
 - [Testing](#testing)
-- [External Services](#external-services)
 - [Deployment](#deployment)
 
 ## ✨ Features
@@ -74,7 +72,7 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 
 The application follows a **layered architecture** pattern:
 
-```
+```text
 ┌─────────────────────────────────────┐
 │         Presentation Layer          │
 │    (Pages, Widgets, AppLayout)      │
@@ -152,8 +150,6 @@ union_shop/
 │   ├── app_layout_footer_test.dart  # Footer navigation tests
 │   └── test_helper.dart             # Testing utilities & Firebase mocks
 │
-│   └── ... (10 test files total)
-│
 ├── web/
 │   ├── index.html                   # Web entry point
 │   ├── manifest.json                # PWA manifest
@@ -161,8 +157,8 @@ union_shop/
 │
 ├── android/                         # Android platform files
 ├── ios/                             # iOS platform files
-├── pubspec.yaml                     # Dependencies & assets
-└── README.md                        # This file
+├── pubspec.yaml                     # Flutter dependencies & assets
+└── README.md                        # Project documentation
 ```
 
 ## 🚀 Getting Started
