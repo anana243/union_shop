@@ -36,7 +36,8 @@ class FakeFirebaseCore extends FirebasePlatform {
   }
 
   @override
-  List<FirebaseAppPlatform> get apps => [FakeFirebaseApp(defaultFirebaseAppName)];
+  List<FirebaseAppPlatform> get apps =>
+      [FakeFirebaseApp(defaultFirebaseAppName)];
 }
 
 class FakeFirebaseApp extends FirebaseAppPlatform {
