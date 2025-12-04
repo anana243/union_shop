@@ -50,12 +50,12 @@ class HomePage extends StatelessWidget {
                             fontSize: 22, fontWeight: FontWeight.w600)),
                   ),
                   const SizedBox(height: 20),
-                  const _OurRangeGrid(
-                    items: [
-                      _RangeItem(title: 'Clothing', route: '/shop'),
-                      _RangeItem(title: 'Merchandise', route: '/shop'),
-                      _RangeItem(title: 'Graduation', route: '/shop'),
-                      _RangeItem(title: 'Sale', route: '/sale'),
+                  _OurRangeGrid(
+                    items: const [
+                      _RangeItem(title: 'Clothing', filter: 'Clothing', route: '/shop'),
+                      _RangeItem(title: 'Merchandise', filter: 'Merchandise', route: '/shop'),
+                      _RangeItem(title: 'Graduation', filter: 'Graduation Collection', route: '/shop'),
+                      _RangeItem(title: 'Sale', filter: 'Sale', route: '/sale'),
                     ],
                     imageUrl:
                         _heroImageUrl, // use the same hero image to avoid duplication
