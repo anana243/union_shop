@@ -173,11 +173,13 @@ class _OurRangeGrid extends StatelessWidget {
 
 class _RangeCard extends StatefulWidget {
   final String title;
+  final String? filter;
   final String route;
   final String imageUrl;
   final double maxWidth;
   const _RangeCard({
     required this.title,
+    this.filter,
     required this.route,
     required this.imageUrl,
     required this.maxWidth,
@@ -197,7 +199,13 @@ class _RangeCardState extends State<_RangeCard> {
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, widget.route),
+        onTap: () {
+          if (widget.filter != null) {
+            Navigator.pushNamed(context, widget.route, arguments: widget.filter);
+          } else {
+            Navigator.pushNamed(context, widget.route);
+          }
+        },
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: widget.maxWidth),
           child: AspectRatio(
