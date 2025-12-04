@@ -13,16 +13,9 @@ import 'pages/sign_in_page.dart';
 import 'pages/product_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/checkout_success_page.dart';
-import 'pages/clothing_page.dart';
 import 'pages/admin_seed_page.dart';
-import 'pages/portsmouth_city_page.dart';
-import 'pages/pride_page.dart';
-import 'pages/graduation_page.dart';
 import 'pages/personalization_page.dart';
 import 'pages/about_print_shack_page.dart';
-import 'pages/merchandise_page.dart';
-import 'pages/signature_page.dart';
-import 'pages/essential_page.dart';
 
 // Temporary pages
 class HungryPage extends StatelessWidget {
@@ -67,7 +60,10 @@ class UnionShopApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const HomePage(),
-        '/shop': (context) => const ShopPage(),
+        '/shop': (context) {
+          final filter = ModalRoute.of(context)?.settings.arguments as String?;
+          return ShopPage(initialFilter: filter);
+        },
         '/print-shack': (context) => const PrintShackPage(),
         '/sale': (context) => const SalePage(),
         '/about': (context) => const AboutPage(),
@@ -78,14 +74,14 @@ class UnionShopApp extends StatelessWidget {
         '/product': (context) => const ProductPage(),
         '/cart': (context) => const CartPage(),
         '/checkout-success': (context) => const CheckoutSuccessPage(),
-        '/clothing': (context) => const ClothingPage(),
-        '/merchandise': (context) => const MerchandisePage(),
-        '/signature': (context) => const SignaturePage(),
-        '/essential': (context) => const EssentialPage(),
+        '/clothing': (context) => const ShopPage(initialFilter: 'Clothing'),
+        '/merchandise': (context) => const ShopPage(initialFilter: 'Merchandise'),
+        '/signature': (context) => const ShopPage(initialFilter: 'Signature Range'),
+        '/essential': (context) => const ShopPage(initialFilter: 'Essential Range'),
         '/admin-seed': (context) => const AdminSeedPage(),
-        '/portsmouth-city': (context) => const PortsmouthCityPage(),
-        '/pride': (context) => const PridePage(),
-        '/graduation': (context) => const GraduationPage(),
+        '/portsmouth-city': (context) => const ShopPage(initialFilter: 'Portsmouth City Collection'),
+        '/pride': (context) => const ShopPage(initialFilter: 'Pride Collection'),
+        '/graduation': (context) => const ShopPage(initialFilter: 'Graduation Collection'),
         '/personalization': (context) => const PersonalizationPage(),
         '/print-shack/about': (context) => const AboutPrintShackPage(),
         '/hungry': (context) => const HungryPage(),
