@@ -23,30 +23,30 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 
 ### User Features
 
-- **Dynamic Homepage** with hero carousel, featured product sections, and promotional content
-- **Advanced Product Browsing** with 7 filter categories and 5 sorting options
-- **Real-time Search** functionality across all products
-- **Shopping Cart Management** with quantity controls and live total calculations
+- **Dynamic Homepage** with hero carousel, featured product sections (Essential Range, Signature Range), and Portsmouth City Collection with 2x2 layout on desktop
+- **Advanced Product Browsing** with 8 filter categories (All Products, Clothing, Merchandise, Portsmouth City, Pride, Graduation, Signature Range, Essential Range) and 5 sorting options (Featured, A-Z, Z-A, Price Low-to-High, Price High-to-Low)
+- **Real-time Search** functionality across all products with responsive results grid
+- **Shopping Cart Management** with quantity controls, live total calculations, and mobile-optimized layout
 - **User Authentication** via Firebase (email/password sign-up and sign-in)
-- **Product Personalization Service** for custom text and logo printing
-- **Responsive Design** optimized for mobile and desktop (900px breakpoint)
-- **Collection Pages** for Clothing, Merchandise, Graduation, Portsmouth City, Pride, and Sale items
+- **Product Personalization Service** for custom text and logo printing with options customization
+- **Responsive Design** optimized for mobile and desktop with 900px breakpoint and fluid layouts
+- **Collection Pages** accessible via shop filters for all 8 product categories
+- **Sale Section** with dedicated page and sorting capabilities
 - **Account Management** with user profile display and sign-out capability
-
-### Admin Features
-
-- **Admin Seed Page** for populating Firestore with demo products
-- **Product Management** through Firebase Console
+- **Newsletter Subscription** widget in footer for email capture
 
 ### Technical Features
 
-- Material Design 3 UI components
-- State management using ChangeNotifier pattern
-- Repository pattern for data access layer
-- Singleton pattern for cart service
-- Route-based navigation with deep linking support
+- Material Design 3 UI components with custom purple theme (#4d2963)
+- State management using ChangeNotifier pattern (CartService, ProductRepository)
+- Repository pattern for data access layer with Firestore integration
+- Singleton pattern for cart service with reactive updates
+- Route-based navigation with deep linking support and parameter passing
+- Responsive grid layouts using Wrap widget for flexible product display
 - Comprehensive error handling and user feedback
 - Animated UI transitions and loading states
+- Custom image handling with asset and network fallbacks
+- Product model with Firestore converters for seamless data synchronization
 
 ## 🔧 Technology Stack
 
@@ -115,39 +115,43 @@ union_shop/
 │   │
 │   ├── widgets/
 │   │   ├── hero_carousel.dart       # Image carousel component
-│   │   ├── product_tile.dart        # Individual product card
-│   │   ├── product_grid.dart        # Reusable product grid layout
+│   │   ├── product_tile.dart        # Individual product card with hover effects
+│   │   ├── product_grid.dart        # Responsive product grid layout (Wrap-based)
 │   │   └── footer_subscribe_box.dart # Newsletter subscription widget
 │   │
 │   └── pages/
-│       ├── home_page.dart           # Landing page with featured sections
-│       ├── shop_page.dart           # Main shop with filters & sorting
-│       ├── clothing_page.dart       # Clothing collection with pagination
-│       ├── product_page.dart        # Product detail view
-│       ├── cart_page.dart           # Shopping cart management
-│       ├── checkout_success_page.dart # Order confirmation
-│       ├── search_page.dart         # Product search results
-│       ├── sign_in_page.dart        # Authentication UI
+│       ├── home_page.dart           # Landing page with featured sections & hero carousel
+│       ├── shop_page.dart           # Main shop with dynamic filters & sorting (8 categories)
+│       ├── product_page.dart        # Product detail view with image and description
+│       ├── cart_page.dart           # Shopping cart with quantity controls
+│       ├── checkout_success_page.dart # Order confirmation message
+│       ├── search_page.dart         # Real-time product search results
+│       ├── sign_in_page.dart        # Firebase authentication UI
 │       ├── personalization_page.dart # Print customization service
-│       ├── sale_page.dart           # Sale items collection
+│       ├── sale_page.dart           # Sale items with sorting
 │       ├── about_page.dart          # About the shop
 │       ├── about_print_shack_page.dart # Print service details
-│       ├── print_shack_page.dart    # Print service landing
-│       ├── portsmouth_city_page.dart # City collection
-│       ├── pride_page.dart          # Pride collection
-│       ├── graduation_page.dart     # Graduation collection
-│       ├── terms_and_conditions_page.dart # Legal terms
-│       ├── refund_policy_page.dart  # Refund policy
-│       └── admin_seed_page.dart     # Admin database seeding tool
+│       ├── terms_and_conditions_page.dart # Terms placeholder
+│       └── refund_policy_page.dart  # Refund policy placeholder
 │
 ├── test/
 │   ├── test_helper.dart             # Firebase mocking infrastructure
 │   ├── cart_service_test.dart       # Cart functionality tests
 │   ├── product_model_test.dart      # Product model tests
 │   ├── product_repository_test.dart # Repository tests
-│   ├── product_grid_test.dart       # Widget tests
-│   ├── cart_page_test.dart          # Cart page tests
-│   ├── shop_page_test.dart          # Shop page tests
+│   ├── product_grid_test.dart       # Grid layout tests
+│   ├── cart_page_test.dart          # Cart page UI tests
+│   ├── shop_page_test.dart          # Shop page filter/sort tests
+│   ├── home_page_test.dart          # Home page tests
+│   ├── search_page_test.dart        # Search functionality tests
+│   ├── product_page_test.dart       # Product detail tests
+│   ├── clothing_page_test.dart      # Collection page tests
+│   ├── sale_page_test.dart          # Sale page tests
+│   ├── personalization_page_test.dart # Customization tests
+│   ├── product_tile_test.dart       # Product tile widget tests
+│   ├── app_layout_footer_test.dart  # Footer navigation tests
+│   └── test_helper.dart             # Testing utilities & Firebase mocks
+│
 │   └── ... (10 test files total)
 │
 ├── web/
@@ -199,10 +203,6 @@ union_shop/
    # For iOS
    flutter run -d ios
    ```
-
-5. **Seed the database** (optional)
-   - Navigate to `/admin-seed` in the running app
-   - Click the seed buttons to populate demo products
 
 ## 🔥 Firebase Configuration
 
