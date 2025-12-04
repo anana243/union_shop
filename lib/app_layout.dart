@@ -355,8 +355,6 @@ class _FooterLinksRow extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle link = const TextStyle(
         color: Colors.black54, decoration: TextDecoration.underline);
-    TextStyle hiddenLink = const TextStyle(
-        color: Colors.black54, fontSize: 0.1);
     return Wrap(
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -383,7 +381,7 @@ class _FooterLinksRow extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => Navigator.pushNamed(context, '/admin-seed'),
-            child: Text('•', style: hiddenLink),
+            child: Text('Admin', style: link),
           ),
         ),
       ],
