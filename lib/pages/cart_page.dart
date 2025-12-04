@@ -169,19 +169,24 @@ class CartPage extends StatelessWidget {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Total:',
-                            style: TextStyle(
-                              fontSize: isMobile ? 18 : 20,
-                              fontWeight: FontWeight.bold,
+                          Flexible(
+                            child: Text(
+                              'Total:',
+                              style: TextStyle(
+                                fontSize: isMobile ? 16 : 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          Text(
-                            '£${total.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontSize: isMobile ? 18 : 20,
-                              fontWeight: FontWeight.bold,
-                              color: const Color(0xFF4d2963),
+                          Flexible(
+                            child: Text(
+                              '£${total.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                fontSize: isMobile ? 16 : 20,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xFF4d2963),
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
