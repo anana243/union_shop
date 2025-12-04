@@ -104,38 +104,45 @@ class CartPage extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-                                  Row(
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    crossAxisAlignment: WrapCrossAlignment.center,
                                     children: [
-                                      IconButton(
-                                        onPressed: () => CartService.instance
-                                            .updateQuantity(
-                                                p.product, p.quantity - 1),
-                                        icon: const Icon(
-                                            Icons.remove_circle_outline),
-                                        padding: EdgeInsets.zero,
-                                        constraints: const BoxConstraints(),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12),
-                                        child: Text(
-                                          'Qty: ${p.quantity}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () => CartService.instance
+                                                .updateQuantity(
+                                                    p.product, p.quantity - 1),
+                                            icon: const Icon(
+                                                Icons.remove_circle_outline),
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12),
+                                            child: Text(
+                                              'Qty: ${p.quantity}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () => CartService.instance
+                                                .updateQuantity(
+                                                    p.product, p.quantity + 1),
+                                            icon: const Icon(
+                                                Icons.add_circle_outline),
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
+                                          ),
+                                        ],
                                       ),
-                                      IconButton(
-                                        onPressed: () => CartService.instance
-                                            .updateQuantity(
-                                                p.product, p.quantity + 1),
-                                        icon: const Icon(
-                                            Icons.add_circle_outline),
-                                        padding: EdgeInsets.zero,
-                                        constraints: const BoxConstraints(),
-                                      ),
-                                      const SizedBox(width: 16),
                                       Text(
                                         'Total: £${(p.product.price * p.quantity).toStringAsFixed(2)}',
                                         style: const TextStyle(
