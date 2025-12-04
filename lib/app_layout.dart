@@ -280,38 +280,52 @@ class _AppLayoutState extends State<AppLayout> {
                       ListTile(
                           title: const Text('Clothing'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/clothing')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/clothing');
+                          }),
                       ListTile(
                           title: const Text('Merchandise'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/shop')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/merchandise');
+                          }),
                       ListTile(
                           title: const Text('Signature Range'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/shop')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/signature');
+                          }),
                       ListTile(
                           title: const Text('Essential Range'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/shop')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/essential');
+                          }),
                       ListTile(
                           title: const Text('Portsmouth City Collection'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/portsmouth-city')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/portsmouth-city');
+                          }),
                       ListTile(
                           title: const Text('Pride Collection'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/pride')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/pride');
+                          }),
                       ListTile(
                           title: const Text('Graduation'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/graduation')),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/graduation');
+                          }),
                     ],
                   ),
                   ExpansionTile(
