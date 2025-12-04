@@ -12,7 +12,6 @@ import 'pages/sign_in_page.dart';
 import 'pages/product_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/checkout_success_page.dart';
-import 'pages/admin_seed_page.dart';
 import 'pages/personalization_page.dart';
 import 'pages/about_print_shack_page.dart';
 
@@ -77,7 +76,6 @@ class UnionShopApp extends StatelessWidget {
         '/merchandise': (context) => ShopPage(initialFilter: 'Merchandise'),
         '/signature': (context) => ShopPage(initialFilter: 'Signature Range'),
         '/essential': (context) => ShopPage(initialFilter: 'Essential Range'),
-        '/admin-seed': (context) => const AdminSeedPage(),
         '/portsmouth-city': (context) => ShopPage(initialFilter: 'Portsmouth City Collection'),
         '/pride': (context) => ShopPage(initialFilter: 'Pride Collection'),
         '/graduation': (context) => ShopPage(initialFilter: 'Graduation Collection'),
