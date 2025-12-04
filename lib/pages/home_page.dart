@@ -140,7 +140,15 @@ class _Section extends StatelessWidget {
                     : allProducts;
 
             if (cityLayout) {
-              return ProductGrid(products: products, maxCrossAxisExtent: 240.0);
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  final isDesktop = constraints.maxWidth >= 900;
+                  return ProductGrid(
+                    products: products,
+                    maxCrossAxisExtent: isDesktop ? 240.0 : null,
+                  );
+                },
+              );
             }
             return ProductGrid(products: products);
           },
