@@ -19,7 +19,7 @@ class ProductGrid extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 24,
           mainAxisSpacing: 24,
-          childAspectRatio: 0.75, // tile height vs width
+          childAspectRatio: 0.8, // tile height vs width - increased to prevent overflow
         ),
         itemCount: products.length,
         itemBuilder: (context, i) => ProductTile(product: products[i]),
