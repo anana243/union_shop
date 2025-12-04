@@ -76,9 +76,11 @@ class UnionShopApp extends StatelessWidget {
         '/merchandise': (context) => ShopPage(initialFilter: 'Merchandise'),
         '/signature': (context) => ShopPage(initialFilter: 'Signature Range'),
         '/essential': (context) => ShopPage(initialFilter: 'Essential Range'),
-        '/portsmouth-city': (context) => ShopPage(initialFilter: 'Portsmouth City Collection'),
+        '/portsmouth-city': (context) =>
+            ShopPage(initialFilter: 'Portsmouth City Collection'),
         '/pride': (context) => ShopPage(initialFilter: 'Pride Collection'),
-        '/graduation': (context) => ShopPage(initialFilter: 'Graduation Collection'),
+        '/graduation': (context) =>
+            ShopPage(initialFilter: 'Graduation Collection'),
         '/personalization': (context) => const PersonalizationPage(),
         '/print-shack/about': (context) => const AboutPrintShackPage(),
         '/hungry': (context) => const HungryPage(),
