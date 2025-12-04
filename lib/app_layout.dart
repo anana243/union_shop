@@ -187,6 +187,8 @@ class _AppLayoutState extends State<AppLayout> {
                   IconButton(
                     icon: const Icon(Icons.shopping_cart_outlined),
                     tooltip: 'Cart',
+                    iconSize: 24,
+                    padding: const EdgeInsets.all(12),
                     onPressed: () => Navigator.pushNamed(context, '/cart'),
                   ),
                   if (count > 0)
