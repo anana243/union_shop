@@ -366,7 +366,8 @@ class _FooterLinksRow extends StatelessWidget {
           children: const [
             Icon(Icons.schedule, size: 18, color: Colors.black38),
             SizedBox(width: 6),
-            Expanded(
+            SizedBox(
+              width: 260,
               child: Text('Opening Times: Mon–Fri 9:00–17:00',
                   style: TextStyle(color: Colors.black54),
                   overflow: TextOverflow.ellipsis),
