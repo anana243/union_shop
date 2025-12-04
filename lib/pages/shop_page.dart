@@ -130,8 +130,8 @@ class _ShopPageState extends State<ShopPage> {
                       ],
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
-                    const Spacer(),
-                    // Count will be shown below from the main future
+                    // Avoid Spacer in horizontal scroll; add small gap
+                    const SizedBox(width: 24),
                     const SizedBox.shrink(),
                   ],
                 ),
