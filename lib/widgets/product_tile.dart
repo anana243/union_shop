@@ -42,35 +42,36 @@ class _ProductTileState extends State<ProductTile> {
                     ]
                   : [],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: widget.product.imageAsset != null
-                      ? Image.asset(
-                          widget.product.imageAsset!,
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.low,
-                          errorBuilder: (c, e, s) => Container(
-                              color: Colors.grey[300],
-                              child: const Icon(Icons.image_not_supported, size: 42)),
-                        )
-                      : Image.network(
-                          widget.product.imageUrl,
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.low,
-                          errorBuilder: (c, e, s) => Container(
-                              color: Colors.grey[300],
-                              child: const Icon(Icons.image_not_supported, size: 42)),
-                        ),
-                ),
-                const SizedBox(height: 6),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: widget.product.imageAsset != null
+                        ? Image.asset(
+                            widget.product.imageAsset!,
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.low,
+                            errorBuilder: (c, e, s) => Container(
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.image_not_supported, size: 42)),
+                          )
+                        : Image.network(
+                            widget.product.imageUrl,
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.low,
+                            errorBuilder: (c, e, s) => Container(
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.image_not_supported, size: 42)),
+                          ),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                           Text(widget.product.title,
                             style: const TextStyle(
@@ -78,7 +79,7 @@ class _ProductTileState extends State<ProductTile> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis),
                         if (widget.product.subtitle.isNotEmpty) ...[
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 3),
                           Text(
                             widget.product.subtitle,
                               style: const TextStyle(
@@ -87,17 +88,18 @@ class _ProductTileState extends State<ProductTile> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ],
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                         Text(priceLabel,
                             style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF4d2963))),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
