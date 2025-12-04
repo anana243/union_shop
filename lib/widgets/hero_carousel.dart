@@ -28,7 +28,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
         body:
             'Over 20% off our Essential Range. Come and grab yours while stock lasts.',
         ctaLabel: 'BROWSE COLLECTION',
-        onTapRoute: '/shop',
+        onTapRoute: '/essential',
       ),
       _SlideData(
         imageUrl: widget.imageUrl,
