@@ -10,26 +10,20 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Responsive grid: 2/3/4 columns based on width
-    final width = MediaQuery.of(context).size.width;
-    int crossAxisCount = 2;
-    if (width >= 1100) {
-      crossAxisCount = 4;
-    } else if (width >= 800) {
-      crossAxisCount = 3;
-    }
-
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: twoColumnGrid ? 2 : crossAxisCount,
-        crossAxisSpacing: 24,
-        mainAxisSpacing: 24,
-        childAspectRatio: 0.8, // tile height vs width
+    // Force 2 columns for consistency across all collections
+    return Center(
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 24,
+          mainAxisSpacing: 24,
+          childAspectRatio: 0.75, // tile height vs width
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, i) => ProductTile(product: products[i]),
       ),
-      itemCount: products.length,
-      itemBuilder: (context, i) => ProductTile(product: products[i]),
     );
   }
 }
