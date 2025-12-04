@@ -85,16 +85,16 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
         child: Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 800),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Image placeholder
-                if (!isMobile) ...[
-                  SizedBox(
-                    width: 300,
-                    height: 300,
+                // Image placeholder - visible on both mobile and desktop
+                Center(
+                  child: SizedBox(
+                    width: isMobile ? double.infinity : 300,
+                    height: isMobile ? 200 : 300,
                     child: Image.network(
-                      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop',
+                      'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                       fit: BoxFit.cover,
                       errorBuilder: (c, e, s) => Container(
                         color: Colors.grey[200],
@@ -104,10 +104,9 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 48),
-                ],
-                Expanded(
-                  child: Column(
+                ),
+                SizedBox(height: isMobile ? 24 : 48),
+                Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
@@ -280,7 +279,6 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                       ),
                     ],
                   ),
-                ),
               ],
             ),
           ),
