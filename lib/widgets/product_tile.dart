@@ -48,14 +48,23 @@ class _ProductTileState extends State<ProductTile> {
               children: [
                 AspectRatio(
                   aspectRatio: 1,
-                  child: Image.network(
-                    widget.product.imageUrl,
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.low,
-                    errorBuilder: (c, e, s) => Container(
-                        color: Colors.grey[300],
-                        child: const Icon(Icons.image_not_supported, size: 42)),
-                  ),
+                  child: widget.product.imageAsset != null
+                      ? Image.asset(
+                          widget.product.imageAsset!,
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.low,
+                          errorBuilder: (c, e, s) => Container(
+                              color: Colors.grey[300],
+                              child: const Icon(Icons.image_not_supported, size: 42)),
+                        )
+                      : Image.network(
+                          widget.product.imageUrl,
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.low,
+                          errorBuilder: (c, e, s) => Container(
+                              color: Colors.grey[300],
+                              child: const Icon(Icons.image_not_supported, size: 42)),
+                        ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
