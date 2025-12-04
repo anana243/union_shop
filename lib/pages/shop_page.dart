@@ -177,7 +177,7 @@ class _ShopPageState extends State<ShopPage> {
                     runSpacing: 24,
                     children: items
                         .map((p) => ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 220),
+                              constraints: const BoxConstraints(maxWidth: 240),
                               child: ProductTile(product: p),
                             ))
                         .toList(),
