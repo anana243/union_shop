@@ -86,62 +86,88 @@ class _ShopPageState extends State<ShopPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      const Text('Filter by:', style: TextStyle(fontSize: 14)),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                      value: _filterBy,
-                      underline: Container(),
-                      items: _filters
-                          .map((f) => DropdownMenuItem(
-                                value: f.label,
-                                child: Text(f.label),
-                              ))
-                          .toList(),
-                      onChanged: (value) => setState(() {
-                            _filterBy = value!;
-                            _future = _load();
-                          }),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final isMobile = constraints.maxWidth < 600;
+                  return Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 8 : 16,
+                      vertical: isMobile ? 8 : 12,
                     ),
-                    const SizedBox(width: 24),
-                    const Text('Sort by:', style: TextStyle(fontSize: 14)),
-                    const SizedBox(width: 8),
-                    DropdownButton<String>(
-                      value: _sortBy,
-                      underline: Container(),
-                      items: const [
-                        DropdownMenuItem(
-                            value: 'Featured', child: Text('Featured')),
-                        DropdownMenuItem(
-                            value: 'A-Z', child: Text('Alphabetically, A-Z')),
-                        DropdownMenuItem(
-                            value: 'Z-A', child: Text('Alphabetically, Z-A')),
-                        DropdownMenuItem(
-                            value: 'Price Low',
-                            child: Text('Price, Low to High')),
-                        DropdownMenuItem(
-                            value: 'Price High',
-                            child: Text('Price, High to Low')),
-                      ],
-                      onChanged: (value) => setState(() => _sortBy = value!),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      border: Border.all(color: Colors.grey.shade300),
                     ),
-                    // Avoid Spacer in horizontal scroll; add small gap
-                    const SizedBox(width: 24),
-                    const SizedBox.shrink(),
-                  ],
-                ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text('Filter by:',
+                              style: TextStyle(fontSize: isMobile ? 12 : 14)),
+                          SizedBox(width: isMobile ? 4 : 8),
+                          DropdownButton<String>(
+                            value: _filterBy,
+                            underline: Container(),
+                            style: TextStyle(
+                                fontSize: isMobile ? 12 : 14,
+                                color: Colors.black),
+                            items: _filters
+                                .map((f) => DropdownMenuItem(
+                                      value: f.label,
+                                      child: Text(f.label),
+                                    ))
+                                .toList(),
+                            onChanged: (value) => setState(() {
+                              _filterBy = value!;
+                              _future = _load();
+                            }),
+                          ),
+                          SizedBox(width: isMobile ? 12 : 24),
+                          Text('Sort by:',
+                              style: TextStyle(fontSize: isMobile ? 12 : 14)),
+                          SizedBox(width: isMobile ? 4 : 8),
+                          DropdownButton<String>(
+                            value: _sortBy,
+                            underline: Container(),
+                            style: TextStyle(
+                                fontSize: isMobile ? 12 : 14,
+                                color: Colors.black),
+                            items: [
+                              DropdownMenuItem(
+                                  value: 'Featured',
+                                  child: Text('Featured',
+                                      style: TextStyle(
+                                          fontSize: isMobile ? 12 : 14))),
+                              DropdownMenuItem(
+                                  value: 'A-Z',
+                                  child: Text(isMobile ? 'A-Z' : 'Alphabetically, A-Z',
+                                      style: TextStyle(
+                                          fontSize: isMobile ? 12 : 14))),
+                              DropdownMenuItem(
+                                  value: 'Z-A',
+                                  child: Text(isMobile ? 'Z-A' : 'Alphabetically, Z-A',
+                                      style: TextStyle(
+                                          fontSize: isMobile ? 12 : 14))),
+                              DropdownMenuItem(
+                                  value: 'Price Low',
+                                  child: Text(isMobile ? 'Price ↑' : 'Price, Low to High',
+                                      style: TextStyle(
+                                          fontSize: isMobile ? 12 : 14))),
+                              DropdownMenuItem(
+                                  value: 'Price High',
+                                  child: Text(isMobile ? 'Price ↓' : 'Price, High to Low',
+                                      style: TextStyle(
+                                          fontSize: isMobile ? 12 : 14))),
+                            ],
+                            onChanged: (value) => setState(() => _sortBy = value!),
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
               const SizedBox(height: 32),
               FutureBuilder<List<Product>>(
                 future: _future,
