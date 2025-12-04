@@ -64,11 +64,11 @@ class _AppLayoutState extends State<AppLayout> {
                       const PopupMenuItem(
                           value: '/clothing', child: Text('Clothing')),
                       const PopupMenuItem(
-                          value: '/shop', child: Text('Merchandise')),
+                          value: '/merchandise', child: Text('Merchandise')),
                       const PopupMenuItem(
-                          value: '/shop', child: Text('Signature Range')),
+                          value: '/signature', child: Text('Signature Range')),
                       const PopupMenuItem(
-                          value: '/shop', child: Text('Essential Range')),
+                          value: '/essential', child: Text('Essential Range')),
                       const PopupMenuItem(
                           value: '/portsmouth-city',
                           child: Text('Portsmouth City Collection')),
