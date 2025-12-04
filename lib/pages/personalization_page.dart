@@ -30,6 +30,13 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    // Ensure quantity starts at 1
+    _quantity = 1;
+  }
+
   void _addToCart() {
     if (_textController.text.trim().isEmpty &&
         !_selectedOption.contains('Logo')) {
