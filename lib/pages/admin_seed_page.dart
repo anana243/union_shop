@@ -150,6 +150,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Essential Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/essential-hoodie.png',
           'price': 22.00,
           'slug': 'essential-hoodie',
           'collections': ['clothing', 'essential'],
