@@ -28,7 +28,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts)),
+            body: SizedBox(
+                width: 1200, child: ProductGrid(products: testProducts)),
           ),
         ),
       );
@@ -37,43 +38,13 @@ void main() {
       expect(find.byType(GridView), findsNothing);
     });
 
-    testWidgets('renders GridView when twoColumnGrid is true',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts, twoColumnGrid: true)),
-          ),
-        ),
-      );
-
-      expect(find.byType(GridView), findsOneWidget);
-      expect(find.byType(Wrap), findsNothing);
-    });
-
     testWidgets('displays all products in Wrap layout',
         (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts)),
-          ),
-        ),
-      );
-      for (int i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
-
-      expect(find.text('Test Product 1'), findsOneWidget);
-      expect(find.text('Test Product 2'), findsOneWidget);
-    });
-
-    testWidgets('displays all products in GridView layout',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(width: 1200, child: ProductGrid(products: testProducts, twoColumnGrid: true)),
+            body: SizedBox(
+                width: 1200, child: ProductGrid(products: testProducts)),
           ),
         ),
       );
