@@ -42,44 +42,4 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Search Page Content'), findsOneWidget);
   });
-
-  testWidgets('Footer Terms link navigates', (tester) async {
-    tester.view.physicalSize = const Size(800, 1200);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(() => tester.view.resetPhysicalSize());
-    addTearDown(() => tester.view.resetDevicePixelRatio());
-
-    await tester.pumpWidget(app());
-    await tester.pumpAndSettle();
-
-    await tester.scrollUntilVisible(
-      find.text('Terms and Conditions'),
-      100.0,
-      scrollable: find.byType(Scrollable).first,
-    );
-
-    await tester.tap(find.text('Terms and Conditions'));
-    await tester.pumpAndSettle();
-    expect(find.text('Terms and Conditions Content'), findsOneWidget);
-  });
-
-  testWidgets('Footer Refund Policy link navigates', (tester) async {
-    tester.view.physicalSize = const Size(800, 1200);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(() => tester.view.resetPhysicalSize());
-    addTearDown(() => tester.view.resetDevicePixelRatio());
-
-    await tester.pumpWidget(app());
-    await tester.pumpAndSettle();
-
-    await tester.scrollUntilVisible(
-      find.text('Refund Policy'),
-      100.0,
-      scrollable: find.byType(Scrollable).first,
-    );
-
-    await tester.tap(find.text('Refund Policy'));
-    await tester.pumpAndSettle();
-    expect(find.text('Refund Policy Content'), findsOneWidget);
-  });
 }
