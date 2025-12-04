@@ -24,11 +24,20 @@ class _ShopPageState extends State<ShopPage> {
 
   String _filterBy = _filters.first.label;
   String _sortBy = 'Featured';
+  late final ProductRepository _repo;
+  Future<List<Product>>? _future;
 
-  Future<List<Product>> _load(ProductRepository repo) {
+  @override
+  void initState() {
+    super.initState();
+    _repo = ProductRepository();
+    _future = _load();
+  }
+
+  Future<List<Product>> _load() {
     final f = _filters.firstWhere((e) => e.label == _filterBy);
-    if (f.collection == null) return repo.listAll(limit: 100);
-    return repo.listByCollection(f.collection!);
+    if (f.collection == null) return _repo.listAll(limit: 100);
+    return _repo.listByCollection(f.collection!);
   }
 
   void _sort(List<Product> items) {
@@ -54,7 +63,6 @@ class _ShopPageState extends State<ShopPage> {
 
   @override
   Widget build(BuildContext context) {
-    final repo = ProductRepository();
     return AppLayout(
       title: 'Union',
       child: Container(
@@ -95,7 +103,10 @@ class _ShopPageState extends State<ShopPage> {
                                 child: Text(f.label),
                               ))
                           .toList(),
-                      onChanged: (value) => setState(() => _filterBy = value!),
+                      onChanged: (value) => setState(() {
+                            _filterBy = value!;
+                            _future = _load();
+                          }),
                     ),
                     const SizedBox(width: 24),
                     const Text('Sort by:', style: TextStyle(fontSize: 14)),
@@ -120,21 +131,15 @@ class _ShopPageState extends State<ShopPage> {
                       onChanged: (value) => setState(() => _sortBy = value!),
                     ),
                     const Spacer(),
-                    FutureBuilder<List<Product>>(
-                      future: _load(repo),
-                      builder: (context, snapshot) {
-                        final count = snapshot.data?.length ?? 0;
-                        return Text('$count products',
-                            style: const TextStyle(fontSize: 14));
-                      },
-                    ),
+                    // Count will be shown below from the main future
+                    const SizedBox.shrink(),
                   ],
                 ),
               ),
             ),
               const SizedBox(height: 32),
               FutureBuilder<List<Product>>(
-                future: _load(repo),
+                future: _future,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -157,7 +162,16 @@ class _ShopPageState extends State<ShopPage> {
 
                   _sort(items);
 
-                  return Wrap(
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text('${items.length} products',
+                            style: const TextStyle(fontSize: 14)),
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
                     alignment: WrapAlignment.center,
                     spacing: 24,
                     runSpacing: 24,
@@ -167,6 +181,8 @@ class _ShopPageState extends State<ShopPage> {
                               child: ProductTile(product: p),
                             ))
                         .toList(),
+                      ),
+                    ],
                   );
                 },
               ),
