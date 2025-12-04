@@ -33,7 +33,7 @@ class _ShopPageState extends State<ShopPage> {
   void initState() {
     super.initState();
     _repo = ProductRepository();
-    
+
     // Use initialFilter if provided, otherwise default to 'All Products'
     _filterBy = widget.initialFilter ?? _filters.first.label;
     _future = _load();
@@ -82,7 +82,8 @@ class _ShopPageState extends State<ShopPage> {
             children: [
               Text(
                 _filterBy,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
@@ -116,14 +117,21 @@ class _ShopPageState extends State<ShopPage> {
                                 .map((f) => DropdownMenuItem(
                                       value: f.label,
                                       child: Text(
-                                        isMobile && f.label == 'Portsmouth City Collection' 
-                                          ? 'City Collection'
-                                          : isMobile && f.label == 'Graduation Collection'
-                                          ? 'Graduation'
-                                          : isMobile && f.label == 'Pride Collection'
-                                          ? 'Pride'
-                                          : f.label,
-                                        style: TextStyle(fontSize: isMobile ? 11 : 14),
+                                        isMobile &&
+                                                f.label ==
+                                                    'Portsmouth City Collection'
+                                            ? 'City Collection'
+                                            : isMobile &&
+                                                    f.label ==
+                                                        'Graduation Collection'
+                                                ? 'Graduation'
+                                                : isMobile &&
+                                                        f.label ==
+                                                            'Pride Collection'
+                                                    ? 'Pride'
+                                                    : f.label,
+                                        style: TextStyle(
+                                            fontSize: isMobile ? 11 : 14),
                                       ),
                                     ))
                                 .toList(),
@@ -151,26 +159,35 @@ class _ShopPageState extends State<ShopPage> {
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'A-Z',
-                                  child: Text(isMobile ? 'A-Z' : 'Alphabetically, A-Z',
+                                  child: Text(
+                                      isMobile ? 'A-Z' : 'Alphabetically, A-Z',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Z-A',
-                                  child: Text(isMobile ? 'Z-A' : 'Alphabetically, Z-A',
+                                  child: Text(
+                                      isMobile ? 'Z-A' : 'Alphabetically, Z-A',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price Low',
-                                  child: Text(isMobile ? 'Price ↑' : 'Price, Low to High',
+                                  child: Text(
+                                      isMobile
+                                          ? 'Price ↑'
+                                          : 'Price, Low to High',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price High',
-                                  child: Text(isMobile ? 'Price ↓' : 'Price, High to Low',
+                                  child: Text(
+                                      isMobile
+                                          ? 'Price ↓'
+                                          : 'Price, High to Low',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                             ],
-                            onChanged: (value) => setState(() => _sortBy = value!),
+                            onChanged: (value) =>
+                                setState(() => _sortBy = value!),
                           ),
                           const SizedBox(width: 8),
                         ],
@@ -214,15 +231,16 @@ class _ShopPageState extends State<ShopPage> {
                       ),
                       const SizedBox(height: 12),
                       Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: items
-                        .map((p) => ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 240),
-                              child: ProductTile(product: p),
-                            ))
-                        .toList(),
+                        alignment: WrapAlignment.center,
+                        spacing: 24,
+                        runSpacing: 24,
+                        children: items
+                            .map((p) => ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 240),
+                                  child: ProductTile(product: p),
+                                ))
+                            .toList(),
                       ),
                     ],
                   );
