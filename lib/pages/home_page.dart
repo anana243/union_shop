@@ -329,6 +329,7 @@ class _PersonalizeSplit extends StatelessWidget {
 
 class _RangeItem {
   final String title;
+  final String? filter;
   final String route;
-  const _RangeItem({required this.title, required this.route});
+  const _RangeItem({required this.title, this.filter, required this.route});
 }
