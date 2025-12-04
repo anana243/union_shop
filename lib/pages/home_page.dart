@@ -145,7 +145,7 @@ class _Section extends StatelessWidget {
                   final isDesktop = constraints.maxWidth >= 900;
                   return ProductGrid(
                     products: products,
-                    maxCrossAxisExtent: isDesktop ? 240.0 : null,
+                    maxCrossAxisExtent: isDesktop ? 220.0 : null,
                   );
                 },
               );
