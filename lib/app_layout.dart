@@ -273,16 +273,63 @@ class _AppLayoutState extends State<AppLayout> {
                       title: const Text('Home'),
                       onTap: () =>
                           Navigator.pushReplacementNamed(context, '/')),
-                  ListTile(
-                      leading: const Icon(Icons.shopping_bag),
-                      title: const Text('Shop'),
-                      onTap: () =>
-                          Navigator.pushReplacementNamed(context, '/shop')),
-                  ListTile(
-                      leading: const Icon(Icons.palette),
-                      title: const Text('Print Shack'),
-                      onTap: () => Navigator.pushReplacementNamed(
-                          context, '/print-shack')),
+                  ExpansionTile(
+                    leading: const Icon(Icons.shopping_bag),
+                    title: const Text('Shop'),
+                    children: [
+                      ListTile(
+                          title: const Text('Clothing'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/clothing')),
+                      ListTile(
+                          title: const Text('Merchandise'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/shop')),
+                      ListTile(
+                          title: const Text('Signature Range'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/shop')),
+                      ListTile(
+                          title: const Text('Essential Range'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/shop')),
+                      ListTile(
+                          title: const Text('Portsmouth City Collection'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/portsmouth-city')),
+                      ListTile(
+                          title: const Text('Pride Collection'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/pride')),
+                      ListTile(
+                          title: const Text('Graduation'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/graduation')),
+                    ],
+                  ),
+                  ExpansionTile(
+                    leading: const Icon(Icons.palette),
+                    title: const Text('Print Shack'),
+                    children: [
+                      ListTile(
+                          title: const Text('About Print Shack'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () => Navigator.pushReplacementNamed(
+                              context, '/print-shack/about')),
+                      ListTile(
+                          title: const Text('Personalization'),
+                          contentPadding: const EdgeInsets.only(left: 72),
+                          onTap: () =>
+                              Navigator.pushReplacementNamed(context, '/personalization')),
+                    ],
+                  ),
                   ListTile(
                       leading: const Icon(Icons.local_offer),
                       title: const Text('Sale'),
