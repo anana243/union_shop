@@ -16,8 +16,14 @@ class PrintShackPage extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 3.5, // wide banner
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1520974691821-149ed1d4a6b3?q=80&w=1600&auto=format&fit=crop',
+                  'https://images.unsplash.com/photo-1578500494198-246f612d03b3?q=80&w=1600&auto=format&fit=crop',
                   fit: BoxFit.cover,
+                  errorBuilder: (c, e, s) => Container(
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(Icons.image_not_supported, size: 80, color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
               Positioned.fill(
