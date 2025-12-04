@@ -33,20 +33,20 @@ class HomePage extends StatelessWidget {
                     future: repo.listByCollection('essential'),
                     maxProducts: 2,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 56),
                   _Section(
                     title: 'Signature Range',
                     future: repo.listByCollection('signature'),
                     maxProducts: 2,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 56),
                   _Section(
                     title: 'Portsmouth City Collection',
                     future: repo.listByCollection('city'),
                     cityLayout: true,
                     maxProducts: 4,
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 48),
                   const Center(
                     child: Text('Our Range',
                         style: TextStyle(
