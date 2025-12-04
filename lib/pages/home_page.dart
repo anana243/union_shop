@@ -55,9 +55,18 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 20),
                   _OurRangeGrid(
                     items: const [
-                      _RangeItem(title: 'Clothing', filter: 'Clothing', route: '/shop'),
-                      _RangeItem(title: 'Merchandise', filter: 'Merchandise', route: '/shop'),
-                      _RangeItem(title: 'Graduation', filter: 'Graduation Collection', route: '/shop'),
+                      _RangeItem(
+                          title: 'Clothing',
+                          filter: 'Clothing',
+                          route: '/shop'),
+                      _RangeItem(
+                          title: 'Merchandise',
+                          filter: 'Merchandise',
+                          route: '/shop'),
+                      _RangeItem(
+                          title: 'Graduation',
+                          filter: 'Graduation Collection',
+                          route: '/shop'),
                       _RangeItem(title: 'Sale', filter: 'Sale', route: '/sale'),
                     ],
                     imageUrl:
@@ -125,12 +134,13 @@ class _Section extends StatelessWidget {
               return const Center(child: Text('No products found'));
             }
 
-            final products = maxProducts != null && maxProducts! < allProducts.length
-                ? allProducts.take(maxProducts!).toList()
-                : allProducts;
+            final products =
+                maxProducts != null && maxProducts! < allProducts.length
+                    ? allProducts.take(maxProducts!).toList()
+                    : allProducts;
 
             if (cityLayout) {
-              return ProductGrid(products: products, twoColumnGrid: true);
+              return ProductGrid(products: products, maxCrossAxisExtent: 240.0);
             }
             return ProductGrid(products: products);
           },
@@ -211,7 +221,8 @@ class _RangeCardState extends State<_RangeCard> {
       child: GestureDetector(
         onTap: () {
           if (widget.filter != null) {
-            Navigator.pushNamed(context, widget.route, arguments: widget.filter);
+            Navigator.pushNamed(context, widget.route,
+                arguments: widget.filter);
           } else {
             Navigator.pushNamed(context, widget.route);
           }
@@ -317,7 +328,8 @@ class _PersonalizeSplit extends StatelessWidget {
                 textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/print-shack/about'),
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/print-shack/about'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
