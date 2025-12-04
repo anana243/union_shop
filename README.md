@@ -454,20 +454,9 @@ final isMobile = MediaQuery.of(context).size.width < 900;
 - **Responsive Design**: Single codebase scales from mobile to desktop
 - **Code Splitting**: Route-based page loading
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 👥 Contributors
 
 - **Anastasia** (anana243) - Initial development and implementation
-
-## 🙏 Acknowledgments
-
-- Flutter team for the amazing framework
-- Firebase for backend services
-- Material Design for UI guidelines
-- University of Portsmouth Students' Union for project inspiration
 
 ## 📧 Contact
 
