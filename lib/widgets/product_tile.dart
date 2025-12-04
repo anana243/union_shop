@@ -66,33 +66,35 @@ class _ProductTileState extends State<ProductTile> {
                         ),
                 ),
                 const SizedBox(height: 6),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Text(widget.product.title,
-                          style: const TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.w600),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis),
-                      if (widget.product.subtitle.isNotEmpty) ...[
-                        const SizedBox(height: 2),
-                        Text(
-                          widget.product.subtitle,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                          Text(widget.product.title,
                             style: const TextStyle(
-                              fontSize: 12, color: Colors.black87),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                              fontSize: 13, fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                        if (widget.product.subtitle.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            widget.product.subtitle,
+                              style: const TextStyle(
+                                fontSize: 12, color: Colors.black87),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                        const SizedBox(height: 4),
+                        Text(priceLabel,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4d2963))),
                       ],
-                      const SizedBox(height: 4),
-                      Text(priceLabel,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF4d2963))),
-                    ],
+                    ),
                   ),
                 ),
               ],
