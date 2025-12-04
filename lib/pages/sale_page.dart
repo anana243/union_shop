@@ -78,41 +78,42 @@ class _SalePageState extends State<SalePage> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          Text('Sort by:',
-                              style: TextStyle(fontSize: isMobile ? 12 : 14)),
+                          Text('Sort:',
+                              style: TextStyle(fontSize: isMobile ? 11 : 14)),
                           SizedBox(width: isMobile ? 4 : 8),
                           DropdownButton<String>(
                             value: _sortBy,
                             underline: Container(),
+                            isDense: true,
                             style: TextStyle(
-                                fontSize: isMobile ? 12 : 14,
+                                fontSize: isMobile ? 11 : 14,
                                 color: Colors.black),
                             items: [
                               DropdownMenuItem(
                                   value: 'Featured',
                                   child: Text('Featured',
                                       style: TextStyle(
-                                          fontSize: isMobile ? 12 : 14))),
+                                          fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'A-Z',
                                   child: Text(isMobile ? 'A-Z' : 'Alphabetically, A-Z',
                                       style: TextStyle(
-                                          fontSize: isMobile ? 12 : 14))),
+                                          fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Z-A',
                                   child: Text(isMobile ? 'Z-A' : 'Alphabetically, Z-A',
                                       style: TextStyle(
-                                          fontSize: isMobile ? 12 : 14))),
+                                          fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price Low',
                                   child: Text(isMobile ? 'Price ↑' : 'Price, Low to High',
                                       style: TextStyle(
-                                          fontSize: isMobile ? 12 : 14))),
+                                          fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price High',
                                   child: Text(isMobile ? 'Price ↓' : 'Price, High to Low',
                                       style: TextStyle(
-                                          fontSize: isMobile ? 12 : 14))),
+                                          fontSize: isMobile ? 11 : 14))),
                             ],
                             onChanged: (value) => setState(() => _sortBy = value!),
                           ),
