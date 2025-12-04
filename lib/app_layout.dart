@@ -361,19 +361,17 @@ class _FooterLinksRow extends StatelessWidget {
       spacing: 20,
       runSpacing: 10,
       children: [
-        Flexible(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Icon(Icons.schedule, size: 18, color: Colors.black38),
-              SizedBox(width: 6),
-              Flexible(
-                child: Text('Opening Times: Mon–Fri 9:00–17:00',
-                    style: TextStyle(color: Colors.black54),
-                    overflow: TextOverflow.ellipsis),
-              ),
-            ],
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(Icons.schedule, size: 18, color: Colors.black38),
+            SizedBox(width: 6),
+            Expanded(
+              child: Text('Opening Times: Mon–Fri 9:00–17:00',
+                  style: TextStyle(color: Colors.black54),
+                  overflow: TextOverflow.ellipsis),
+            ),
+          ],
         ),
         MouseRegion(
           cursor: SystemMouseCursors.click,
