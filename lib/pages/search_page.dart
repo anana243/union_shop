@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final query = ModalRoute.of(context)?.settings.arguments as String?;
-    
+
     if (query == null || query.trim().isEmpty) {
       return AppLayout(
         title: 'Union',
