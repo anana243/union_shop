@@ -90,8 +90,9 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
               children: [
                 // Image placeholder
                 if (!isMobile) ...[
-                  AspectRatio(
-                    aspectRatio: 1,
+                  SizedBox(
+                    width: 300,
+                    height: 300,
                     child: Image.network(
                       'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop',
                       fit: BoxFit.cover,
