@@ -30,8 +30,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(
-          find.textContaining('Get yours before they\'re all gone'),
+      expect(find.textContaining('Get yours before they\'re all gone'),
           findsOneWidget);
     });
 
