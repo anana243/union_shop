@@ -46,51 +46,47 @@ class _ProductTileState extends State<ProductTile> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  flex: 7,
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Image.network(
-                      widget.product.imageUrl,
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.low,
-                      errorBuilder: (c, e, s) => Container(
-                          color: Colors.grey[300],
-                          child: const Icon(Icons.image_not_supported, size: 42)),
-                    ),
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.network(
+                    widget.product.imageUrl,
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.low,
+                    errorBuilder: (c, e, s) => Container(
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.image_not_supported, size: 42)),
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(widget.product.title,
-                            style: const TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w600),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis),
-                        if (widget.product.subtitle.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            widget.product.subtitle,
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.black87),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                        const SizedBox(height: 6),
-                        Text(priceLabel,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4d2963))),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(widget.product.title,
+                          style: const TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w600),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis),
+                      if (widget.product.subtitle.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.product.subtitle,
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black87),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
-                    ),
+                      const SizedBox(height: 6),
+                      Text(priceLabel,
+                          style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF4d2963))),
+                    ],
                   ),
                 ),
               ],
