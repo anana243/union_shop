@@ -31,17 +31,20 @@ class HomePage extends StatelessWidget {
                   _Section(
                     title: 'Essential Range - over 20% off!',
                     future: repo.listByCollection('essential'),
+                    maxProducts: 2,
                   ),
                   const SizedBox(height: 40),
                   _Section(
                     title: 'Signature Range',
                     future: repo.listByCollection('signature'),
+                    maxProducts: 2,
                   ),
                   const SizedBox(height: 40),
                   _Section(
                     title: 'Portsmouth City Collection',
                     future: repo.listByCollection('city'),
                     cityLayout: true,
+                    maxProducts: 4,
                   ),
                   const SizedBox(height: 32),
                   const Center(
@@ -78,11 +81,13 @@ class _Section extends StatelessWidget {
   final String title;
   final Future<List<Product>> future;
   final bool cityLayout;
+  final int? maxProducts;
 
   const _Section({
     required this.title,
     required this.future,
     this.cityLayout = false,
+    this.maxProducts,
   });
 
   @override
@@ -115,10 +120,14 @@ class _Section extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
-            final products = snapshot.data ?? [];
-            if (products.isEmpty) {
+            final allProducts = snapshot.data ?? [];
+            if (allProducts.isEmpty) {
               return const Center(child: Text('No products found'));
             }
+
+            final products = maxProducts != null && maxProducts! < allProducts.length
+                ? allProducts.take(maxProducts!).toList()
+                : allProducts;
 
             if (cityLayout) {
               return ProductGrid(products: products, twoColumnGrid: true);
