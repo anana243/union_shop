@@ -438,13 +438,6 @@ class _FooterLinksRow extends StatelessWidget {
         Text('Terms & Conditions', style: link),
         Text('Refund Policy', style: link),
         Text('Contact', style: link),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/admin-seed'),
-            child: Text('Admin', style: link),
-          ),
-        ),
       ],
     );
   }
