@@ -43,7 +43,10 @@ class ProductPage extends StatelessWidget {
                       child: const Icon(Icons.image_not_supported, size: 50)),
                 );
 
-                final details = Column(
+                int quantity = 1;
+                final details = StatefulBuilder(
+                  builder: (context, setLocalState) {
+                    return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -60,12 +63,37 @@ class ProductPage extends StatelessWidget {
                         color: Color(0xFF4d2963),
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    const Text('Quantity',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (quantity > 1) setLocalState(() => quantity--);
+                          },
+                          icon: const Icon(Icons.remove_circle_outline),
+                        ),
+                        Text('$quantity',
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600)),
+                        IconButton(
+                          onPressed: () {
+                            setLocalState(() => quantity++);
+                          },
+                          icon: const Icon(Icons.add_circle_outline),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        CartService.instance.add(product);
+                        for (int i = 0; i < quantity; i++) {
+                          CartService.instance.add(product);
+                        }
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Added to cart')));
+                            SnackBar(content: Text('Added $quantity to cart')));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4d2963),
@@ -74,6 +102,8 @@ class ProductPage extends StatelessWidget {
                       child: const Text('ADD TO CART'),
                     ),
                   ],
+                );
+                  },
                 );
 
                 if (isWide) {
@@ -90,6 +120,22 @@ class ProductPage extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Mobile back button
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: SizedBox(
+                          height: 32,
+                          child: TextButton.icon(
+                            onPressed: () => Navigator.maybePop(context),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.black87,
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                            ),
+                            icon: const Icon(Icons.arrow_back, size: 18),
+                            label: const Text('Back', style: TextStyle(fontSize: 12)),
+                          ),
+                        ),
+                      ),
                       AspectRatio(aspectRatio: 1, child: image),
                       const SizedBox(height: 24),
                       details,
