@@ -97,7 +97,7 @@ The application follows a **layered architecture** pattern:
 
 ## 📁 Project Structure
 
-```
+```text
 union_shop/
 ├── lib/
 │   ├── main.dart                    # App entry point, routes, theme
@@ -143,12 +143,10 @@ union_shop/
 │   ├── home_page_test.dart          # Home page tests
 │   ├── search_page_test.dart        # Search functionality tests
 │   ├── product_page_test.dart       # Product detail tests
-│   ├── clothing_page_test.dart      # Collection page tests
 │   ├── sale_page_test.dart          # Sale page tests
 │   ├── personalization_page_test.dart # Customization tests
 │   ├── product_tile_test.dart       # Product tile widget tests
-│   ├── app_layout_footer_test.dart  # Footer navigation tests
-│   └── test_helper.dart             # Testing utilities & Firebase mocks
+│   └── app_layout_footer_test.dart  # Footer navigation tests
 │
 ├── web/
 │   ├── index.html                   # Web entry point
