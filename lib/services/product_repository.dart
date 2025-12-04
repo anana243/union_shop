@@ -57,7 +57,8 @@ class ProductRepository {
     return allProducts.where((product) {
       final title = product.title.toLowerCase();
       final subtitle = product.subtitle.toLowerCase();
-      return title.contains(lowercaseQuery) || subtitle.contains(lowercaseQuery);
+      return title.contains(lowercaseQuery) ||
+          subtitle.contains(lowercaseQuery);
     }).toList();
   }
 }
