@@ -282,35 +282,40 @@ class _AppLayoutState extends State<AppLayout> {
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/clothing');
+                            Navigator.pushReplacementNamed(
+                                context, '/clothing');
                           }),
                       ListTile(
                           title: const Text('Merchandise'),
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/merchandise');
+                            Navigator.pushReplacementNamed(
+                                context, '/merchandise');
                           }),
                       ListTile(
                           title: const Text('Signature Range'),
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/signature');
+                            Navigator.pushReplacementNamed(
+                                context, '/signature');
                           }),
                       ListTile(
                           title: const Text('Essential Range'),
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/essential');
+                            Navigator.pushReplacementNamed(
+                                context, '/essential');
                           }),
                       ListTile(
                           title: const Text('Portsmouth City Collection'),
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/portsmouth-city');
+                            Navigator.pushReplacementNamed(
+                                context, '/portsmouth-city');
                           }),
                       ListTile(
                           title: const Text('Pride Collection'),
@@ -324,7 +329,8 @@ class _AppLayoutState extends State<AppLayout> {
                           contentPadding: const EdgeInsets.only(left: 72),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/graduation');
+                            Navigator.pushReplacementNamed(
+                                context, '/graduation');
                           }),
                     ],
                   ),
@@ -340,8 +346,8 @@ class _AppLayoutState extends State<AppLayout> {
                       ListTile(
                           title: const Text('Personalization'),
                           contentPadding: const EdgeInsets.only(left: 72),
-                          onTap: () =>
-                              Navigator.pushReplacementNamed(context, '/personalization')),
+                          onTap: () => Navigator.pushReplacementNamed(
+                              context, '/personalization')),
                     ],
                   ),
                   ListTile(
@@ -435,8 +441,20 @@ class _FooterLinksRow extends StatelessWidget {
             ),
           ],
         ),
-        Text('Terms & Conditions', style: link),
-        Text('Refund Policy', style: link),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/terms-and-conditions'),
+            child: Text('Terms & Conditions', style: link),
+          ),
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/refund-policy'),
+            child: Text('Refund Policy', style: link),
+          ),
+        ),
         Text('Contact', style: link),
       ],
     );
