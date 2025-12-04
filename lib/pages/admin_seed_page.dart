@@ -57,6 +57,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'City Postcard',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/city-postcard.jpg',
           'price': 3.50,
           'slug': 'city-postcard',
           'collections': ['city'],
@@ -75,6 +76,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'City Badge',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/city-badge.jpg',
           'price': 5.00,
           'slug': 'city-badge',
           'collections': ['city'],
@@ -94,6 +96,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Varsity Sweatshirt',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/varsity-sweathsirt.jpg',
           'price': 28.00,
           'slug': 'varsity-sweatshirt',
           'collections': ['clothing'],
@@ -103,6 +106,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Varsity Tee',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/varsity-tee.jpg',
           'price': 15.00,
           'slug': 'varsity-tee',
           'collections': ['clothing'],
@@ -113,6 +117,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Signature Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/signature-hoodie.jpg',
           'price': 35.00,
           'slug': 'signature-hoodie',
           'collections': ['clothing', 'signature'],
@@ -122,6 +127,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Signature Joggers',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/signature-joggers.jpg',
           'price': 32.00,
           'slug': 'signature-joggers',
           'collections': ['clothing', 'signature'],
@@ -131,6 +137,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Signature Cap',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/signature-cap.jpg',
           'price': 18.00,
           'slug': 'signature-cap',
           'collections': ['clothing', 'signature'],
@@ -141,6 +148,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Essential T-Shirt',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/essential-tee.jpg',
           'price': 12.00,
           'slug': 'essential-tee',
           'collections': ['clothing', 'essential'],
@@ -160,6 +168,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Essential Sweatshirt',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/essential-sweatshirt.jpg',
           'price': 20.00,
           'slug': 'essential-sweatshirt',
           'collections': ['clothing', 'essential'],
@@ -170,6 +179,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'City Magnet',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/city-magnet.jpg',
           'price': 4.00,
           'slug': 'city-magnet',
           'collections': ['merchandise', 'city'],
@@ -179,6 +189,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Julia Gash Mug',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/julia-cash-mug.jpg',
           'price': 9.00,
           'slug': 'julia-gash-mug',
           'collections': ['merchandise', 'city'],
@@ -188,6 +199,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'City Coaster Set',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/city-coaster-set.jpg',
           'price': 6.50,
           'slug': 'city-coasters',
           'collections': ['merchandise', 'city'],
@@ -198,6 +210,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'UPSU Water Bottle',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/upsu-water-bottle.jpg',
           'price': 12.00,
           'slug': 'upsu-water-bottle',
           'collections': ['merchandise'],
@@ -207,6 +220,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'UPSU Tote Bag',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/upsu-tote-bag.jpg',
           'price': 6.00,
           'slug': 'upsu-tote-bag',
           'collections': ['merchandise'],
@@ -216,6 +230,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'City Tote',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/city-tote.jpg',
           'price': 10.00,
           'slug': 'city-tote',
           'collections': ['merchandise'],
@@ -226,6 +241,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Clearance Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/clearance hoodie.jpg',
           'price': 20.00,
           'slug': 'clearance-hoodie',
           'collections': ['clothing', 'sale'],
@@ -235,6 +251,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Sale Tee',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/sale-tee.jpg',
           'price': 8.00,
           'slug': 'sale-tee',
           'collections': ['clothing', 'sale'],
@@ -244,6 +261,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Sale Mug',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/sale-mug.jpg',
           'price': 3.50,
           'slug': 'sale-mug',
           'collections': ['merchandise', 'sale'],
@@ -253,6 +271,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Sale Tote',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/sale-tote.jpg',
           'price': 2.50,
           'slug': 'sale-tote',
           'collections': ['merchandise', 'sale'],
@@ -263,6 +282,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Graduation Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/graduation-hoodie.jpg',
           'price': 40.00,
           'slug': 'graduation-hoodie',
           'collections': ['clothing', 'graduation'],
@@ -272,6 +292,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Graduation Tee',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/graduation-tee.jpg',
           'price': 16.00,
           'slug': 'graduation-tee',
           'collections': ['clothing', 'graduation'],
@@ -281,6 +302,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Graduation Cap',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/graduation-cap.jpg',
           'price': 25.00,
           'slug': 'graduation-cap',
           'collections': ['merchandise', 'graduation'],
@@ -291,6 +313,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Pride Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/pride-hoodie.jpg',
           'price': 30.00,
           'slug': 'pride-hoodie',
           'collections': ['clothing', 'pride'],
@@ -300,6 +323,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Pride Tee',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageAsset': 'assets/images/products/pride-tee.jpg',
           'price': 14.00,
           'slug': 'pride-tee',
           'collections': ['clothing', 'pride'],
@@ -309,6 +333,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Pride Badge',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageAsset': 'assets/images/products/pride-badge.jpg',
           'price': 4.50,
           'slug': 'pride-badge',
           'collections': ['merchandise', 'pride'],
