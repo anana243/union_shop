@@ -99,7 +99,8 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                       errorBuilder: (c, e, s) => Container(
                         color: Colors.grey[200],
                         child: const Center(
-                          child: Icon(Icons.image_not_supported, size: 80, color: Colors.grey),
+                          child: Icon(Icons.image_not_supported,
+                              size: 80, color: Colors.grey),
                         ),
                       ),
                     ),
@@ -107,178 +108,178 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                 ),
                 SizedBox(height: isMobile ? 24 : 48),
                 Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Personalization',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Personalization',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '£${_priceMap[_selectedOption]!.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF4d2963),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    const Text(
+                      'Selection',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    DropdownButtonFormField<String>(
+                      initialValue: _selectedOption,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        '£${_priceMap[_selectedOption]!.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF4d2963),
-                        ),
-                      ),
-                      const SizedBox(height: 32),
+                      items: _priceMap.keys.map((option) {
+                        return DropdownMenuItem(
+                          value: option,
+                          child: Text(
+                            '$option - £${_priceMap[option]!.toStringAsFixed(2)}',
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => _selectedOption = value!);
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    if (!_selectedOption.contains('Logo')) ...[
                       const Text(
-                        'Selection',
+                        'Personalization Text',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _selectedOption == '1 Line of Text'
+                            ? 'Maximum 10 characters'
+                            : 'Enter your text',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
                       const SizedBox(height: 12),
-                      DropdownButtonFormField<String>(
-                        initialValue: _selectedOption,
+                      TextField(
+                        controller: _textController,
+                        maxLength:
+                            _selectedOption == '1 Line of Text' ? 10 : null,
+                        maxLines: _selectedOption.contains('Line')
+                            ? int.parse(_selectedOption.split(' ')[0])
+                            : 1,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                        ),
-                        items: _priceMap.keys.map((option) {
-                          return DropdownMenuItem(
-                            value: option,
-                            child: Text(
-                              '$option - £${_priceMap[option]!.toStringAsFixed(2)}',
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() => _selectedOption = value!);
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      if (!_selectedOption.contains('Logo')) ...[
-                        const Text(
-                          'Personalization Text',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          _selectedOption == '1 Line of Text'
-                              ? 'Maximum 10 characters'
-                              : 'Enter your text',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          controller: _textController,
-                          maxLength:
-                              _selectedOption == '1 Line of Text' ? 10 : null,
-                          maxLines: _selectedOption.contains('Line')
-                              ? int.parse(_selectedOption.split(' ')[0])
-                              : 1,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter your text here',
-                          ),
-                        ),
-                      ],
-                      const SizedBox(height: 24),
-                      const Text(
-                        'Quantity',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              if (_quantity > 1) {
-                                setState(() => _quantity--);
-                              }
-                            },
-                            icon: const Icon(Icons.remove_circle_outline),
-                          ),
-                          Text(
-                            '$_quantity',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() => _quantity++);
-                            },
-                            icon: const Icon(Icons.add_circle_outline),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _addToCart,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
-                          child: const Text(
-                            'ADD TO CART',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.grey[300]!),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(Icons.info_outline,
-                                color: Colors.grey[600], size: 18),
-                            const SizedBox(width: 8),
-                            const Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Note',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'Please double‑check spelling before purchase. We print exactly what you provide. Personalized items are not eligible for refunds.',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black87,
-                                        height: 1.4),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          hintText: 'Enter your text here',
                         ),
                       ),
                     ],
-                  ),
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Quantity',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (_quantity > 1) {
+                              setState(() => _quantity--);
+                            }
+                          },
+                          icon: const Icon(Icons.remove_circle_outline),
+                        ),
+                        Text(
+                          '$_quantity',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() => _quantity++);
+                          },
+                          icon: const Icon(Icons.add_circle_outline),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _addToCart,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF4d2963),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text(
+                          'ADD TO CART',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.info_outline,
+                              color: Colors.grey[600], size: 18),
+                          const SizedBox(width: 8),
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Note',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Please double‑check spelling before purchase. We print exactly what you provide. Personalized items are not eligible for refunds.',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black87,
+                                      height: 1.4),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
