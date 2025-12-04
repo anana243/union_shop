@@ -20,9 +20,9 @@ class ProductGrid extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 24,
-              mainAxisSpacing: 24,
-              childAspectRatio: isMobile ? 0.75 : 0.8, // Lower ratio for mobile = taller tiles
+              crossAxisSpacing: isMobile ? 16 : 24,
+              mainAxisSpacing: isMobile ? 32 : 24,
+              childAspectRatio: isMobile ? 0.78 : 0.8, // Lower ratio for mobile = taller tiles
             ),
             itemCount: products.length,
             itemBuilder: (context, i) => ProductTile(product: products[i]),
