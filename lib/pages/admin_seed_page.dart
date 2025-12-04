@@ -54,6 +54,26 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'featured': false,
           'subtitle': 'Pin badge from the City Collection',
         },
+        {
+          'title': 'City Tote',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 10.00,
+          'slug': 'city-tote',
+          'collections': ['city', 'merchandise'],
+          'featured': false,
+          'subtitle': 'Canvas tote with city print',
+        },
+        {
+          'title': 'City Notebook',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 7.50,
+          'slug': 'city-notebook',
+          'collections': ['city', 'merchandise'],
+          'featured': true,
+          'subtitle': 'A5 notebook with skyline cover',
+        },
       ];
 
       for (final product in cityProducts) {
@@ -115,6 +135,36 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'collections': ['clothing'],
           'featured': false,
           'subtitle': 'Classic campus style',
+        },
+        {
+          'title': 'Signature Joggers',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 32.00,
+          'slug': 'signature-joggers',
+          'collections': ['clothing', 'signature'],
+          'featured': true,
+          'subtitle': 'Comfort joggers with crest',
+        },
+        {
+          'title': 'Essential Hoodie',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 22.00,
+          'slug': 'essential-hoodie',
+          'collections': ['clothing', 'essential'],
+          'featured': false,
+          'subtitle': 'Basic hoodie for everyday wear',
+        },
+        {
+          'title': 'Varsity Tee',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 15.00,
+          'slug': 'varsity-tee',
+          'collections': ['clothing'],
+          'featured': false,
+          'subtitle': 'Varsity style t-shirt',
         },
       ];
 
@@ -178,6 +228,26 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'featured': true,
           'subtitle': 'Fridge magnet featuring Portsmouth',
         },
+        {
+          'title': 'UPSU Water Bottle',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 12.00,
+          'slug': 'upsu-water-bottle',
+          'collections': ['merchandise'],
+          'featured': false,
+          'subtitle': 'Stainless steel branded bottle',
+        },
+        {
+          'title': 'City Coaster Set',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 6.50,
+          'slug': 'city-coasters',
+          'collections': ['merchandise', 'city'],
+          'featured': true,
+          'subtitle': 'Set of 4 skyline coasters',
+        },
       ];
 
       for (final product in items) {
@@ -229,6 +299,26 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'collections': ['merchandise', 'sale'],
           'featured': false,
           'subtitle': 'Discounted drinkware',
+        },
+        {
+          'title': 'Sale Tee',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 8.00,
+          'slug': 'sale-tee',
+          'collections': ['clothing', 'sale'],
+          'featured': false,
+          'subtitle': 'Discount t-shirt',
+        },
+        {
+          'title': 'Sale Tote',
+          'imageUrl':
+              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 2.50,
+          'slug': 'sale-tote',
+          'collections': ['merchandise', 'sale'],
+          'featured': false,
+          'subtitle': 'Clearance tote bag',
         },
       ];
 
