@@ -41,7 +41,8 @@ class ProductPage extends StatelessWidget {
                         errorBuilder: (c, e, s) => Container(
                             height: 300,
                             color: Colors.grey[300],
-                            child: const Icon(Icons.image_not_supported, size: 50)),
+                            child: const Icon(Icons.image_not_supported,
+                                size: 50)),
                       )
                     : Image.network(
                         product.imageUrl,
@@ -49,69 +50,72 @@ class ProductPage extends StatelessWidget {
                         errorBuilder: (c, e, s) => Container(
                             height: 300,
                             color: Colors.grey[300],
-                            child: const Icon(Icons.image_not_supported, size: 50)),
+                            child: const Icon(Icons.image_not_supported,
+                                size: 50)),
                       );
 
                 int quantity = 1;
                 final details = StatefulBuilder(
                   builder: (context, setLocalState) {
                     return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.title,
-                      style: const TextStyle(
-                          fontSize: 28, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      '£${product.price.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF4d2963),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text('Quantity',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 8),
-                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            if (quantity > 1) setLocalState(() => quantity--);
-                          },
-                          icon: const Icon(Icons.remove_circle_outline),
+                        Text(
+                          product.title,
+                          style: const TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
-                        Text('$quantity',
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600)),
-                        IconButton(
+                        const SizedBox(height: 12),
+                        Text(
+                          '£${product.price.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4d2963),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text('Quantity',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                if (quantity > 1)
+                                  setLocalState(() => quantity--);
+                              },
+                              icon: const Icon(Icons.remove_circle_outline),
+                            ),
+                            Text('$quantity',
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                            IconButton(
+                              onPressed: () {
+                                setLocalState(() => quantity++);
+                              },
+                              icon: const Icon(Icons.add_circle_outline),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
                           onPressed: () {
-                            setLocalState(() => quantity++);
+                            for (int i = 0; i < quantity; i++) {
+                              CartService.instance.add(product);
+                            }
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('Added $quantity to cart')));
                           },
-                          icon: const Icon(Icons.add_circle_outline),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('ADD TO CART'),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        for (int i = 0; i < quantity; i++) {
-                          CartService.instance.add(product);
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Added $quantity to cart')));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4d2963),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('ADD TO CART'),
-                    ),
-                  ],
-                );
+                    );
                   },
                 );
 
@@ -138,10 +142,12 @@ class ProductPage extends StatelessWidget {
                             onPressed: () => Navigator.maybePop(context),
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.black87,
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                             ),
                             icon: const Icon(Icons.arrow_back, size: 18),
-                            label: const Text('Back', style: TextStyle(fontSize: 12)),
+                            label: const Text('Back',
+                                style: TextStyle(fontSize: 12)),
                           ),
                         ),
                       ),
