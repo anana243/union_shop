@@ -67,7 +67,7 @@ class _ProductTileState extends State<ProductTile> {
                         ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -75,19 +75,19 @@ class _ProductTileState extends State<ProductTile> {
                         Text(widget.product.title,
                           style: const TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w600),
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis),
                       if (widget.product.subtitle.isNotEmpty) ...[
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 2),
                         Text(
                           widget.product.subtitle,
                             style: const TextStyle(
                               fontSize: 12, color: Colors.black87),
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 4),
                       Text(priceLabel,
                           style: const TextStyle(
                               fontSize: 14,
