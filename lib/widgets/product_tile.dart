@@ -18,9 +18,7 @@ class _ProductTileState extends State<ProductTile> {
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
-    final isMobile = w < 700;
-    final maxTileWidth = isMobile ? 180.0 : 220.0;
+    const double maxTileWidth = 220.0; // standardized width across pages
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -65,16 +63,16 @@ class _ProductTileState extends State<ProductTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(widget.product.title,
+                        Text(widget.product.title,
                           style: const TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w600),
+                            fontSize: 13, fontWeight: FontWeight.w600),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
                       if (widget.product.subtitle.isNotEmpty) ...[
                         const SizedBox(height: 4),
                         Text(
                           widget.product.subtitle,
-                          style: const TextStyle(
+                            style: const TextStyle(
                               fontSize: 12, color: Colors.black87),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
