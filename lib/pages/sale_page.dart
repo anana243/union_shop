@@ -26,10 +26,12 @@ class _SalePageState extends State<SalePage> {
   void _sort(List<Product> items) {
     switch (_sortBy) {
       case 'A-Z':
-        items.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+        items.sort(
+            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         break;
       case 'Z-A':
-        items.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+        items.sort(
+            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
         break;
       case 'Price Low':
         items.sort((a, b) => a.price.compareTo(b.price));
@@ -96,26 +98,35 @@ class _SalePageState extends State<SalePage> {
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'A-Z',
-                                  child: Text(isMobile ? 'A-Z' : 'Alphabetically, A-Z',
+                                  child: Text(
+                                      isMobile ? 'A-Z' : 'Alphabetically, A-Z',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Z-A',
-                                  child: Text(isMobile ? 'Z-A' : 'Alphabetically, Z-A',
+                                  child: Text(
+                                      isMobile ? 'Z-A' : 'Alphabetically, Z-A',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price Low',
-                                  child: Text(isMobile ? 'Price ↑' : 'Price, Low to High',
+                                  child: Text(
+                                      isMobile
+                                          ? 'Price ↑'
+                                          : 'Price, Low to High',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                               DropdownMenuItem(
                                   value: 'Price High',
-                                  child: Text(isMobile ? 'Price ↓' : 'Price, High to Low',
+                                  child: Text(
+                                      isMobile
+                                          ? 'Price ↓'
+                                          : 'Price, High to Low',
                                       style: TextStyle(
                                           fontSize: isMobile ? 11 : 14))),
                             ],
-                            onChanged: (value) => setState(() => _sortBy = value!),
+                            onChanged: (value) =>
+                                setState(() => _sortBy = value!),
                           ),
                           const SizedBox(width: 8),
                         ],
