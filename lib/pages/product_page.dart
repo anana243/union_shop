@@ -34,14 +34,23 @@ class ProductPage extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final isWide = constraints.maxWidth >= 700;
-                final image = Image.network(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (c, e, s) => Container(
-                      height: 300,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.image_not_supported, size: 50)),
-                );
+                final image = product.imageAsset != null
+                    ? Image.asset(
+                        product.imageAsset!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) => Container(
+                            height: 300,
+                            color: Colors.grey[300],
+                            child: const Icon(Icons.image_not_supported, size: 50)),
+                      )
+                    : Image.network(
+                        product.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) => Container(
+                            height: 300,
+                            color: Colors.grey[300],
+                            child: const Icon(Icons.image_not_supported, size: 50)),
+                      );
 
                 int quantity = 1;
                 final details = StatefulBuilder(
