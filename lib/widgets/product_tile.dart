@@ -66,8 +66,9 @@ class _ProductTileState extends State<ProductTile> {
                               child: const Icon(Icons.image_not_supported, size: 42)),
                         ),
                 ),
+                const SizedBox(height: 4),
                 Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
