@@ -67,13 +67,21 @@ class CartPage extends StatelessWidget {
                             SizedBox(
                               width: imageSize,
                               height: imageSize,
-                              child: Image.network(
-                                p.product.imageUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (c, e, s) => Container(
-                                    color: Colors.grey[300],
-                                    child: const Icon(Icons.image)),
-                              ),
+                              child: p.product.imageAsset != null
+                                  ? Image.asset(
+                                      p.product.imageAsset!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (c, e, s) => Container(
+                                          color: Colors.grey[300],
+                                          child: const Icon(Icons.image)),
+                                    )
+                                  : Image.network(
+                                      p.product.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (c, e, s) => Container(
+                                          color: Colors.grey[300],
+                                          child: const Icon(Icons.image)),
+                                    ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
