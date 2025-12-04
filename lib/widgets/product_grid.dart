@@ -11,16 +11,23 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 24,
-        runSpacing: 24,
-        children: products
-            .map((p) => ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 240),
-                  child: ProductTile(product: p),
-                ))
-            .toList(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 600;
+          final maxWidth = isDesktop ? 280.0 : 240.0;
+          
+          return Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 24,
+            runSpacing: 24,
+            children: products
+                .map((p) => ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: maxWidth),
+                      child: ProductTile(product: p),
+                    ))
+                .toList(),
+          );
+        },
       ),
     );
   }
