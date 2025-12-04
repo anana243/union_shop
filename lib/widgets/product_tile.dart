@@ -79,16 +79,16 @@ class _ProductTileState extends State<ProductTile> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis),
                       if (widget.product.subtitle.isNotEmpty) ...[
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 1),
                         Text(
                           widget.product.subtitle,
                             style: const TextStyle(
-                              fontSize: 12, color: Colors.black87),
+                              fontSize: 11, color: Colors.black87),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(priceLabel,
                           style: const TextStyle(
                               fontSize: 14,
