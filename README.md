@@ -8,14 +8,14 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 
 ## 📋 Table of Contents
 
-- [Features](#features)
+- [Features](#-features)
 - [Technology Stack](#technology-stack)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Firebase Configuration](#firebase-configuration)
-- [Testing](#testing)
-- [Deployment](#deployment)
+- [Architecture](#️-architecture)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Firebase Configuration](#-firebase-configuration)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
 
 ## ✨ Features
 
@@ -46,7 +46,7 @@ A fully-featured e-commerce web application built with Flutter, providing a comp
 - Custom image handling with asset and network fallbacks
 - Product model with Firestore converters for seamless data synchronization
 
-## 🔧 Technology Stack
+## Technology Stack
 
 ### Frontend
 
@@ -183,7 +183,7 @@ union_shop/
    flutter pub get
    ```
 
-3. **Configure Firebase** (see [Firebase Configuration](#firebase-configuration))
+3. **Configure Firebase** (see [Firebase Configuration](#-firebase-configuration))
 
 4. **Run the application**
 
@@ -254,7 +254,7 @@ service cloud.firestore {
 | `imageUrl` | String | Yes | URL to product image |
 | `price` | Number | Yes | Product price in GBP |
 | `slug` | String | Yes | URL-friendly product identifier |
-| `collections` | Array<String> | Recommended | Categories: `['clothing', 'merchandise', 'city', 'upsu', 'signature', 'essential', 'sale', 'graduation', 'pride']` |
+| `collections` | Array\<String\> | Recommended | Categories: `['clothing', 'merchandise', 'city', 'upsu', 'signature', 'essential', 'sale', 'graduation', 'pride']` |
 | `subtitle` | String | Optional | Product tagline or description |
 | `category` | String | Optional | Legacy category field (backwards compatibility) |
 | `featured` | Boolean | Optional | Whether product should be featured |
@@ -462,7 +462,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📧 Contact
 
 For questions or support, please open an issue on the [GitHub repository](https://github.com/anana243/union_shop/issues).
-
----
-
-**Built with ❤️ using Flutter & Firebase**
