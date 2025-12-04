@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../app_layout.dart';
-import '../widgets/hero_carousel.dart';
 import '../constants.dart';
 
 class AboutPrintShackPage extends StatelessWidget {
@@ -14,7 +13,17 @@ class AboutPrintShackPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const HeroCarousel(imageUrl: kHeroImageUrl),
+            SizedBox(
+              height: 300,
+              child: Image.network(
+                kHeroImageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (c, e, s) => Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.image_not_supported, size: 50),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Center(
