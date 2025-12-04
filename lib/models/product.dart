@@ -2,6 +2,7 @@ class Product {
   final String id;
   final String title;
   final String imageUrl;
+  final String? imageAsset;
   final double price;
   final String slug;
   final String subtitle;
@@ -10,6 +11,7 @@ class Product {
     required this.id,
     required this.title,
     required this.imageUrl,
+    this.imageAsset,
     required this.price,
     required this.slug,
     this.subtitle = '',
@@ -20,6 +22,7 @@ class Product {
       id: id,
       title: map['title'] as String? ?? '',
       imageUrl: map['imageUrl'] as String? ?? '',
+      imageAsset: map['imageAsset'] as String?,
       price: (map['price'] is int)
           ? (map['price'] as int).toDouble()
           : (map['price'] as num?)?.toDouble() ?? 0.0,
@@ -32,6 +35,7 @@ class Product {
     return {
       'title': title,
       'imageUrl': imageUrl,
+      'imageAsset': imageAsset,
       'price': price,
       'slug': slug,
       'subtitle': subtitle,
