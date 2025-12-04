@@ -13,7 +13,36 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
   bool _isLoading = false;
   String _message = '';
 
-  Future<void> _seedCityProducts() async {
+  Future<void> _clearAllProducts() async {
+    setState(() {
+      _isLoading = true;
+      _message = '';
+    });
+
+    try {
+      final db = FirebaseFirestore.instance;
+      final snapshot = await db.collection('products').get();
+      final batch = db.batch();
+
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+
+      setState(() {
+        _isLoading = false;
+        _message = 'All products cleared! Now seed fresh data.';
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _message = 'Error clearing: $e';
+      });
+    }
+  }
+
+  Future<void> _seedAllProducts() async {
     setState(() {
       _isLoading = true;
       _message = '';
@@ -23,11 +52,11 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
       final db = FirebaseFirestore.instance;
       final batch = db.batch();
 
-      final cityProducts = [
+      final allProducts = [
+        // City Collection (pure city)
         {
           'title': 'City Postcard',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 3.50,
           'slug': 'city-postcard',
           'collections': ['city'],
@@ -36,8 +65,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'City Keyring',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 8.00,
           'slug': 'city-keyring',
           'collections': ['city'],
@@ -46,8 +74,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         },
         {
           'title': 'City Badge',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 5.00,
           'slug': 'city-badge',
           'collections': ['city'],
@@ -55,81 +82,18 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Pin badge from the City Collection',
         },
         {
-          'title': 'City Tote',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'price': 10.00,
-          'slug': 'city-tote',
-          'collections': ['city', 'merchandise'],
-          'featured': false,
-          'subtitle': 'Canvas tote with city print',
-        },
-        {
           'title': 'City Notebook',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 7.50,
           'slug': 'city-notebook',
-          'collections': ['city', 'merchandise'],
+          'collections': ['city'],
           'featured': true,
           'subtitle': 'A5 notebook with skyline cover',
         },
-      ];
-
-      for (final product in cityProducts) {
-        final docRef = db.collection('products').doc(product['slug'] as String);
-        batch.set(docRef, product);
-      }
-
-      await batch.commit();
-
-      setState(() {
-        _isLoading = false;
-        _message = 'Successfully added 3 Portsmouth City Collection products!';
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _message = 'Error: $e';
-      });
-    }
-  }
-
-  Future<void> _seedClothingProducts() async {
-    setState(() {
-      _isLoading = true;
-      _message = '';
-    });
-
-    try {
-      final db = FirebaseFirestore.instance;
-      final batch = db.batch();
-
-      final items = [
-        {
-          'title': 'Signature Hoodie',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          'price': 35.00,
-          'slug': 'signature-hoodie',
-          'collections': ['clothing', 'signature'],
-          'featured': true,
-          'subtitle': 'Premium fit with embroidered crest',
-        },
-        {
-          'title': 'Essential T-Shirt',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          'price': 12.00,
-          'slug': 'essential-tee',
-          'collections': ['clothing', 'essential'],
-          'featured': true,
-          'subtitle': 'Everyday cotton tee',
-        },
+        // Clothing Collection (pure clothing)
         {
           'title': 'Varsity Sweatshirt',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 28.00,
           'slug': 'varsity-sweatshirt',
           'collections': ['clothing'],
@@ -137,9 +101,27 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Classic campus style',
         },
         {
+          'title': 'Varsity Tee',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 15.00,
+          'slug': 'varsity-tee',
+          'collections': ['clothing'],
+          'featured': false,
+          'subtitle': 'Varsity style t-shirt',
+        },
+        // Signature Range (clothing + signature)
+        {
+          'title': 'Signature Hoodie',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 35.00,
+          'slug': 'signature-hoodie',
+          'collections': ['clothing', 'signature'],
+          'featured': true,
+          'subtitle': 'Premium fit with embroidered crest',
+        },
+        {
           'title': 'Signature Joggers',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 32.00,
           'slug': 'signature-joggers',
           'collections': ['clothing', 'signature'],
@@ -147,9 +129,27 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Comfort joggers with crest',
         },
         {
+          'title': 'Signature Cap',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 18.00,
+          'slug': 'signature-cap',
+          'collections': ['clothing', 'signature'],
+          'featured': false,
+          'subtitle': 'Signature collection cap',
+        },
+        // Essential Range (clothing + essential)
+        {
+          'title': 'Essential T-Shirt',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 12.00,
+          'slug': 'essential-tee',
+          'collections': ['clothing', 'essential'],
+          'featured': true,
+          'subtitle': 'Everyday cotton tee',
+        },
+        {
           'title': 'Essential Hoodie',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 22.00,
           'slug': 'essential-hoodie',
           'collections': ['clothing', 'essential'],
@@ -157,71 +157,18 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Basic hoodie for everyday wear',
         },
         {
-          'title': 'Varsity Tee',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          'price': 15.00,
-          'slug': 'varsity-tee',
-          'collections': ['clothing'],
+          'title': 'Essential Sweatshirt',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 20.00,
+          'slug': 'essential-sweatshirt',
+          'collections': ['clothing', 'essential'],
           'featured': false,
-          'subtitle': 'Varsity style t-shirt',
+          'subtitle': 'Essential range sweatshirt',
         },
-      ];
-
-      for (final product in items) {
-        final docRef = db.collection('products').doc(product['slug'] as String);
-        batch.set(docRef, product);
-      }
-
-      await batch.commit();
-
-      setState(() {
-        _isLoading = false;
-        _message = 'Added clothing/signature/essential demo products.';
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _message = 'Error: $e';
-      });
-    }
-  }
-
-  Future<void> _seedMerchandiseProducts() async {
-    setState(() {
-      _isLoading = true;
-      _message = '';
-    });
-
-    try {
-      final db = FirebaseFirestore.instance;
-      final batch = db.batch();
-
-      final items = [
-        {
-          'title': 'Julia Gash Mug',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'price': 9.00,
-          'slug': 'julia-gash-mug',
-          'collections': ['merchandise', 'city'],
-          'featured': false,
-          'subtitle': 'City skyline ceramic mug',
-        },
-        {
-          'title': 'UPSU Tote Bag',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'price': 6.00,
-          'slug': 'upsu-tote-bag',
-          'collections': ['merchandise', 'upsu'],
-          'featured': false,
-          'subtitle': 'Reusable cotton tote',
-        },
+        // Merchandise - City themed (merchandise + city)
         {
           'title': 'City Magnet',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 4.00,
           'slug': 'city-magnet',
           'collections': ['merchandise', 'city'],
@@ -229,9 +176,27 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Fridge magnet featuring Portsmouth',
         },
         {
+          'title': 'Julia Gash Mug',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 9.00,
+          'slug': 'julia-gash-mug',
+          'collections': ['merchandise', 'city'],
+          'featured': false,
+          'subtitle': 'City skyline ceramic mug',
+        },
+        {
+          'title': 'City Coaster Set',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 6.50,
+          'slug': 'city-coasters',
+          'collections': ['merchandise', 'city'],
+          'featured': true,
+          'subtitle': 'Set of 4 skyline coasters',
+        },
+        // Merchandise - General (merchandise only)
+        {
           'title': 'UPSU Water Bottle',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 12.00,
           'slug': 'upsu-water-bottle',
           'collections': ['merchandise'],
@@ -239,51 +204,27 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Stainless steel branded bottle',
         },
         {
-          'title': 'City Coaster Set',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'price': 6.50,
-          'slug': 'city-coasters',
-          'collections': ['merchandise', 'city'],
-          'featured': true,
-          'subtitle': 'Set of 4 skyline coasters',
+          'title': 'UPSU Tote Bag',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 6.00,
+          'slug': 'upsu-tote-bag',
+          'collections': ['merchandise'],
+          'featured': false,
+          'subtitle': 'Reusable cotton tote',
         },
-      ];
-
-      for (final product in items) {
-        final docRef = db.collection('products').doc(product['slug'] as String);
-        batch.set(docRef, product);
-      }
-
-      await batch.commit();
-
-      setState(() {
-        _isLoading = false;
-        _message = 'Added merchandise (Julia Gash/UPSU) demo products.';
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _message = 'Error: $e';
-      });
-    }
-  }
-
-  Future<void> _seedSaleProducts() async {
-    setState(() {
-      _isLoading = true;
-      _message = '';
-    });
-
-    try {
-      final db = FirebaseFirestore.instance;
-      final batch = db.batch();
-
-      final items = [
+        {
+          'title': 'City Tote',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 10.00,
+          'slug': 'city-tote',
+          'collections': ['merchandise'],
+          'featured': false,
+          'subtitle': 'Canvas tote with city print',
+        },
+        // Sale items (clothing + sale, merchandise + sale)
         {
           'title': 'Clearance Hoodie',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 20.00,
           'slug': 'clearance-hoodie',
           'collections': ['clothing', 'sale'],
@@ -291,19 +232,8 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Last season special',
         },
         {
-          'title': 'Sale Mug',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'price': 3.50,
-          'slug': 'sale-mug',
-          'collections': ['merchandise', 'sale'],
-          'featured': false,
-          'subtitle': 'Discounted drinkware',
-        },
-        {
           'title': 'Sale Tee',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
           'price': 8.00,
           'slug': 'sale-tee',
           'collections': ['clothing', 'sale'],
@@ -311,18 +241,82 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
           'subtitle': 'Discount t-shirt',
         },
         {
+          'title': 'Sale Mug',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 3.50,
+          'slug': 'sale-mug',
+          'collections': ['merchandise', 'sale'],
+          'featured': false,
+          'subtitle': 'Discounted drinkware',
+        },
+        {
           'title': 'Sale Tote',
-          'imageUrl':
-              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
           'price': 2.50,
           'slug': 'sale-tote',
           'collections': ['merchandise', 'sale'],
           'featured': false,
           'subtitle': 'Clearance tote bag',
         },
+        // Graduation Collection (clothing + graduation)
+        {
+          'title': 'Graduation Hoodie',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 40.00,
+          'slug': 'graduation-hoodie',
+          'collections': ['clothing', 'graduation'],
+          'featured': true,
+          'subtitle': 'Special graduation edition',
+        },
+        {
+          'title': 'Graduation Tee',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 16.00,
+          'slug': 'graduation-tee',
+          'collections': ['clothing', 'graduation'],
+          'featured': false,
+          'subtitle': 'Graduation class tee',
+        },
+        {
+          'title': 'Graduation Cap',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 25.00,
+          'slug': 'graduation-cap',
+          'collections': ['merchandise', 'graduation'],
+          'featured': false,
+          'subtitle': 'Graduation collection cap',
+        },
+        // Pride Collection (clothing + pride, merchandise + pride)
+        {
+          'title': 'Pride Hoodie',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 30.00,
+          'slug': 'pride-hoodie',
+          'collections': ['clothing', 'pride'],
+          'featured': true,
+          'subtitle': 'Celebrate Pride Month',
+        },
+        {
+          'title': 'Pride Tee',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+          'price': 14.00,
+          'slug': 'pride-tee',
+          'collections': ['clothing', 'pride'],
+          'featured': false,
+          'subtitle': 'Pride collection t-shirt',
+        },
+        {
+          'title': 'Pride Badge',
+          'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+          'price': 4.50,
+          'slug': 'pride-badge',
+          'collections': ['merchandise', 'pride'],
+          'featured': true,
+          'subtitle': 'Pride collection badge',
+        },
       ];
 
-      for (final product in items) {
+      for (final product in allProducts) {
         final docRef = db.collection('products').doc(product['slug'] as String);
         batch.set(docRef, product);
       }
@@ -331,7 +325,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
 
       setState(() {
         _isLoading = false;
-        _message = 'Added sale demo products.';
+        _message = 'Successfully seeded ${allProducts.length} products with proper collections!';
       });
     } catch (e) {
       setState(() {
@@ -358,7 +352,18 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: _isLoading ? null : _seedCityProducts,
+                onPressed: _isLoading ? null : _clearAllProducts,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                ),
+                child: const Text('CLEAR ALL PRODUCTS'),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _seedAllProducts,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4d2963),
                   foregroundColor: Colors.white,
@@ -375,43 +380,12 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
                               AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
-                    : const Text('Add Portsmouth City Products (3 items)'),
+                    : const Text('SEED ALL PRODUCTS (Fresh Data)'),
               ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _seedClothingProducts,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                ),
-                child: const Text('Add Clothing/Signature/Essential'),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _seedMerchandiseProducts,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                ),
-                child: const Text('Add Merchandise (Julia Gash/UPSU)'),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _seedSaleProducts,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                ),
-                child: const Text('Add Sale Items'),
-              ),
+              const SizedBox(height: 32),
+              const Divider(),
+              const SizedBox(height: 32),
               if (_message.isNotEmpty) ...[
-                const SizedBox(height: 24),
                 Text(
                   _message,
                   style: TextStyle(
