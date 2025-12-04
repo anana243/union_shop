@@ -96,7 +96,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Varsity Sweatshirt',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          'imageAsset': 'assets/images/products/varsity-sweathsirt.jpg',
+          'imageAsset': 'assets/images/products/varsity-sweatshirt.jpg',
           'price': 28.00,
           'slug': 'varsity-sweatshirt',
           'collections': ['clothing'],
@@ -189,7 +189,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Julia Gash Mug',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-          'imageAsset': 'assets/images/products/julia-cash-mug.jpg',
+          'imageAsset': 'assets/images/products/julia-gash-mug.jpg',
           'price': 9.00,
           'slug': 'julia-gash-mug',
           'collections': ['merchandise', 'city'],
@@ -241,7 +241,7 @@ class _AdminSeedPageState extends State<AdminSeedPage> {
         {
           'title': 'Clearance Hoodie',
           'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-          'imageAsset': 'assets/images/products/clearance hoodie.jpg',
+          'imageAsset': 'assets/images/products/clearance-hoodie.jpg',
           'price': 20.00,
           'slug': 'clearance-hoodie',
           'collections': ['clothing', 'sale'],
