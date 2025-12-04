@@ -83,15 +83,17 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
               children: [
                 // Image placeholder
                 if (!isMobile) ...[
-                  Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Icon(Icons.image, size: 80, color: Colors.grey),
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop',
+                      fit: BoxFit.cover,
+                      errorBuilder: (c, e, s) => Container(
+                        color: Colors.grey[200],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, size: 80, color: Colors.grey),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 48),
