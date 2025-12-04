@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'pages/home_page.dart';
 import 'pages/shop_page.dart';
-import 'pages/print_shack_page.dart';
 import 'pages/sale_page.dart';
 import 'pages/about_page.dart';
 import 'pages/search_page.dart';
@@ -64,7 +63,7 @@ class UnionShopApp extends StatelessWidget {
           final filter = ModalRoute.of(context)?.settings.arguments as String?;
           return ShopPage(initialFilter: filter);
         },
-        '/print-shack': (context) => const PrintShackPage(),
+        '/print-shack': (context) => const AboutPrintShackPage(),
         '/sale': (context) => const SalePage(),
         '/about': (context) => const AboutPage(),
         '/search': (context) => const SearchPage(),
