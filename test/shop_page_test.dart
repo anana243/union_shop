@@ -63,8 +63,7 @@ void main() {
       expect(find.text('Essential Range'), findsOneWidget);
     });
 
-    testWidgets('sort dropdown shows all options',
-        (WidgetTester tester) async {
+    testWidgets('sort dropdown shows all options', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: SizedBox(width: 1200, child: ShopPage()),
