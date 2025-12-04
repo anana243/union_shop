@@ -160,6 +160,7 @@ class _OurRangeGrid extends StatelessWidget {
           children: items
               .map<Widget>((i) => _RangeCard(
                     title: i.title,
+                    filter: i.filter,
                     route: i.route,
                     imageUrl: imageUrl,
                     maxWidth: cardWidth.clamp(140.0, 220.0),
