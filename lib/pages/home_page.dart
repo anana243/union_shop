@@ -265,7 +265,7 @@ class _PersonalizeSplit extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, '/print-shack'),
+                        Navigator.pushNamed(context, '/print-shack/about'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4d2963),
                       foregroundColor: Colors.white,
@@ -299,7 +299,7 @@ class _PersonalizeSplit extends StatelessWidget {
                 textAlign: TextAlign.center),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/print-shack'),
+              onPressed: () => Navigator.pushNamed(context, '/print-shack/about'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
