@@ -374,29 +374,9 @@ class _FooterLinksRow extends StatelessWidget {
             ),
           ],
         ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-              onTap: () =>
-                  Navigator.pushNamed(context, '/terms-and-conditions'),
-              child: Text('Terms & Conditions', style: link)),
-        ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/refund-policy'),
-              child: Text('Refund Policy', style: link)),
-        ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Contact page coming soon')));
-            },
-            child: Text('Contact', style: link),
-          ),
-        ),
+        Text('Terms & Conditions', style: link),
+        Text('Refund Policy', style: link),
+        Text('Contact', style: link),
       ],
     );
   }
