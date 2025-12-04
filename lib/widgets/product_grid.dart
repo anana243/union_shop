@@ -12,17 +12,22 @@ class ProductGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     // Force 2 columns for consistency across all collections
     return Center(
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 24,
-          childAspectRatio: 0.9, // tile height vs width - increased to prevent overflow
-        ),
-        itemCount: products.length,
-        itemBuilder: (context, i) => ProductTile(product: products[i]),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 600;
+          return GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 24,
+              mainAxisSpacing: 24,
+              childAspectRatio: isMobile ? 0.95 : 0.8, // Higher ratio for mobile to prevent overflow
+            ),
+            itemCount: products.length,
+            itemBuilder: (context, i) => ProductTile(product: products[i]),
+          );
+        },
       ),
     );
   }
