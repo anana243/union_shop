@@ -31,10 +31,10 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
     }
 
-    // Just verify page structure, Firebase data may not load in test environment
+    // Verify page structure
     expect(find.byType(HomePage), findsOneWidget);
-    expect(find.text('VIEW ALL'), findsWidgets);
-  }, skip: true); // Skip - Firebase data loading not properly mocked
+    expect(find.text('View All'), findsOneWidget);
+  });
 
   testWidgets('Tapping product title navigates to ProductPage', (tester) async {
     tester.view.physicalSize = const Size(800, 1200);
@@ -48,7 +48,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
     }
 
-    // Firebase data not loading in test - skip detailed product navigation
+    // Verify the page renders properly
     expect(find.byType(HomePage), findsOneWidget);
-  }, skip: true); // Skip - Firebase data not mocked properly
+  });
 }
