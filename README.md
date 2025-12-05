@@ -19,10 +19,10 @@ Union Shop is a Flutter-based e-commerce application designed as a coursework pr
 
 ## ✨ Features
 
-### User Features
+### 🔹 User-Facing Features
 
-- **Dynamic Homepage** with hero carousel, featured product sections (Essential Range, Signature Range), and Portsmouth City Collection with responsive 2x2 grid layout on desktop fullscreen
-- **Advanced Product Browsing** via unified ShopPage with 8 filter categories (All Products, Clothing, Merchandise, Portsmouth City, Pride, Graduation, Signature Range, Essential Range) and 5 sorting options (Featured, A-Z, Z-A, Price Low-to-High, Price High-to-Low)
+- **Dynamic Homepage** with hero carousel and featured product sections
+- **Unified Shop Page** supporting 8 filter categories and 5 sorting options 
 - **Real-time Search** functionality across all products with responsive results grid
 - **Shopping Cart Management** with quantity controls (optimized with Wrap layout to prevent mobile overflow), live total calculations, and responsive font sizing
 - **User Authentication** via Firebase (email/password sign-up and sign-in)
