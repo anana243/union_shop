@@ -8,21 +8,22 @@ Flutter e-commerce: 13 pages, 67 tests, Firebase, Material Design 3
 
 ## Features
 
-- **Homepage:** Product carousel with featured items
-- **Shop:** 8 product categories, 5 sort options (price, name, newest, etc.)
-- **Search:** Full-text product search
-- **Cart:** Add/remove items, quantity management, persistent storage
-- **Checkout:** Email/password auth via Firebase, order confirmation page
-- **Personalization:** User profile, saved preferences
-- **Info Pages:** About, terms, refund policy, Print Shack details
-- **Responsive:** Mobile-first design, 900px+ breakpoint
+- **Homepage:** Product carousel with featured items, infinite scroll
+- **Shop:** 8 product categories (clothing, prints, accessories, etc.), 5 sort options (price ASC/DESC, name, newest, popularity)
+- **Search:** Full-text product search with category filtering
+- **Cart:** Add/remove items, quantity management, total price calculation, localStorage persistence
+- **Checkout:** Email/password Firebase Auth, cart validation, order confirmation with success page
+- **Personalization:** User profile management, saved preferences, authentication state
+- **Info Pages:** About Union Shop, Print Shack details, terms & conditions, refund policy
+- **Responsive:** Mobile-first design, tablet optimization at 900px+ breakpoint
 
 ## Tech Stack
 
-- **Frontend:** Flutter 3.5.4, Dart 3.5.4
+- **Frontend:** Flutter 3.5.4, Dart 3.5.4, Material Design 3 (purple theme #4d2963)
 - **Backend:** Firebase Core 3.6.0, Firestore 5.4.4, Auth 5.3.1, Google Sign-In 6.2.2
-- **State:** Singleton CartService (ChangeNotifier)
+- **State:** Singleton CartService (ChangeNotifier) with reactive updates
 - **Testing:** flutter_test, fake_cloud_firestore 3.0.3, firebase_auth_mocks 0.14.1
+- **Build:** Android Gradle, iOS CocoaPods, Web (Flutter web support)
 
 ## Architecture
 
@@ -49,9 +50,9 @@ lib/
 | Component | Details |
 |-----------|---------|
 | **Pages (13)** | home, shop, product, cart, checkout_success, search, personalization, sign_in, about, about_print_shack, terms_and_conditions, refund_policy, sale |
-| **Widgets (4)** | product_tile, product_grid, hero_carousel, footer_subscribe_box |
-| **Services** | CartService (singleton), ProductRepository (Firestore) |
-| **Models** | Product (fromMap/toMap for Firestore) |
+| **Widgets (4)** | product_tile (reusable card), product_grid (responsive layout), hero_carousel (featured), footer_subscribe_box |
+| **Services** | CartService (add/remove/updateQuantity/clear + getters for items/count/total), ProductRepository (Firestore query methods) |
+| **Models** | Product (id, title, imageUrl, imageAsset, price, slug, subtitle; fromMap/toMap for serialization) |
 
 ## Setup
 
@@ -67,19 +68,34 @@ flutter run
 
 ## Firebase
 
-**Products Collection:**
+**Firestore Structure:**
 
-```json
-{
-  "title": "Product",
-  "imageUrl": "https://...",
-  "price": 19.99,
-  "slug": "product-slug",
-  "subtitle": "Description",
-  "collections": ["clothing", "featured"],
-  "category": "clothing"
-}
+```text
+/products/
+  ├── id: auto-generated document ID
+  ├── title: string
+  ├── imageUrl: URL to CDN image
+  ├── imageAsset: optional local asset fallback
+  ├── price: number (GBP)
+  ├── slug: URL-friendly identifier for routing
+  ├── subtitle: product description
+  ├── category: string (clothing, prints, accessories)
+  └── collections: array (featured, on-sale, etc.)
 ```
+
+**Key Operations:**
+
+- **Read:** ProductRepository fetches products by category, sorts by price/name, full-text search
+- **Write:** CartService stores local cart state; Firebase stores auth/user data only
+- **Auth:** Email/password login via Firebase Auth with custom claims for user roles
+
+**Data Flow:**
+
+1. ProductRepository queries Firestore `/products` collection
+2. Product.fromMap() deserializes Firestore documents (handles int→double price conversion)
+3. CartService (singleton) manages cart state in-memory with ChangeNotifier
+4. UI rebuilds on CartService.notifyListeners() for reactive updates
+5. Cart persists locally; no server-side cart storage
 
 **Required Setup:**
 
