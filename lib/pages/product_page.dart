@@ -83,8 +83,9 @@ class ProductPage extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-                                if (quantity > 1)
+                                if (quantity > 1) {
                                   setLocalState(() => quantity--);
+                                }
                               },
                               icon: const Icon(Icons.remove_circle_outline),
                             ),
