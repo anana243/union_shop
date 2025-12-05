@@ -30,7 +30,6 @@ class DefaultFirebaseOptions {
     appId: '1:1051074814746:web:d410760faa5dbef50942a3',
   );
 
-  // Placeholder for future mobile support
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAmIOAUqz12gG8Z3C-uVQk7NPXFDQirt2Y',
     appId: '1:1051074814746:android:YOUR_ANDROID_APP_ID',
