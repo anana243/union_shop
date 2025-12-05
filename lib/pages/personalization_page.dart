@@ -33,7 +33,6 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
   @override
   void initState() {
     super.initState();
-    // Ensure quantity starts at 1
     _quantity = 1;
   }
 
@@ -88,7 +87,6 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Image placeholder - visible on both mobile and desktop
                 Center(
                   child: SizedBox(
                     width: isMobile ? double.infinity : 300,
