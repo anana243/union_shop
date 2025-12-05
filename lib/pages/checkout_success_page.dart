@@ -7,7 +7,6 @@ class CheckoutSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Clear cart after successful checkout
     WidgetsBinding.instance.addPostFrameCallback((_) {
       CartService.instance.clear();
     });
