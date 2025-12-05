@@ -15,9 +15,10 @@ void main() {
           home: PersonalizationPage(),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.text('Personalization'), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers in test
+    });
 
     testWidgets('shows selection dropdown', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -28,7 +29,7 @@ void main() {
 
       expect(find.text('Selection'), findsOneWidget);
       expect(find.text('1 Line of Text - £3.00'), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('shows price', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -38,7 +39,7 @@ void main() {
       );
 
       expect(find.text('£3.00'), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('has quantity controls', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -50,7 +51,7 @@ void main() {
       expect(find.text('Quantity'), findsOneWidget);
       expect(find.byIcon(Icons.remove_circle_outline), findsOneWidget);
       expect(find.byIcon(Icons.add_circle_outline), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('has ADD TO CART button', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -60,7 +61,7 @@ void main() {
       );
 
       expect(find.text('ADD TO CART'), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('shows notice with info icon', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -71,7 +72,7 @@ void main() {
 
       expect(find.text('Note'), findsOneWidget);
       expect(find.byIcon(Icons.info_outline), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('shows text input for text options',
         (WidgetTester tester) async {
@@ -85,7 +86,7 @@ void main() {
       // Find TextField that's inside a Column with the label
       final textFields = find.byType(TextField);
       expect(textFields, findsWidgets);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
 
     testWidgets('quantity increases on plus button tap',
         (WidgetTester tester) async {
@@ -112,6 +113,6 @@ void main() {
       await tester.pump();
 
       expect(find.text('2'), findsOneWidget);
-    }, skip: true); // Skip - Image.network loading causes pending timers
+    });
   });
 }
