@@ -8,7 +8,14 @@ Flutter e-commerce: 13 pages, 67 tests, Firebase, Material Design 3
 
 ## Features
 
-Homepage (carousel) • Shop (8 categories, 5 sorts) • Search • Sale • Cart • Personalization • Auth • Checkout • Info pages • Responsive (900px)
+- **Homepage:** Product carousel with featured items
+- **Shop:** 8 product categories, 5 sort options (price, name, newest, etc.)
+- **Search:** Full-text product search
+- **Cart:** Add/remove items, quantity management, persistent storage
+- **Checkout:** Email/password auth via Firebase, order confirmation page
+- **Personalization:** User profile, saved preferences
+- **Info Pages:** About, terms, refund policy, Print Shack details
+- **Responsive:** Mobile-first design, 900px+ breakpoint
 
 ## Tech Stack
 
@@ -19,16 +26,22 @@ Homepage (carousel) • Shop (8 categories, 5 sorts) • Search • Sale • Car
 
 ## Architecture
 
-**Patterns:** Singleton (CartService), Repository (ProductRepository), Factory (Product.fromMap)
+**Design Patterns:**
 
-**Structure:**
+- **Singleton:** CartService manages global cart state
+- **Repository:** ProductRepository abstracts Firestore queries
+- **Factory:** Product.fromMap() handles data serialization
+- **State Management:** ChangeNotifier for reactive UI updates
+
+**File Structure:**
 
 ```text
 lib/
-├── pages/     # 13 screens
-├── widgets/   # 4 custom
-├── services/  # CartService, ProductRepository
-└── models/    # Product
+├── pages/      # 13 screens (home, shop, cart, checkout, auth, etc.)
+├── widgets/    # 4 reusable components (product_tile, carousel, etc.)
+├── services/   # CartService (singleton), ProductRepository (Firestore)
+├── models/     # Product (with Firestore serialization)
+└── constants.dart  # App colors, routing, text constants
 ```
 
 ## Project Structure
@@ -68,7 +81,13 @@ flutter run
 }
 ```
 
-**Setup:** Enable Email/Password Auth, create Firestore DB, add Web app, update `lib/firebase_options.dart`
+**Required Setup:**
+
+1. Enable Email/Password authentication in Firebase Console
+2. Create Firestore database with regional tier
+3. Add Web, Android, iOS apps to Firebase project
+4. Run `flutterfire configure` to auto-generate `lib/firebase_options.dart`
+5. Upload products to `/products` collection (see schema above)
 
 **Security Rules:**
 
@@ -83,7 +102,13 @@ service cloud.firestore {
 
 ## Testing
 
-**67 passing tests** (20 files) - Pages (13), Widgets (3), Services (2), Models (1), Integration (1)
+**67 Passing Tests** across 20 files:
+
+- **Pages (13 tests):** UI rendering, navigation, user interactions
+- **Widgets (3 tests):** product_tile, product_grid, hero_carousel
+- **Services (2 tests):** CartService (add/remove/update), ProductRepository (query mocking)
+- **Models (1 test):** Product serialization (fromMap/toMap)
+- **Integration (1 test):** End-to-end user flow
 
 ```bash
 flutter test                              # All
