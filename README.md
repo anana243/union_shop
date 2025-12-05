@@ -160,7 +160,6 @@ service cloud.firestore {
 - **Image Fallback:** Product uses imageUrl (CDN) with optional imageAsset (local) fallback
 - **Query Optimization:** ProductRepository caches queries, limits document reads
 
-
 ## Statistics
 
 | Metric | Value |
