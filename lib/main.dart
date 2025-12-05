@@ -15,7 +15,6 @@ import 'pages/checkout_success_page.dart';
 import 'pages/personalization_page.dart';
 import 'pages/about_print_shack_page.dart';
 
-// Temporary pages
 class HungryPage extends StatelessWidget {
   const HungryPage({super.key});
   @override
