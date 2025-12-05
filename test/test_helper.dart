@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -73,6 +74,58 @@ void setupFirebaseTest() {
   FirebasePlatform.instance = FakeFirebaseCore();
 }
 
+/// Populates fake Firestore with sample product data for testing
+void populateTestFirestoreData(FakeFirebaseFirestore firestore) {
+  // Add sample collections with test data
+  firestore.collection('clothing').doc('1').set({
+    'title': 'Test T-Shirt',
+    'imageUrl': 'https://example.com/tshirt.jpg',
+    'price': 15.99,
+    'slug': 'test-tshirt',
+    'subtitle': 'Comfortable cotton tee',
+  });
+
+  firestore.collection('clothing').doc('2').set({
+    'title': 'Test Hoodie',
+    'imageUrl': 'https://example.com/hoodie.jpg',
+    'price': 35.99,
+    'slug': 'test-hoodie',
+    'subtitle': 'Warm and cozy',
+  });
+
+  firestore.collection('merchandise').doc('1').set({
+    'title': 'Test Mug',
+    'imageUrl': 'https://example.com/mug.jpg',
+    'price': 12.99,
+    'slug': 'test-mug',
+    'subtitle': 'Your daily companion',
+  });
+
+  firestore.collection('featured').doc('1').set({
+    'title': 'Featured Product',
+    'imageUrl': 'https://example.com/featured.jpg',
+    'price': 25.99,
+    'slug': 'featured-product',
+    'subtitle': 'Our top pick',
+  });
+
+  firestore.collection('sale').doc('1').set({
+    'title': 'Sale Item 1',
+    'imageUrl': 'https://example.com/sale1.jpg',
+    'price': 9.99,
+    'slug': 'sale-item-1',
+    'subtitle': 'Great discount',
+  });
+
+  firestore.collection('sale').doc('2').set({
+    'title': 'Sale Item 2',
+    'imageUrl': 'https://example.com/sale2.jpg',
+    'price': 14.99,
+    'slug': 'sale-item-2',
+    'subtitle': 'Limited time only',
+  });
+}
+
 Widget wrapWithMaterialApp(Widget child) {
   return MaterialApp(
     home: child,
@@ -80,9 +133,122 @@ Widget wrapWithMaterialApp(Widget child) {
 }
 
 FakeFirebaseFirestore getFakeFirestore() {
-  return FakeFirebaseFirestore();
+  final firestore = FakeFirebaseFirestore();
+  populateTestFirestoreData(firestore);
+  return firestore;
 }
 
 MockFirebaseAuth getMockAuth() {
   return MockFirebaseAuth();
+}
+
+/// Creates a mock image provider for testing Image.network widgets
+ImageProvider<Object> getMockImageProvider() {
+  // Use MemoryImage to avoid network calls
+  final Uint8List validPngBytes = Uint8List.fromList(<int>[
+    0x89,
+    0x50,
+    0x4E,
+    0x47,
+    0x0D,
+    0x0A,
+    0x1A,
+    0x0A,
+    0x00,
+    0x00,
+    0x00,
+    0x0D,
+    0x49,
+    0x48,
+    0x44,
+    0x52,
+    0x00,
+    0x00,
+    0x00,
+    0x01,
+    0x00,
+    0x00,
+    0x00,
+    0x01,
+    0x08,
+    0x02,
+    0x00,
+    0x00,
+    0x00,
+    0x90,
+    0x77,
+    0x53,
+    0xDE,
+    0x00,
+    0x00,
+    0x00,
+    0x0C,
+    0x49,
+    0x44,
+    0x41,
+    0x54,
+    0x08,
+    0x99,
+    0x63,
+    0xF8,
+    0xCF,
+    0xC0,
+    0x00,
+    0x00,
+    0x03,
+    0x01,
+    0x01,
+    0x00,
+    0x18,
+    0xDD,
+    0x8D,
+    0xB4,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x49,
+    0x45,
+    0x4E,
+    0x44,
+    0xAE,
+    0x42,
+    0x60,
+    0x82,
+  ]);
+  return MemoryImage(validPngBytes);
+}
+
+/// Sets up standard desktop viewport for testing
+/// Common for pages with responsive layouts
+void setupDesktopViewport(WidgetTester tester) {
+  tester.view.physicalSize = const Size(800, 1200);
+  tester.view.devicePixelRatio = 1.0;
+}
+
+/// Resets the viewport after testing
+void resetViewport(WidgetTester tester) {
+  addTearDown(() => tester.view.resetPhysicalSize());
+  addTearDown(() => tester.view.resetDevicePixelRatio());
+}
+
+/// Sets up both desktop viewport and teardown in one call
+void setupDesktopViewportWithReset(WidgetTester tester) {
+  setupDesktopViewport(tester);
+  resetViewport(tester);
+}
+
+/// Waits for Firebase/async operations using multiple small pumps
+/// Avoids timeouts while allowing UI to settle
+Future<void> waitForAsync(WidgetTester tester, {int iterations = 20}) async {
+  for (int i = 0; i < iterations; i++) {
+    await tester.pump(const Duration(milliseconds: 50));
+  }
+}
+
+/// Creates a MaterialApp with a simple home widget
+Widget createTestApp(Widget home) {
+  return MaterialApp(
+    home: home,
+  );
 }
