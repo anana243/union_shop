@@ -1,6 +1,6 @@
 # Union Shop 🛍️
 
-A fully-featured e-commerce web application built with Flutter, providing a complete online shopping experience for university merchandise. This application features dynamic product management, user authentication, shopping cart functionality, personalization services, and real-time search capabilities.
+Union Shop is a Flutter-based e-commerce application designed as a coursework project to demonstrate architectural design, cloud integration, testing methodology, and responsive UI development. The platform provides a complete online retail workflow including browsing, search, authentication, cart management, and product personalisation.
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.0+-blue.svg)](https://flutter.dev/)
 [![Firebase](https://img.shields.io/badge/Firebase-Latest-orange.svg)](https://firebase.google.com/)
@@ -121,7 +121,7 @@ union_shop/
 │   │   └── footer_subscribe_box.dart # Newsletter subscription widget with email input
 │   │
    └── pages/
-       ├── home_page.dart           # Landing page with hero carousel, featured sections, and Portsmouth City 2x2 grid
+       ├── home_page.dart           # Home page (carousel + featured sections)
        ├── shop_page.dart           # Unified shop with 8 dynamic filters & 5 sorting options (replaces individual category pages)
        ├── product_page.dart        # Product detail view with image, price, and description
        ├── cart_page.dart           # Shopping cart with mobile-optimized layout and Wrap-based quantity controls
