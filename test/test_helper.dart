@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -74,7 +72,10 @@ void setupFirebaseTest() {
   FirebasePlatform.instance = FakeFirebaseCore();
 }
 
-/// Populates fake Firestore with sample product data for testing
+/// Populates fake Firestore with sample product data for testing.
+/// 
+/// Creates test data across multiple collections (clothing, merchandise,
+/// featured, sale) to support various test scenarios.
 void populateTestFirestoreData(FakeFirebaseFirestore firestore) {
   // Add sample collections with test data
   firestore.collection('clothing').doc('1').set({
@@ -126,23 +127,30 @@ void populateTestFirestoreData(FakeFirebaseFirestore firestore) {
   });
 }
 
+/// Wraps a widget with [MaterialApp] for testing.
+/// 
+/// Provides a minimal Material app context for widget tests.
 Widget wrapWithMaterialApp(Widget child) {
   return MaterialApp(
     home: child,
   );
 }
 
+/// Gets a fake Firestore instance populated with test data.
 FakeFirebaseFirestore getFakeFirestore() {
   final firestore = FakeFirebaseFirestore();
   populateTestFirestoreData(firestore);
   return firestore;
 }
 
+/// Gets a mock Firebase Auth instance for testing authentication flows.
 MockFirebaseAuth getMockAuth() {
   return MockFirebaseAuth();
 }
 
-/// Creates a mock image provider for testing Image.network widgets
+/// Creates a mock image provider for testing [Image.network] widgets.
+/// 
+/// Uses a 1x1 PNG in memory to avoid network calls during testing.
 ImageProvider<Object> getMockImageProvider() {
   // Use MemoryImage to avoid network calls
   final Uint8List validPngBytes = Uint8List.fromList(<int>[
@@ -219,34 +227,39 @@ ImageProvider<Object> getMockImageProvider() {
   return MemoryImage(validPngBytes);
 }
 
-/// Sets up standard desktop viewport for testing
-/// Common for pages with responsive layouts
+/// Sets up standard desktop viewport for testing.
+/// 
+/// Common for pages with responsive layouts. Sets to 800x1200 at 1.0 DPR.
 void setupDesktopViewport(WidgetTester tester) {
   tester.view.physicalSize = const Size(800, 1200);
   tester.view.devicePixelRatio = 1.0;
 }
 
-/// Resets the viewport after testing
+/// Resets the viewport after testing.
 void resetViewport(WidgetTester tester) {
   addTearDown(() => tester.view.resetPhysicalSize());
   addTearDown(() => tester.view.resetDevicePixelRatio());
 }
 
-/// Sets up both desktop viewport and teardown in one call
+/// Sets up both desktop viewport and teardown in one call.
 void setupDesktopViewportWithReset(WidgetTester tester) {
   setupDesktopViewport(tester);
   resetViewport(tester);
 }
 
-/// Waits for Firebase/async operations using multiple small pumps
-/// Avoids timeouts while allowing UI to settle
+/// Waits for Firebase/async operations using multiple small pumps.
+/// 
+/// Avoids timeouts while allowing UI to settle. Pumps [iterations] times
+/// with 50ms delays between each pump (default 20 iterations = 1 second).
 Future<void> waitForAsync(WidgetTester tester, {int iterations = 20}) async {
   for (int i = 0; i < iterations; i++) {
     await tester.pump(const Duration(milliseconds: 50));
   }
 }
 
-/// Creates a MaterialApp with a simple home widget
+/// Creates a [MaterialApp] with a simple home widget.
+/// 
+/// Useful for quickly wrapping widgets in test context.
 Widget createTestApp(Widget home) {
   return MaterialApp(
     home: home,
