@@ -9,28 +9,22 @@ void main() {
     setupFirebaseTest();
   });
 
-  testWidgets('ProductPage displays provided args', (tester) async {
-    // Set larger viewport so content isn't clipped
-    tester.view.physicalSize = const Size(800, 1200);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(() => tester.view.resetPhysicalSize());
-    addTearDown(() => tester.view.resetDevicePixelRatio());
+  testWidgets('ProductPage renders without errors', (tester) async {
+    setupDesktopViewportWithReset(tester);
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: Builder(
             builder: (context) {
-              return Center(
-                child: ProductPage(),
-              );
+              return const Center(child: ProductPage());
             },
           ),
         ),
       ),
     );
 
-    // Just verify the widget can be created - detailed testing requires proper routing
+    // Verify the widget can be created and rendered
     expect(find.byType(ProductPage), findsOneWidget);
-  }, skip: true); // Skip - Requires proper route arguments and navigation context
+  });
 }
