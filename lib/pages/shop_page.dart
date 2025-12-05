@@ -33,8 +33,6 @@ class _ShopPageState extends State<ShopPage> {
   void initState() {
     super.initState();
     _repo = ProductRepository();
-
-    // Use initialFilter if provided, otherwise default to 'All Products'
     _filterBy = widget.initialFilter ?? _filters.first.label;
     _future = _load();
   }

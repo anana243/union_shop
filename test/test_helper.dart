@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
@@ -77,7 +76,6 @@ void setupFirebaseTest() {
 /// Creates test data across multiple collections (clothing, merchandise,
 /// featured, sale) to support various test scenarios.
 void populateTestFirestoreData(FakeFirebaseFirestore firestore) {
-  // Add sample collections with test data
   firestore.collection('clothing').doc('1').set({
     'title': 'Test T-Shirt',
     'imageUrl': 'https://example.com/tshirt.jpg',
